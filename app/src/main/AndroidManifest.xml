@@ -15,6 +15,9 @@
         android:theme="@style/Theme.LocalProAndroid"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".views.RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.HomeActivity"
             android:exported="false" />
         <activity

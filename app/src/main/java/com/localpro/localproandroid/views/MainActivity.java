@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
             loginViewModel.login(email, password);
+        });
+
+        TextView tvRegisterLink = findViewById(R.id.tvRegisterLink);
+        tvRegisterLink.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+            startActivity(intent);
         });
     }
 
