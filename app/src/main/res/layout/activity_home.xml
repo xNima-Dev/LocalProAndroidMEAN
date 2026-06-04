@@ -30,8 +30,5 @@
         android:textColor="#00D2FF"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_of="@id/tvWelcomeHome"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvWelcomeHome" />
-
+        app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/tvWelcomeHome" />
 </androidx.constraintlayout.widget.ConstraintLayout>
