@@ -1,5 +1,8 @@
 package com.localpro.localproandroid.viewmodels;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -10,6 +13,8 @@ import com.localpro.localproandroid.api.ApiService;
 import com.localpro.localproandroid.api.RetrofitClient;
 
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,10 +33,10 @@ public class RegisterViewModel extends ViewModel {
         return errorMessage;
     }
 
-    public void register(String name, String email, String password, String role) {
+    public void register(String name, String email, String password, String role, String phone) {
         ApiService apiService = RetrofitClient.getApiService();
 
-        RegisterRequest registerRequest = new RegisterRequest(name, email, password, role);
+        RegisterRequest registerRequest = new RegisterRequest(name, email, password, role, phone);
 
         apiService.registerUser(registerRequest).enqueue(new Callback<AuthResponse>() {
             @Override

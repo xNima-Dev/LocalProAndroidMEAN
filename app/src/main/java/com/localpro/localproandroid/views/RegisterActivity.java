@@ -1,5 +1,6 @@
 package com.localpro.localproandroid.views;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,13 +19,14 @@ import com.localpro.localproandroid.viewmodels.RegisterViewModel;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText etRegisterName, etRegisterEmail, etRegisterPassword;
+    private EditText etRegisterName, etRegisterEmail, etRegisterPassword, etRegisterPhone;
     private Spinner spinnerRole;
     private Button btnRegister;
     private TextView tvLoginLink;
 
     private RegisterViewModel registerViewModel;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +38,11 @@ public class RegisterActivity extends AppCompatActivity {
         spinnerRole = findViewById(R.id.spinnerRole);
         btnRegister = findViewById(R.id.btnRegister);
         tvLoginLink = findViewById(R.id.tvLoginLink);
+        etRegisterPhone = findViewById(R.id.etRegisterPhone);
 
         registerViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
 
-        String[] roles = {"Customer", "Provider"};
+        String[] roles = {"customer", "provider"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, roles);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -52,13 +55,14 @@ public class RegisterActivity extends AppCompatActivity {
             String email = etRegisterEmail.getText().toString().trim();
             String password = etRegisterPassword.getText().toString().trim();
             String selectedRole = spinnerRole.getSelectedItem().toString();
+            String phoneNumber = etRegisterPhone.getText().toString().trim();
 
             if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             } else if (password.length() < 6) {
                 Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
             } else {
-                registerViewModel.register(name, email, password, selectedRole);
+                registerViewModel.register(name, email, password, selectedRole, phoneNumber);
             }
         });
 

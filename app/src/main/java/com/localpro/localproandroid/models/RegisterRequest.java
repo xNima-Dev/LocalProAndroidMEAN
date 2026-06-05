@@ -5,12 +5,14 @@ public class RegisterRequest {
     private String email;
     private String password;
     private String role;
+    private String phone;
 
-    public RegisterRequest(String name, String email, String password, String role) {
+    public RegisterRequest(String name, String email, String password, String role, String phone) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.phone = phone;
     }
 
     public String getName() {
@@ -43,5 +45,13 @@ public class RegisterRequest {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
