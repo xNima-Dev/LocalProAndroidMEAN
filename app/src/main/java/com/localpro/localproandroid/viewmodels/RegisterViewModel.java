@@ -30,6 +30,7 @@ public class RegisterViewModel extends ViewModel {
 
     public void register(String name, String email, String password, String role) {
         ApiService apiService = RetrofitClient.getApiService();
+
         RegisterRequest registerRequest = new RegisterRequest(name, email, password, role);
 
         apiService.registerUser(registerRequest).enqueue(new Callback<AuthResponse>() {

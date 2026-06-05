@@ -15,6 +15,12 @@
         android:theme="@style/Theme.LocalProAndroid"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".views.ProviderDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.CustomerDashboardActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.RegisterActivity"
             android:exported="false" />
         <activity

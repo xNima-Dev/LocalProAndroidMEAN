@@ -83,7 +83,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                     Toast.makeText(RegisterActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                    Intent intent;
+                    if (role != null && role.equalsIgnoreCase("provider")) {
+                        intent = new Intent(RegisterActivity.this, ProviderDashboardActivity.class);
+                    }else {
+                        intent = new Intent(RegisterActivity.this, CustomerDashboardActivity.class);
+                    }
                     startActivity(intent);
                     finish();
                 }

@@ -27,9 +27,15 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("LocalProPrefs", MODE_PRIVATE);
         String existingToken = sharedPreferences.getString("auth_token", null);
+        String savedRole = sharedPreferences.getString("user_role", null);
 
         if (existingToken != null) {
-            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            Intent intent;
+            if (savedRole != null && savedRole.equalsIgnoreCase("provider")) {
+                intent = new Intent(MainActivity.this, ProviderDashboardActivity.class);
+            } else {
+                intent = new Intent(MainActivity.this, CustomerDashboardActivity.class);
+            }
             startActivity(intent);
             finish();
             return;
@@ -83,7 +89,12 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                Intent intent;
+                if (role != null && role.equalsIgnoreCase("provider")) {
+                    intent = new Intent(MainActivity.this, ProviderDashboardActivity.class);
+                } else {
+                    intent = new Intent(MainActivity.this, CustomerDashboardActivity.class);
+                }
                 startActivity(intent);
                 finish();
             }
