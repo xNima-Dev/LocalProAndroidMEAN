@@ -32,7 +32,8 @@ public interface ApiService {
     Call<ProviderListResponse> getNearProviders(
             @Header("Authorization") String token,
             @Query("latitude") double latitude,
-            @Query("longitude") double longitude
+            @Query("longitude") double longitude,
+            @Query("category") String category
     );
 
 }

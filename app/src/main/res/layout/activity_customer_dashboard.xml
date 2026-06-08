@@ -32,6 +32,26 @@
         app:layout_constraintTop_toBottomOf="@id/tvCustomerTitle" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFindPro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#00D2FF"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="FIND A PRO 🛠️"
+        android:textColor="#0F172A"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:elevation="8dp"
+        app:cornerRadius="24dp"
+        app:layout_constraintBottom_toTopOf="@id/btnLogoutCustomer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogoutCustomer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

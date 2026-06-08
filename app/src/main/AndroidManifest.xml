@@ -17,6 +17,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LocalProAndroid"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".views.CategorySelectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.ProviderListActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDLRKn1wmBUnF1xRIZTZcE4ONAuaMqaxes" />

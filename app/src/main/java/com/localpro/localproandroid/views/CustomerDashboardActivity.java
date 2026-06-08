@@ -36,9 +36,11 @@ public class CustomerDashboardActivity extends FragmentActivity implements OnMap
 
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationClient;
-    private MaterialButton btnLogoutCustomer;
+    private MaterialButton btnLogoutCustomer, btnFindPro;
     private static final int LOCATION_REQ_CODE = 2001;
     private static final String TAG = "CustomerDashboard";
+    private double currentLat = 0.0;
+    private double currentLon = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,6 @@ public class CustomerDashboardActivity extends FragmentActivity implements OnMap
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         btnLogoutCustomer = findViewById(R.id.btnLogoutCustomer);
-
         btnLogoutCustomer.setOnClickListener(v -> {
             SharedPreferences prefs = getSharedPreferences("LocalProPrefs", MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
@@ -60,6 +61,18 @@ public class CustomerDashboardActivity extends FragmentActivity implements OnMap
             startActivity(intent);
             finish();
             Toast.makeText(this, "Logged out successfully!", Toast.LENGTH_SHORT).show();
+        });
+
+        btnFindPro = findViewById(R.id.btnFindPro);
+        btnFindPro.setOnClickListener(v -> {
+            if (currentLat != 0.0 && currentLon != 0.0){
+                Intent intent = new Intent(CustomerDashboardActivity.this, CategorySelectionActivity.class);
+                intent.putExtra("LAT", currentLat);
+                intent.putExtra("LON", currentLon);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Waiting for GPS location... Please wait.", Toast.LENGTH_SHORT).show();
+            }
         });
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -91,15 +104,15 @@ public class CustomerDashboardActivity extends FragmentActivity implements OnMap
                 @Override
                 public void onSuccess(Location location) {
                     if (location != null) {
-                        double lat = location.getLatitude();
-                        double lon = location.getLongitude();
+                        currentLat = location.getLatitude();
+                        currentLon = location.getLongitude();
 
-                        LatLng customerLatLng = new LatLng(lat, lon);
+                        LatLng customerLatLng = new LatLng(currentLat, currentLon);
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(customerLatLng, 14.0f));
 
-                        Log.d(TAG, "Customer Location: Lat: " + lat + ", Lng: " + lon);
+                        Log.d(TAG, "Customer Location: Lat: " + currentLat + ", Lng: " + currentLon);
 
-                        fetchNearProviders(lat, lon);
+                        fetchNearProviders(currentLat, currentLon);
                     } else {
                         Toast.makeText(CustomerDashboardActivity.this, "Unable to get current location. Make sure GPS is ON.", Toast.LENGTH_LONG).show();
                     }
@@ -119,7 +132,7 @@ public class CustomerDashboardActivity extends FragmentActivity implements OnMap
 
         String bearerToken = "Bearer " + token;
 
-        RetrofitClient.getApiService().getNearProviders(bearerToken, lat, lon).enqueue(new Callback<ProviderListResponse>() {
+        RetrofitClient.getApiService().getNearProviders(bearerToken, lat, lon, null).enqueue(new Callback<ProviderListResponse>() {
             @Override
             public void onResponse(Call<ProviderListResponse> call, Response<ProviderListResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
