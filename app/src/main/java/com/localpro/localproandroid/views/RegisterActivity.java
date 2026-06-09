@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
             String selectedRole = spinnerRole.getSelectedItem().toString();
             String phoneNumber = etRegisterPhone.getText().toString().trim();
 
-            if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty() || phoneNumber.isEmpty()) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             } else if (password.length() < 6) {
                 Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
@@ -73,35 +73,37 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-        private void setupObservers() {
-            registerViewModel.getRegisterResult().observe(this, authResponse -> {
-                if (authResponse != null) {
-                    String token = authResponse.getToken();
-                    String role = authResponse.getUser().getRole();
+    private void setupObservers() {
+        registerViewModel.getRegisterResult().observe(this, authResponse -> {
+            if (authResponse != null) {
+                String token = authResponse.getToken();
+                String role = authResponse.getUser().getRole();
+                android.util.Log.d("LocalProDebug", "Backend එකෙන් ආපු නියම Role එක: " + role);
 
-                    SharedPreferences sharedPreferences = getSharedPreferences("LocalProPrefs", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("auth_token", token);
-                    editor.putString("user_role", role);
-                    editor.apply();
+                SharedPreferences sharedPreferences = getSharedPreferences("LocalProPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("auth_token", token);
+                editor.putString("user_role", role);
+                editor.apply();
 
-                    Toast.makeText(RegisterActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
 
-                    Intent intent;
-                    if (role != null && role.equalsIgnoreCase("provider")) {
-                        intent = new Intent(RegisterActivity.this, ProviderDashboardActivity.class);
-                    }else {
-                        intent = new Intent(RegisterActivity.this, CustomerDashboardActivity.class);
-                    }
-                    startActivity(intent);
-                    finish();
+                Intent intent;
+                if (role != null && role.equalsIgnoreCase("provider")) {
+                    intent = new Intent(RegisterActivity.this, ProviderOnboardingActivity.class);
+                } else {
+                    intent = new Intent(RegisterActivity.this, CustomerDashboardActivity.class);
                 }
-            });
 
-            registerViewModel.getErrorMessage().observe(this, error -> {
-                if (error != null) {
-                    Toast.makeText(RegisterActivity.this, error, Toast.LENGTH_LONG).show();
-                }
-            });
-        }
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        registerViewModel.getErrorMessage().observe(this, error -> {
+            if (error != null) {
+                Toast.makeText(RegisterActivity.this, error, Toast.LENGTH_LONG).show();
+            }
+        });
     }
+}

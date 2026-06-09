@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0F172A"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Professional Verification 🚀"
+            android:textColor="#00D2FF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Complete your professional profile to start receiving local jobs."
+            android:textColor="#94A3B8"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+        <EditText
+            android:id="@+id/etExperience"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="28dp"
+            android:background="@drawable/input_background"
+            android:hint="Years of Experience (e.g., 5 Years)"
+            android:inputType="number"
+            android:paddingLeft="16dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#64748B"
+            app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
+
+        <EditText
+            android:id="@+id/etHourlyRate"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/input_background"
+            android:hint="Expected Hourly Rate (Rs.)"
+            android:inputType="number"
+            android:paddingLeft="16dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#64748B"
+            app:layout_constraintTop_toBottomOf="@id/etExperience" />
+
+        <EditText
+            android:id="@+id/etBio"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/input_background"
+            android:gravity="top|left"
+            android:hint="Describe your skills briefly..."
+            android:inputType="textMultiLine"
+            android:padding="16dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#64748B"
+            app:layout_constraintTop_toBottomOf="@id/etHourlyRate" />
+
+        <Button
+            android:id="@+id/btnUploadId"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#1E293B"
+            android:text="📸 Upload NIC / Passport Photo"
+            android:textColor="#00D2FF"
+            app:layout_constraintTop_toBottomOf="@id/etBio" />
+
+        <ImageView
+            android:id="@+id/ivIdPreview"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/btnUploadId" />
+
+        <Button
+            android:id="@+id/btnUploadCertificate"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#1E293B"
+            android:text="📜 Upload Certifications (Optional)"
+            android:textColor="#00D2FF"
+            app:layout_constraintTop_toBottomOf="@id/ivIdPreview" />
+
+        <ImageView
+            android:id="@+id/ivCertificatePreview"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/btnUploadCertificate" />
+
+        <Button
+            android:id="@+id/btnSubmitOnboarding"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="#00D2FF"
+            android:text="SUBMIT FOR VERIFICATION"
+            android:textColor="#0F172A"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivCertificatePreview" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
