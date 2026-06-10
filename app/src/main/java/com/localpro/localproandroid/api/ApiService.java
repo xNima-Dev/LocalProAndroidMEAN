@@ -3,15 +3,20 @@ package com.localpro.localproandroid.api;
 import com.localpro.localproandroid.models.AuthResponse;
 import com.localpro.localproandroid.models.LocationRequest;
 import com.localpro.localproandroid.models.LoginRequest;
+import com.localpro.localproandroid.models.OnboardingResponse;
 import com.localpro.localproandroid.models.ProviderListResponse;
 import com.localpro.localproandroid.models.RegisterRequest;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -36,4 +41,13 @@ public interface ApiService {
             @Query("category") String category
     );
 
+    @Multipart
+    @POST("user/onBoarding")
+    Call<OnboardingResponse> completeOnboarding(
+            @Part MultipartBody.Part idImage,
+            @Part MultipartBody.Part certificateImage,
+            @Part("experience") RequestBody experience,
+            @Part("hourlyRate") RequestBody hourlyRate,
+            @Part("bio") RequestBody bio
+    );
 }
