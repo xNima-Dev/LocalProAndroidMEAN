@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0F172A"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvStepTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Step 3: Verification Documents 📸"
+            android:textColor="#00D2FF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvStepSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Upload a clear photo of your Government ID and optional certifications to complete the verification process."
+            android:textColor="#94A3B8"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/tvStepTitle" />
+
+        <Button
+            android:id="@+id/btnUploadId"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#1E293B"
+            android:text="📸 Upload NIC / Passport Photo"
+            android:textColor="#00D2FF"
+            app:layout_constraintTop_toBottomOf="@id/tvStepSubtitle" />
+
+        <ImageView
+            android:id="@+id/ivIdPreview"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/btnUploadId" />
+
+        <Button
+            android:id="@+id/btnUploadCertificate"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#1E293B"
+            android:text="📜 Upload Certifications (Optional)"
+            android:textColor="#00D2FF"
+            app:layout_constraintTop_toBottomOf="@id/ivIdPreview" />
+
+        <ImageView
+            android:id="@+id/ivCertificatePreview"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/btnUploadCertificate" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivCertificatePreview"
+            app:layout_constraintVertical_bias="1.0">
+
+            <Button
+                android:id="@+id/btnBackStep3"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:backgroundTint="#1E293B"
+                android:text="BACK"
+                android:textColor="#00D2FF"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnSubmitOnboarding"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1.5"
+                android:backgroundTint="#00D2FF"
+                android:text="SUBMIT FOR VERIFICATION"
+                android:textColor="#0F172A"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

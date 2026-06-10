@@ -49,6 +49,7 @@ public interface ApiService {
             @Part("userId") RequestBody userId,
             @Part("experience") RequestBody experience,
             @Part("hourlyRate") RequestBody hourlyRate,
-            @Part("bio") RequestBody bio
+            @Part("bio") RequestBody bio,
+            @Part("category") RequestBody category
     );
 }

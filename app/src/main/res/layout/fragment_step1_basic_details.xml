@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0F172A">
+
+    <TextView
+        android:id="@+id/tvStepTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Step 1: Basic Details 📝"
+        android:textColor="#00D2FF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvStepSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Provide your core details, including the service you offer, experience, and expected rate."
+        android:textColor="#94A3B8"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvStepTitle" />
+
+    <TextView
+        android:id="@+id/tvCategoryLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Select Your Service Type:"
+        android:textColor="#94A3B8"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvStepSubtitle" />
+
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/input_background"
+        android:paddingLeft="16dp"
+        android:popupBackground="#1E293B"
+        app:layout_constraintTop_toBottomOf="@id/tvCategoryLabel" />
+
+    <EditText
+        android:id="@+id/etExperience"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_background"
+        android:hint="Years of Experience (e.g., 5)"
+        android:inputType="number"
+        android:paddingLeft="16dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#64748B"
+        app:layout_constraintTop_toBottomOf="@id/spinnerCategory" />
+
+    <EditText
+        android:id="@+id/etHourlyRate"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/input_background"
+        android:hint="Expected Hourly Rate (Rs.)"
+        android:inputType="number"
+        android:paddingLeft="16dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#64748B"
+        app:layout_constraintTop_toBottomOf="@id/etExperience" />
+
+    <Button
+        android:id="@+id/btnNextStep1"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#00D2FF"
+        android:text="NEXT STEP"
+        android:textColor="#0F172A"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/etHourlyRate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

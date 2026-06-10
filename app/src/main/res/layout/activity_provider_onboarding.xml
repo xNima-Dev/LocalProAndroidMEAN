@@ -1,127 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0F172A"
-    android:fillViewport="true">
+    android:padding="24dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Professional Verification 🚀"
+        android:textColor="#00D2FF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSubtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dp">
+        android:layout_marginTop="8dp"
+        android:text="Complete your professional profile to start receiving local jobs."
+        android:textColor="#94A3B8"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <!-- Step Progress Indicator -->
+    <LinearLayout
+        android:id="@+id/layoutProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/tvSubtitle">
 
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tvStepIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Professional Verification 🚀"
+            android:text="Step 1 of 3"
             android:textColor="#00D2FF"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/pbSteps"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:progress="33"
+            android:progressTint="#00D2FF"
+            android:progressBackgroundTint="#1E293B" />
+    </LinearLayout>
+
+    <!-- Fragment Container -->
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutProgress" />
+
+    <!-- Loading Overlay -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E60F172A"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="#00D2FF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvSubtitle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Complete your professional profile to start receiving local jobs."
-            android:textColor="#94A3B8"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
-        <EditText
-            android:id="@+id/etExperience"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="28dp"
-            android:background="@drawable/input_background"
-            android:hint="Years of Experience (e.g., 5 Years)"
-            android:inputType="number"
-            android:paddingLeft="16dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#64748B"
-            app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
-
-        <EditText
-            android:id="@+id/etHourlyRate"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/input_background"
-            android:hint="Expected Hourly Rate (Rs.)"
-            android:inputType="number"
-            android:paddingLeft="16dp"
+            android:text="Submitting onboarding data..."
             android:textColor="#FFFFFF"
-            android:textColorHint="#64748B"
-            app:layout_constraintTop_toBottomOf="@id/etExperience" />
-
-        <EditText
-            android:id="@+id/etBio"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/input_background"
-            android:gravity="top|left"
-            android:hint="Describe your skills briefly..."
-            android:inputType="textMultiLine"
-            android:padding="16dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#64748B"
-            app:layout_constraintTop_toBottomOf="@id/etHourlyRate" />
-
-        <Button
-            android:id="@+id/btnUploadId"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="#1E293B"
-            android:text="📸 Upload NIC / Passport Photo"
-            android:textColor="#00D2FF"
-            app:layout_constraintTop_toBottomOf="@id/etBio" />
-
-        <ImageView
-            android:id="@+id/ivIdPreview"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginTop="8dp"
-            android:scaleType="centerCrop"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/btnUploadId" />
-
-        <Button
-            android:id="@+id/btnUploadCertificate"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="#1E293B"
-            android:text="📜 Upload Certifications (Optional)"
-            android:textColor="#00D2FF"
-            app:layout_constraintTop_toBottomOf="@id/ivIdPreview" />
-
-        <ImageView
-            android:id="@+id/ivCertificatePreview"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginTop="8dp"
-            android:scaleType="centerCrop"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/btnUploadCertificate" />
-
-        <Button
-            android:id="@+id/btnSubmitOnboarding"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="32dp"
-            android:backgroundTint="#00D2FF"
-            android:text="SUBMIT FOR VERIFICATION"
-            android:textColor="#0F172A"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivCertificatePreview" />
-
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pbLoading" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

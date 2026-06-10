@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0F172A">
+
+    <TextView
+        android:id="@+id/tvStepTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Step 2: Bio &amp; Description ✍️"
+        android:textColor="#00D2FF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvStepSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Introduce yourself to potential clients. A good bio increases your chances of getting hired."
+        android:textColor="#94A3B8"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/tvStepTitle" />
+
+    <EditText
+        android:id="@+id/etBio"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/input_background"
+        android:gravity="top|left"
+        android:hint="Tell customers about your skills, values, and experience. Why should they hire you?"
+        android:inputType="textMultiLine"
+        android:padding="16dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#64748B"
+        app:layout_constraintTop_toBottomOf="@id/tvStepSubtitle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/etBio">
+
+        <Button
+            android:id="@+id/btnBackStep2"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#1E293B"
+            android:text="BACK"
+            android:textColor="#00D2FF"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnNextStep2"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#00D2FF"
+            android:text="NEXT"
+            android:textColor="#0F172A"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
