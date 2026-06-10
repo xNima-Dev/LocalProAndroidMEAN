@@ -28,11 +28,18 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("LocalProPrefs", MODE_PRIVATE);
         String existingToken = sharedPreferences.getString("auth_token", null);
         String savedRole = sharedPreferences.getString("user_role", null);
+        String savedUserId = sharedPreferences.getString("user_id", null);
 
         if (existingToken != null) {
             Intent intent;
             if (savedRole != null && savedRole.equalsIgnoreCase("provider")) {
-                intent = new Intent(MainActivity.this, ProviderDashboardActivity.class);
+                boolean isOnboarded = sharedPreferences.getBoolean("is_onboarded_" + savedUserId, false);
+                if (!isOnboarded) {
+                    intent = new Intent(MainActivity.this, ProviderOnboardingActivity.class);
+                    intent.putExtra("USER_ID", savedUserId);
+                } else {
+                    intent = new Intent(MainActivity.this, ProviderDashboardActivity.class);
+                }
             } else {
                 intent = new Intent(MainActivity.this, CustomerDashboardActivity.class);
             }
@@ -78,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
             if (authResponse != null) {
                 String token = authResponse.getToken();
                 String role = authResponse.getUser().getRole();
+                String userId = authResponse.getUser() != null ? authResponse.getUser().getId() : null;
 
                 Toast.makeText(MainActivity.this, "Welcome " + role + "! Login Successful", Toast.LENGTH_LONG).show();
 
@@ -85,13 +93,28 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("auth_token", token);
                 editor.putString("user_role", role);
+                
+                boolean isOnboardedFromServer = false;
+                if (userId != null) {
+                    editor.putString("user_id", userId);
+                    isOnboardedFromServer = authResponse.getUser().getProviderProfile() != null;
+                    if (isOnboardedFromServer) {
+                        editor.putBoolean("is_onboarded_" + userId, true);
+                    }
+                }
                 editor.apply();
 
                 Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
 
                 Intent intent;
                 if (role != null && role.equalsIgnoreCase("provider")) {
-                    intent = new Intent(MainActivity.this, ProviderDashboardActivity.class);
+                    boolean isOnboarded = sharedPreferences.getBoolean("is_onboarded_" + userId, false) || isOnboardedFromServer;
+                    if (!isOnboarded) {
+                        intent = new Intent(MainActivity.this, ProviderOnboardingActivity.class);
+                        intent.putExtra("USER_ID", userId);
+                    } else {
+                        intent = new Intent(MainActivity.this, ProviderDashboardActivity.class);
+                    }
                 } else {
                     intent = new Intent(MainActivity.this, CustomerDashboardActivity.class);
                 }

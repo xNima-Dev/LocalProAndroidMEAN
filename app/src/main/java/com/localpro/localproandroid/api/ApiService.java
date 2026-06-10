@@ -42,10 +42,11 @@ public interface ApiService {
     );
 
     @Multipart
-    @POST("user/onBoarding")
+    @POST("api/auth/onboarding")
     Call<OnboardingResponse> completeOnboarding(
             @Part MultipartBody.Part idImage,
             @Part MultipartBody.Part certificateImage,
+            @Part("userId") RequestBody userId,
             @Part("experience") RequestBody experience,
             @Part("hourlyRate") RequestBody hourlyRate,
             @Part("bio") RequestBody bio

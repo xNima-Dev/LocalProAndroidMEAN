@@ -20,12 +20,16 @@ public class AuthResponse {
     public static  class User {
         private String id;
         private String role;
+        private Object providerProfile;
 
         public String getId() {
             return id;
         }
         public String getRole() {
             return role;
+        }
+        public Object getProviderProfile() {
+            return providerProfile;
         }
     }
 }

@@ -78,12 +78,18 @@ public class RegisterActivity extends AppCompatActivity {
             if (authResponse != null) {
                 String token = authResponse.getToken();
                 String role = authResponse.getUser().getRole();
-                android.util.Log.d("LocalProDebug", "Backend එකෙන් ආපු නියම Role එක: " + role);
+                String userId = authResponse.getUser() != null ? authResponse.getUser().getId() : null;
 
                 SharedPreferences sharedPreferences = getSharedPreferences("LocalProPrefs", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("auth_token", token);
                 editor.putString("user_role", role);
+                if (userId != null) {
+                    editor.putString("user_id", userId);
+                    if (role != null && role.equalsIgnoreCase("provider")) {
+                        editor.putBoolean("is_onboarded_" + userId, false);
+                    }
+                }
                 editor.apply();
 
                 Toast.makeText(RegisterActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
@@ -91,6 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Intent intent;
                 if (role != null && role.equalsIgnoreCase("provider")) {
                     intent = new Intent(RegisterActivity.this, ProviderOnboardingActivity.class);
+                    intent.putExtra("USER_ID", userId);
                 } else {
                     intent = new Intent(RegisterActivity.this, CustomerDashboardActivity.class);
                 }
