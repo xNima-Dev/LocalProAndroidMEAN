@@ -1,11 +1,15 @@
 package com.localpro.localproandroid.api;
 
 import com.localpro.localproandroid.models.AuthResponse;
+import com.localpro.localproandroid.models.BookingRequest;
+import com.localpro.localproandroid.models.BookingResponse;
 import com.localpro.localproandroid.models.LocationRequest;
 import com.localpro.localproandroid.models.LoginRequest;
 import com.localpro.localproandroid.models.OnboardingResponse;
 import com.localpro.localproandroid.models.ProviderListResponse;
 import com.localpro.localproandroid.models.RegisterRequest;
+
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -52,4 +56,7 @@ public interface ApiService {
             @Part("bio") RequestBody bio,
             @Part("category") RequestBody category
     );
+
+    @GET("api/auth/bookings")
+    Call<BookingResponse> getBookings(@Header("Authorization") String token);
 }

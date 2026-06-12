@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- LocalPro Dark Theme Palette -->
+    <color name="lp_bg_deep">#0D1B2A</color>
+    <color name="lp_bg_card">#141E32</color>
+    <color name="lp_bg_surface">#1A2540</color>
+    <color name="lp_bg_elevated">#1E2D45</color>
+
+    <!-- Brand Colors -->
+    <color name="lp_cyan">#0EA5E9</color>
+    <color name="lp_indigo">#6366F1</color>
+    <color name="lp_green">#10B981</color>
+    <color name="lp_amber">#F59E0B</color>
+    <color name="lp_red">#EF4444</color>
+    <color name="lp_purple">#8B5CF6</color>
+
+    <!-- Text Colors -->
+    <color name="lp_text_primary">#F1F5F9</color>
+    <color name="lp_text_secondary">#94A3B8</color>
+    <color name="lp_text_muted">#475569</color>
+
+    <!-- Border/Divider -->
+    <color name="lp_border">#2A3A5C</color>
+    <color name="lp_divider">#1E3A5F</color>
+
+    <!-- Status -->
+    <color name="lp_online">#10B981</color>
+    <color name="lp_offline">#64748B</color>
 </resources>

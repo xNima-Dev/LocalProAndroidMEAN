@@ -93,7 +93,11 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("auth_token", token);
                 editor.putString("user_role", role);
-                
+
+                // Save email so Provider Dashboard can display a name from it
+                String enteredEmail = etEmail.getText() != null ? etEmail.getText().toString().trim() : "";
+                editor.putString("provider_email", enteredEmail);
+
                 boolean isOnboardedFromServer = false;
                 if (userId != null) {
                     editor.putString("user_id", userId);
