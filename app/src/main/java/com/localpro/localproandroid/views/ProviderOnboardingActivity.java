@@ -77,6 +77,7 @@ public class ProviderOnboardingActivity extends AppCompatActivity {
 
                 // Save onboarding state in SharedPreferences
                 SharedPreferences sharedPrefs = getSharedPreferences("LocalProPrefs", MODE_PRIVATE);
+                String userId = sharedPrefs.getString("user_id", "");
                 SharedPreferences.Editor editor = sharedPrefs.edit();
                 editor.putBoolean("is_onboarded_" + userId, true);
                 editor.apply();
@@ -127,6 +128,7 @@ public class ProviderOnboardingActivity extends AppCompatActivity {
         viewModel.submitOnboarding(userId, getContentResolver(), getCacheDir());
     }
 
+    @android.annotation.SuppressLint("GestureBackNavigation")
     @Override
     public void onBackPressed() {
         if (currentStep > 1) {

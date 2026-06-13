@@ -65,6 +65,7 @@ public class BookingRequestAdapter extends RecyclerView.Adapter<BookingRequestAd
         return new ViewHolder(view);
     }
 
+    @android.annotation.SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         BookingRequest request = requests.get(position);

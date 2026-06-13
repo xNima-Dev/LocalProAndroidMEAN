@@ -30,4 +30,7 @@
     <!-- Status -->
     <color name="lp_online">#10B981</color>
     <color name="lp_offline">#64748B</color>
+
+    <!-- New Added Color-->
+    <color name="purple_200">#FFBB86FC</color>
 </resources>

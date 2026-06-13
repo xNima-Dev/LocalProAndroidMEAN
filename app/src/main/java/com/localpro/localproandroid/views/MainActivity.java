@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,9 @@ public class MainActivity extends AppCompatActivity {
         if (existingToken != null) {
             Intent intent;
             if (savedRole != null && savedRole.equalsIgnoreCase("provider")) {
+                Log.d("DEBUG_TAG", "Checking onboarding for ID: " + savedUserId);
                 boolean isOnboarded = sharedPreferences.getBoolean("is_onboarded_" + savedUserId, false);
+                Log.d("DEBUG_TAG", "Is Onboarded: " + isOnboarded);
                 if (!isOnboarded) {
                     intent = new Intent(MainActivity.this, ProviderOnboardingActivity.class);
                     intent.putExtra("USER_ID", savedUserId);
@@ -94,9 +97,14 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("auth_token", token);
                 editor.putString("user_role", role);
 
-                // Save email so Provider Dashboard can display a name from it
-                String enteredEmail = etEmail.getText() != null ? etEmail.getText().toString().trim() : "";
+                // Save email and name so Provider Dashboard can display them
+                String apiEmail = authResponse.getUser().getEmail();
+                String apiName = authResponse.getUser().getName();
+                String enteredEmail = apiEmail != null ? apiEmail : (etEmail.getText() != null ? etEmail.getText().toString().trim() : "");
+                String savedName = apiName != null ? apiName : "Provider";
+                
                 editor.putString("provider_email", enteredEmail);
+                editor.putString("provider_name", savedName);
 
                 boolean isOnboardedFromServer = false;
                 if (userId != null) {

@@ -80,10 +80,18 @@ public class RegisterActivity extends AppCompatActivity {
                 String role = authResponse.getUser().getRole();
                 String userId = authResponse.getUser() != null ? authResponse.getUser().getId() : null;
 
+                String apiEmail = authResponse.getUser().getEmail();
+                String apiName = authResponse.getUser().getName();
+                String enteredEmail = apiEmail != null ? apiEmail : (etRegisterEmail.getText() != null ? etRegisterEmail.getText().toString().trim() : "");
+                String savedName = apiName != null ? apiName : (etRegisterName.getText() != null ? etRegisterName.getText().toString().trim() : "Provider");
+
                 SharedPreferences sharedPreferences = getSharedPreferences("LocalProPrefs", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("auth_token", token);
                 editor.putString("user_role", role);
+                editor.putString("provider_email", enteredEmail);
+                editor.putString("provider_name", savedName);
+
                 if (userId != null) {
                     editor.putString("user_id", userId);
                     if (role != null && role.equalsIgnoreCase("provider")) {

@@ -19,11 +19,19 @@ public class AuthResponse {
 
     public static  class User {
         private String id;
+        private String name;
+        private String email;
         private String role;
         private Object providerProfile;
 
         public String getId() {
             return id;
+        }
+        public String getName() {
+            return name;
+        }
+        public String getEmail() {
+            return email;
         }
         public String getRole() {
             return role;

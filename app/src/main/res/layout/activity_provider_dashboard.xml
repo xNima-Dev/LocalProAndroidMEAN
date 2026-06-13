@@ -7,707 +7,740 @@
     android:background="@color/lp_bg_deep"
     android:fitsSystemWindows="true">
 
-    <!-- ===== APP BAR / HEADER ===== -->
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/gradient_header_bg"
-        android:elevation="0dp"
-        app:elevation="0dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="48dp"
-            android:paddingBottom="20dp">
-
-            <!-- Top row: Avatar + Name + Notification bell -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <!-- Avatar Circle -->
-                <FrameLayout
-                    android:layout_width="56dp"
-                    android:layout_height="56dp">
-
-                    <View
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@drawable/bg_avatar_circle" />
-
-                    <!-- Gradient border ring -->
-                    <View
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:background="@drawable/bg_icon_circle"
-                        android:alpha="0.3" />
-
-                    <TextView
-                        android:id="@+id/tvAvatarInitials"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="J"
-                        android:textColor="@color/lp_cyan"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-
-                <!-- Name + Greeting -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingStart="14dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Good morning, Pro! ☀️"
-                        android:textColor="@color/lp_text_secondary"
-                        android:textSize="12sp"
-                        android:letterSpacing="0.05" />
-
-                    <TextView
-                        android:id="@+id/tvProviderName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="John Doe"
-                        android:textColor="@color/lp_text_primary"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Online Status Badge -->
-                <LinearLayout
-                    android:id="@+id/layoutStatusBadge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_status_offline"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <View
-                        android:id="@+id/viewStatusDot"
-                        android:layout_width="8dp"
-                        android:layout_height="8dp"
-                        android:background="@drawable/bg_icon_circle"
-                        android:alpha="0.5" />
-
-                    <TextView
-                        android:id="@+id/tvStatusLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:text="OFFLINE"
-                        android:textColor="@color/lp_text_secondary"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:letterSpacing="0.1" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- ===== STATS ROW ===== -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:orientation="horizontal">
-
-                <!-- Earnings Card -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="6dp"
-                    android:background="@drawable/gradient_card_green"
-                    android:orientation="vertical"
-                    android:padding="14dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="💰"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tvEarnings"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="LKR 5,500"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Earnings"
-                        android:textColor="#B2F5EA"
-                        android:textSize="10sp" />
-                </LinearLayout>
-
-                <!-- Active Jobs Card -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginEnd="6dp"
-                    android:background="@drawable/gradient_card_blue"
-                    android:orientation="vertical"
-                    android:padding="14dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="⚡"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tvActiveJobs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="3"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Active Jobs"
-                        android:textColor="#BAE6FD"
-                        android:textSize="10sp" />
-                </LinearLayout>
-
-                <!-- Rating Card -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginEnd="6dp"
-                    android:background="@drawable/gradient_card_amber"
-                    android:orientation="vertical"
-                    android:padding="14dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="⭐"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tvRating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="4.8"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Rating"
-                        android:textColor="#FEF3C7"
-                        android:textSize="10sp" />
-                </LinearLayout>
-
-                <!-- Jobs Done Card -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:background="@drawable/gradient_card_purple"
-                    android:orientation="vertical"
-                    android:padding="14dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🏆"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/tvJobsDone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="47"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Completed"
-                        android:textColor="#EDE9FE"
-                        android:textSize="10sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <!-- ===== SCROLLABLE CONTENT ===== -->
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingBottom="80dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <!-- ===== ONLINE TOGGLE CARD ===== -->
-            <LinearLayout
-                android:id="@+id/cardOnlineToggle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_offline_card"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="20dp"
-                android:layout_marginBottom="16dp">
-
-                <!-- Status Icon Area -->
-                <FrameLayout
-                    android:layout_width="48dp"
-                    android:layout_height="48dp">
-
-                    <View
-                        android:id="@+id/viewPulseOuter"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:background="@drawable/bg_icon_circle"
-                        android:alpha="0.2" />
-
-                    <View
-                        android:id="@+id/viewStatusIcon"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/bg_icon_circle"
-                        android:alpha="0.5" />
-
-                    <TextView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="📡"
-                        android:textSize="16sp" />
-                </FrameLayout>
-
-                <!-- Toggle Text -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingStart="14dp">
-
-                    <TextView
-                        android:id="@+id/tvOnlineTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Go Online"
-                        android:textColor="@color/lp_text_primary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvOnlineSubtitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Toggle to receive booking requests"
-                        android:textColor="@color/lp_text_secondary"
-                        android:textSize="12sp"
-                        android:layout_marginTop="2dp" />
-                </LinearLayout>
-
-                <!-- Toggle Switch -->
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switchOnlineStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    app:thumbTint="@color/white"
-                    app:trackTint="@color/lp_offline" />
-            </LinearLayout>
-
-            <!-- ===== QUICK ACTIONS ===== -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Quick Actions"
-                android:textColor="@color/lp_text_primary"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="12dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-
-                <!-- Profile Action -->
-                <LinearLayout
-                    android:id="@+id/actionProfile"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_quick_action"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="👤"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="Profile"
-                        android:textColor="@color/lp_text_primary"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Earnings Action -->
-                <LinearLayout
-                    android:id="@+id/actionEarnings"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_quick_action"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="💳"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="Earnings"
-                        android:textColor="@color/lp_text_primary"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Reviews Action -->
-                <LinearLayout
-                    android:id="@+id/actionReviews"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_quick_action"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="⭐"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="Reviews"
-                        android:textColor="@color/lp_text_primary"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Schedule Action -->
-                <LinearLayout
-                    android:id="@+id/actionSchedule"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_quick_action"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp"
-                    android:clickable="true"
-                    android:focusable="true">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="📅"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="Schedule"
-                        android:textColor="@color/lp_text_primary"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- ===== PENDING REQUESTS SECTION ===== -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="Pending Requests"
-                    android:textColor="@color/lp_text_primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvRequestCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/gradient_card_blue"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:text="0 New"
-                    android:textColor="@color/white"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- Empty State -->
-            <LinearLayout
-                android:id="@+id/layoutEmptyState"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="32dp"
-                android:background="@drawable/bg_card_dark"
-                android:visibility="visible">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🔕"
-                    android:textSize="40sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="No Pending Requests"
-                    android:textColor="@color/lp_text_primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="Go online to start receiving job requests from customers near you"
-                    android:textColor="@color/lp_text_secondary"
-                    android:textSize="13sp"
-                    android:gravity="center" />
-            </LinearLayout>
-
-            <!-- Booking Requests RecyclerView -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvBookingRequests"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:nestedScrollingEnabled="false" />
-
-            <!-- ===== LOGOUT BUTTON ===== -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLogoutProvider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:backgroundTint="@color/lp_bg_surface"
-                android:text="SIGN OUT"
-                android:textColor="@color/lp_red"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.1"
-                app:cornerRadius="14dp"
-                app:strokeColor="@color/lp_red"
-                app:strokeWidth="1dp"
-                app:icon="@android:drawable/ic_menu_close_clear_cancel"
-                app:iconTint="@color/lp_red"
-                style="@style/Widget.Material3.Button.OutlinedButton" />
-
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-
-    <!-- ===== BOTTOM NAVIGATION BAR ===== -->
-    <LinearLayout
+<!--    &lt;!&ndash; ===== APP BAR / HEADER ===== &ndash;&gt;-->
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/appBarLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/gradient_header_bg"-->
+<!--        android:elevation="0dp"-->
+<!--        app:elevation="0dp">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:paddingStart="20dp"-->
+<!--            android:paddingEnd="20dp"-->
+<!--            android:paddingTop="48dp"-->
+<!--            android:paddingBottom="20dp">-->
+
+<!--            &lt;!&ndash; Top row: Avatar + Name + Notification bell &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center_vertical">-->
+
+<!--                &lt;!&ndash; Avatar Circle &ndash;&gt;-->
+<!--                <FrameLayout-->
+<!--                    android:layout_width="56dp"-->
+<!--                    android:layout_height="56dp">-->
+
+<!--                    <View-->
+<!--                        android:layout_width="56dp"-->
+<!--                        android:layout_height="56dp"-->
+<!--                        android:background="@drawable/bg_avatar_circle" />-->
+
+<!--                    &lt;!&ndash; Gradient border ring &ndash;&gt;-->
+<!--                    <View-->
+<!--                        android:layout_width="56dp"-->
+<!--                        android:layout_height="56dp"-->
+<!--                        android:background="@drawable/bg_icon_circle"-->
+<!--                        android:alpha="0.3" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvAvatarInitials"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="J"-->
+<!--                        android:textColor="@color/lp_cyan"-->
+<!--                        android:textSize="22sp"-->
+<!--                        android:textStyle="bold" />-->
+<!--                </FrameLayout>-->
+
+<!--                &lt;!&ndash; Name + Greeting &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:paddingStart="14dp">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Good morning, Pro! ☀️"-->
+<!--                        android:textColor="@color/lp_text_secondary"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:letterSpacing="0.05" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvProviderName"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="John Doe"-->
+<!--                        android:textColor="@color/lp_text_primary"-->
+<!--                        android:textSize="20sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvProviderEmail"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="provider@example.com"-->
+<!--                        android:textColor="@color/lp_text_secondary"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:layout_marginTop="2dp" />-->
+<!--                </LinearLayout>-->
+
+<!--                &lt;!&ndash; Online Status Badge &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/layoutStatusBadge"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/bg_status_offline"-->
+<!--                    android:paddingStart="10dp"-->
+<!--                    android:paddingEnd="10dp"-->
+<!--                    android:paddingTop="6dp"-->
+<!--                    android:paddingBottom="6dp"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:gravity="center_vertical">-->
+
+<!--                    <View-->
+<!--                        android:id="@+id/viewStatusDot"-->
+<!--                        android:layout_width="8dp"-->
+<!--                        android:layout_height="8dp"-->
+<!--                        android:background="@drawable/bg_icon_circle"-->
+<!--                        android:alpha="0.5" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvStatusLabel"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="6dp"-->
+<!--                        android:text="OFFLINE"-->
+<!--                        android:textColor="@color/lp_text_secondary"-->
+<!--                        android:textSize="10sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:letterSpacing="0.1" />-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; ===== STATS ROW ===== &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="24dp"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                &lt;!&ndash; Earnings Card &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginEnd="6dp"-->
+<!--                    android:background="@drawable/gradient_card_green"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:padding="14dp">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="💰"-->
+<!--                        android:textSize="18sp" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvEarnings"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="4dp"-->
+<!--                        android:text="LKR 5,500"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Earnings"-->
+<!--                        android:textColor="#B2F5EA"-->
+<!--                        android:textSize="10sp" />-->
+<!--                </LinearLayout>-->
+
+<!--                &lt;!&ndash; Active Jobs Card &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="6dp"-->
+<!--                    android:layout_marginEnd="6dp"-->
+<!--                    android:background="@drawable/gradient_card_blue"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:padding="14dp">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="⚡"-->
+<!--                        android:textSize="18sp" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvActiveJobs"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="4dp"-->
+<!--                        android:text="3"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Active Jobs"-->
+<!--                        android:textColor="#BAE6FD"-->
+<!--                        android:textSize="10sp" />-->
+<!--                </LinearLayout>-->
+
+<!--                &lt;!&ndash; Rating Card &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="6dp"-->
+<!--                    android:layout_marginEnd="6dp"-->
+<!--                    android:background="@drawable/gradient_card_amber"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:padding="14dp">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="⭐"-->
+<!--                        android:textSize="18sp" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvRating"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="4dp"-->
+<!--                        android:text="4.8"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Rating"-->
+<!--                        android:textColor="#FEF3C7"-->
+<!--                        android:textSize="10sp" />-->
+<!--                </LinearLayout>-->
+
+<!--                &lt;!&ndash; Jobs Done Card &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="6dp"-->
+<!--                    android:background="@drawable/gradient_card_purple"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:padding="14dp">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="🏆"-->
+<!--                        android:textSize="18sp" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvJobsDone"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="4dp"-->
+<!--                        android:text="47"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Completed"-->
+<!--                        android:textColor="#EDE9FE"-->
+<!--                        android:textSize="10sp" />-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
+
+<!--        </LinearLayout>-->
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
+
+<!--    &lt;!&ndash; ===== SCROLLABLE CONTENT ===== &ndash;&gt;-->
+<!--    <androidx.core.widget.NestedScrollView-->
+<!--        android:id="@+id/nestedScrollView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:clipToPadding="false"-->
+<!--        android:paddingBottom="80dp"-->
+<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="16dp">-->
+
+<!--            &lt;!&ndash; ===== ONLINE TOGGLE CARD ===== &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/cardOnlineToggle"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/bg_offline_card"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:padding="20dp"-->
+<!--                android:layout_marginBottom="16dp">-->
+
+<!--                &lt;!&ndash; Status Icon Area &ndash;&gt;-->
+<!--                <FrameLayout-->
+<!--                    android:layout_width="48dp"-->
+<!--                    android:layout_height="48dp">-->
+
+<!--                    <View-->
+<!--                        android:id="@+id/viewPulseOuter"-->
+<!--                        android:layout_width="48dp"-->
+<!--                        android:layout_height="48dp"-->
+<!--                        android:background="@drawable/bg_icon_circle"-->
+<!--                        android:alpha="0.2" />-->
+
+<!--                    <View-->
+<!--                        android:id="@+id/viewStatusIcon"-->
+<!--                        android:layout_width="36dp"-->
+<!--                        android:layout_height="36dp"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:background="@drawable/bg_icon_circle"-->
+<!--                        android:alpha="0.5" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="36dp"-->
+<!--                        android:layout_height="36dp"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:gravity="center"-->
+<!--                        android:text="📡"-->
+<!--                        android:textSize="16sp" />-->
+<!--                </FrameLayout>-->
+
+<!--                &lt;!&ndash; Toggle Text &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:paddingStart="14dp">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvOnlineTitle"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Go Online"-->
+<!--                        android:textColor="@color/lp_text_primary"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tvOnlineSubtitle"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Toggle to receive booking requests"-->
+<!--                        android:textColor="@color/lp_text_secondary"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:layout_marginTop="2dp" />-->
+<!--                </LinearLayout>-->
+
+<!--                &lt;!&ndash; Toggle Switch &ndash;&gt;-->
+<!--                <com.google.android.material.switchmaterial.SwitchMaterial-->
+<!--                    android:id="@+id/switchOnlineStatus"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:checked="false"-->
+<!--                    app:thumbTint="@color/white"-->
+<!--                    app:trackTint="@color/lp_offline" />-->
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; ===== QUICK ACTIONS ===== &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Quick Actions"-->
+<!--                android:textColor="@color/lp_text_primary"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:layout_marginBottom="12dp" />-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_marginBottom="20dp">-->
+
+<!--                &lt;!&ndash; Profile Action &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/actionProfile"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:background="@drawable/bg_quick_action"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:gravity="center"-->
+<!--                    android:padding="16dp"-->
+<!--                    android:clickable="true"-->
+<!--                    android:focusable="true">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="👤"-->
+<!--                        android:textSize="24sp" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="6dp"-->
+<!--                        android:text="Profile"-->
+<!--                        android:textColor="@color/lp_text_primary"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textStyle="bold" />-->
+<!--                </LinearLayout>-->
+
+<!--                &lt;!&ndash; Earnings Action &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/actionEarnings"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:background="@drawable/bg_quick_action"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:gravity="center"-->
+<!--                    android:padding="16dp"-->
+<!--                    android:clickable="true"-->
+<!--                    android:focusable="true">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="💳"-->
+<!--                        android:textSize="24sp" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="6dp"-->
+<!--                        android:text="Earnings"-->
+<!--                        android:textColor="@color/lp_text_primary"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textStyle="bold" />-->
+<!--                </LinearLayout>-->
+
+<!--                &lt;!&ndash; Reviews Action &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/actionReviews"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:background="@drawable/bg_quick_action"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:gravity="center"-->
+<!--                    android:padding="16dp"-->
+<!--                    android:clickable="true"-->
+<!--                    android:focusable="true">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="⭐"-->
+<!--                        android:textSize="24sp" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="6dp"-->
+<!--                        android:text="Reviews"-->
+<!--                        android:textColor="@color/lp_text_primary"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textStyle="bold" />-->
+<!--                </LinearLayout>-->
+
+<!--                &lt;!&ndash; Schedule Action &ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/actionSchedule"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/bg_quick_action"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:gravity="center"-->
+<!--                    android:padding="16dp"-->
+<!--                    android:clickable="true"-->
+<!--                    android:focusable="true">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="📅"-->
+<!--                        android:textSize="24sp" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="6dp"-->
+<!--                        android:text="Schedule"-->
+<!--                        android:textColor="@color/lp_text_primary"-->
+<!--                        android:textSize="12sp"-->
+<!--                        android:textStyle="bold" />-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; ===== PENDING REQUESTS SECTION ===== &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:layout_marginBottom="12dp">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Pending Requests"-->
+<!--                    android:textColor="@color/lp_text_primary"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvRequestCount"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:background="@drawable/gradient_card_blue"-->
+<!--                    android:paddingStart="10dp"-->
+<!--                    android:paddingEnd="10dp"-->
+<!--                    android:paddingTop="4dp"-->
+<!--                    android:paddingBottom="4dp"-->
+<!--                    android:text="0 New"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="11sp"-->
+<!--                    android:textStyle="bold" />-->
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; Empty State &ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/layoutEmptyState"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="32dp"-->
+<!--                android:background="@drawable/bg_card_dark"-->
+<!--                android:visibility="visible">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="🔕"-->
+<!--                    android:textSize="40sp" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="12dp"-->
+<!--                    android:text="No Pending Requests"-->
+<!--                    android:textColor="@color/lp_text_primary"-->
+<!--                    android:textSize="16sp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:gravity="center" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="6dp"-->
+<!--                    android:text="Go online to start receiving job requests from customers near you"-->
+<!--                    android:textColor="@color/lp_text_secondary"-->
+<!--                    android:textSize="13sp"-->
+<!--                    android:gravity="center" />-->
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash; Booking Requests RecyclerView &ndash;&gt;-->
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/rvBookingRequests"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:visibility="gone"-->
+<!--                android:nestedScrollingEnabled="false" />-->
+
+<!--            &lt;!&ndash; ===== LOGOUT BUTTON ===== &ndash;&gt;-->
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/btnLogoutProvider"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="24dp"-->
+<!--                android:backgroundTint="@color/lp_bg_surface"-->
+<!--                android:text="SIGN OUT"-->
+<!--                android:textColor="@color/lp_red"-->
+<!--                android:textSize="14sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:letterSpacing="0.1"-->
+<!--                app:cornerRadius="14dp"-->
+<!--                app:strokeColor="@color/lp_red"-->
+<!--                app:strokeWidth="1dp"-->
+<!--                app:icon="@android:drawable/ic_menu_close_clear_cancel"-->
+<!--                app:iconTint="@color/lp_red"-->
+<!--                style="@style/Widget.Material3.Button.OutlinedButton" />-->
+
+<!--        </LinearLayout>-->
+<!--    </androidx.core.widget.NestedScrollView>-->
+
+    <!-- Existing CoordinatorLayout code ... -->
+
+    <!-- Fragments සදහා Container එක -->
+<FrameLayout android:id="@+id/fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_gravity="bottom"
         android:background="@drawable/bg_bottom_nav"
-        android:orientation="horizontal"
-        android:paddingBottom="8dp">
+        app:menu="@menu/provider_nav_menu"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        app:labelVisibilityMode="labeled" />
 
-        <!-- Home Tab -->
-        <LinearLayout
-            android:id="@+id/tabHome"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true">
+    <!-- ... -->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🏠"
-                android:textSize="20sp" />
+    <!-- ===== BOTTOM NAVIGATION BAR ===== -->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="72dp"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:background="@drawable/bg_bottom_nav"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:paddingBottom="8dp">-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Home"
-                android:textColor="@color/lp_cyan"
-                android:textSize="10sp"
-                android:layout_marginTop="2dp" />
-        </LinearLayout>
+<!--        &lt;!&ndash; Home Tab &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/tabHome"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            android:gravity="center"-->
+<!--            android:clickable="true"-->
+<!--            android:focusable="true">-->
 
-        <!-- Jobs Tab -->
-        <LinearLayout
-            android:id="@+id/tabJobs"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true">
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="🏠"-->
+<!--                android:textSize="20sp" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🛠️"
-                android:textSize="20sp" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Home"-->
+<!--                android:textColor="@color/lp_cyan"-->
+<!--                android:textSize="10sp"-->
+<!--                android:layout_marginTop="2dp" />-->
+<!--        </LinearLayout>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Jobs"
-                android:textColor="@color/lp_text_muted"
-                android:textSize="10sp"
-                android:layout_marginTop="2dp" />
-        </LinearLayout>
+<!--        &lt;!&ndash; Jobs Tab &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/tabJobs"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            android:gravity="center"-->
+<!--            android:clickable="true"-->
+<!--            android:focusable="true">-->
 
-        <!-- Earnings Tab -->
-        <LinearLayout
-            android:id="@+id/tabEarnings"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true">
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="🛠️"-->
+<!--                android:textSize="20sp" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="💰"
-                android:textSize="20sp" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Jobs"-->
+<!--                android:textColor="@color/lp_text_muted"-->
+<!--                android:textSize="10sp"-->
+<!--                android:layout_marginTop="2dp" />-->
+<!--        </LinearLayout>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Earnings"
-                android:textColor="@color/lp_text_muted"
-                android:textSize="10sp"
-                android:layout_marginTop="2dp" />
-        </LinearLayout>
+<!--        &lt;!&ndash; Earnings Tab &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/tabEarnings"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            android:gravity="center"-->
+<!--            android:clickable="true"-->
+<!--            android:focusable="true">-->
 
-        <!-- Profile Tab -->
-        <LinearLayout
-            android:id="@+id/tabProfile"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true">
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="💰"-->
+<!--                android:textSize="20sp" />-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="👤"
-                android:textSize="20sp" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Earnings"-->
+<!--                android:textColor="@color/lp_text_muted"-->
+<!--                android:textSize="10sp"-->
+<!--                android:layout_marginTop="2dp" />-->
+<!--        </LinearLayout>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile"
-                android:textColor="@color/lp_text_muted"
-                android:textSize="10sp"
-                android:layout_marginTop="2dp" />
-        </LinearLayout>
+<!--        &lt;!&ndash; Profile Tab &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/tabProfile"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            android:gravity="center"-->
+<!--            android:clickable="true"-->
+<!--            android:focusable="true">-->
 
-    </LinearLayout>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="👤"-->
+<!--                android:textSize="20sp" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Profile"-->
+<!--                android:textColor="@color/lp_text_muted"-->
+<!--                android:textSize="10sp"-->
+<!--                android:layout_marginTop="2dp" />-->
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+

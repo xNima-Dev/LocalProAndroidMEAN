@@ -54,7 +54,7 @@ public interface ApiService {
             @Part("experience") RequestBody experience,
             @Part("hourlyRate") RequestBody hourlyRate,
             @Part("bio") RequestBody bio,
-            @Part("category") RequestBody category
+            @Part("serviceCategory") RequestBody category
     );
 
     @GET("api/auth/bookings")

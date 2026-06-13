@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +27,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.localpro.localproandroid.R;
@@ -34,6 +36,10 @@ import com.localpro.localproandroid.models.BookingRequest;
 import com.localpro.localproandroid.models.BookingResponse;
 import com.localpro.localproandroid.models.LocationRequest;
 import com.localpro.localproandroid.api.RetrofitClient;
+import com.localpro.localproandroid.views.providerDashboard.EarningsFragment;
+import com.localpro.localproandroid.views.providerDashboard.HomeFragment;
+import com.localpro.localproandroid.views.providerDashboard.JobsFragment;
+import com.localpro.localproandroid.views.providerDashboard.ProfileFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,17 +48,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * ProviderDashboardActivity - Industry-level Provider Dashboard
- * Features:
- *  - Premium dark UI with gradient stats cards (Earnings, Active Jobs, Rating, Completed)
- *  - Online/Offline animated toggle with GPS location tracking
- *  - Quick action shortcuts (Profile, Earnings, Reviews, Schedule)
- *  - Pending booking requests list with Accept/Decline actions
- *  - Staggered animations for booking request cards
- *  - Bottom navigation bar
- *  - Provider name and initials loaded from SharedPreferences
- */
 public class ProviderDashboardActivity extends AppCompatActivity
         implements BookingRequestAdapter.OnBookingActionListener {
 
@@ -66,6 +61,7 @@ public class ProviderDashboardActivity extends AppCompatActivity
     // ---- Views ----
     private SwitchMaterial switchOnlineStatus;
     private TextView tvProviderName;
+    private TextView tvProviderEmail;
     private TextView tvAvatarInitials;
     private TextView tvOnlineTitle;
     private TextView tvOnlineSubtitle;
@@ -103,15 +99,12 @@ public class ProviderDashboardActivity extends AppCompatActivity
         pulseAnimation = AnimationUtils.loadAnimation(this, R.anim.pulse_animation);
     }
 
-    // =========================================================================
-    // VIEW INITIALIZATION
-    // =========================================================================
-
     private void initViews() {
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         switchOnlineStatus = findViewById(R.id.switchOnlineStatus);
         tvProviderName = findViewById(R.id.tvProviderName);
+        tvProviderEmail = findViewById(R.id.tvProviderEmail);
         tvAvatarInitials = findViewById(R.id.tvAvatarInitials);
         tvOnlineTitle = findViewById(R.id.tvOnlineTitle);
         tvOnlineSubtitle = findViewById(R.id.tvOnlineSubtitle);
@@ -125,19 +118,14 @@ public class ProviderDashboardActivity extends AppCompatActivity
         rvBookingRequests = findViewById(R.id.rvBookingRequests);
         btnLogoutProvider = findViewById(R.id.btnLogoutProvider);
     }
-
-    // =========================================================================
-    // PROVIDER INFO
-    // =========================================================================
-
     private void loadProviderInfo() {
         SharedPreferences prefs = getSharedPreferences("LocalProPrefs", MODE_PRIVATE);
         String name = prefs.getString("provider_name", "Provider");
+        String email = prefs.getString("provider_email", "provider@example.com");
 
         // Try to get name from stored name, else fallback
         if (name.equals("Provider")) {
-            String email = prefs.getString("provider_email", "");
-            if (!email.isEmpty()) {
+            if (!email.isEmpty() && !email.equals("provider@example.com")) {
                 // Use email prefix as display name
                 name = email.split("@")[0];
                 name = name.substring(0, 1).toUpperCase() + name.substring(1);
@@ -145,15 +133,14 @@ public class ProviderDashboardActivity extends AppCompatActivity
         }
 
         tvProviderName.setText(name);
+        if (tvProviderEmail != null) {
+            tvProviderEmail.setText(email);
+        }
 
         // Set avatar initial
         String initial = name.isEmpty() ? "P" : String.valueOf(name.charAt(0)).toUpperCase();
         tvAvatarInitials.setText(initial);
     }
-
-    // =========================================================================
-    // ONLINE / OFFLINE TOGGLE
-    // =========================================================================
 
     private void setupOnlineToggle() {
         locationCallback = new LocationCallback() {
@@ -218,10 +205,6 @@ public class ProviderDashboardActivity extends AppCompatActivity
         }
     }
 
-    // =========================================================================
-    // QUICK ACTIONS
-    // =========================================================================
-
     private void setupQuickActions() {
         LinearLayout actionProfile = findViewById(R.id.actionProfile);
         LinearLayout actionEarnings = findViewById(R.id.actionEarnings);
@@ -244,10 +227,6 @@ public class ProviderDashboardActivity extends AppCompatActivity
             Toast.makeText(this, "📅 My Schedule - Coming Soon!", Toast.LENGTH_SHORT).show();
         });
     }
-
-    // =========================================================================
-    // BOOKING REQUESTS RECYCLER VIEW
-    // =========================================================================
 
     private void setupRecyclerView() {
         bookingAdapter = new BookingRequestAdapter(this);
@@ -283,50 +262,46 @@ public class ProviderDashboardActivity extends AppCompatActivity
                 });
     }
 
-    /**
-     * Loads mock booking request data for demonstration purposes.
-     * In production, replace with real-time WebSocket events from your backend.
-     */
-    private void loadMockBookingRequests() {
-        List<BookingRequest> mockRequests = new ArrayList<>();
-
-        mockRequests.add(new BookingRequest(
-                "cust_001",
-                "Nuwan Perera",
-                "Electrician",
-                "Needs help fixing faulty wiring in the living room. Also wants to install new light fixtures.",
-                "0.8 km away",
-                "LKR 3,500",
-                "Just now",
-                6.9271, 79.8612
-        ));
-
-        mockRequests.add(new BookingRequest(
-                "cust_002",
-                "Ayesha Fernando",
-                "Plumber",
-                "Leaking pipe under kitchen sink. Water damage visible. Urgent fix needed.",
-                "1.4 km away",
-                "LKR 2,200",
-                "2 min ago",
-                6.9310, 79.8590
-        ));
-
-        mockRequests.add(new BookingRequest(
-                "cust_003",
-                "Tharindu Silva",
-                "Electrician",
-                "AC installation in master bedroom. Unit already purchased, just need installation.",
-                "2.1 km away",
-                "LKR 5,000",
-                "5 min ago",
-                6.9250, 79.8650
-        ));
-
-        bookingAdapter.setRequests(mockRequests);
-        updateRequestCount(mockRequests.size());
-        showBookingRequests(true);
-    }
+//    private void loadMockBookingRequests() {
+//        List<BookingRequest> mockRequests = new ArrayList<>();
+//
+//        mockRequests.add(new BookingRequest(
+//                "cust_001",
+//                "Nuwan Perera",
+//                "Electrician",
+//                "Needs help fixing faulty wiring in the living room. Also wants to install new light fixtures.",
+//                "0.8 km away",
+//                "LKR 3,500",
+//                "Just now",
+//                6.9271, 79.8612
+//        ));
+//
+//        mockRequests.add(new BookingRequest(
+//                "cust_002",
+//                "Ayesha Fernando",
+//                "Plumber",
+//                "Leaking pipe under kitchen sink. Water damage visible. Urgent fix needed.",
+//                "1.4 km away",
+//                "LKR 2,200",
+//                "2 min ago",
+//                6.9310, 79.8590
+//        ));
+//
+//        mockRequests.add(new BookingRequest(
+//                "cust_003",
+//                "Tharindu Silva",
+//                "Electrician",
+//                "AC installation in master bedroom. Unit already purchased, just need installation.",
+//                "2.1 km away",
+//                "LKR 5,000",
+//                "5 min ago",
+//                6.9250, 79.8650
+//        ));
+//
+//        bookingAdapter.setRequests(mockRequests);
+//        updateRequestCount(mockRequests.size());
+//        showBookingRequests(true);
+//    }
 
     private void clearBookingRequests() {
         bookingAdapter.setRequests(new ArrayList<>());
@@ -351,10 +326,6 @@ public class ProviderDashboardActivity extends AppCompatActivity
             tvRequestCount.setText(count + " New");
         }
     }
-
-    // =========================================================================
-    // BOOKING ACTION CALLBACKS
-    // =========================================================================
 
     @Override
     public void onAccept(BookingRequest request, int position) {
@@ -390,36 +361,57 @@ public class ProviderDashboardActivity extends AppCompatActivity
                 .show();
     }
 
-    // =========================================================================
-    // BOTTOM NAVIGATION
-    // =========================================================================
+//    private void setupBottomNav() {
+//        LinearLayout tabHome = findViewById(R.id.tabHome);
+//        LinearLayout tabJobs = findViewById(R.id.tabJobs);
+//        LinearLayout tabEarnings = findViewById(R.id.tabEarnings);
+//        LinearLayout tabProfile = findViewById(R.id.tabProfile);
+//
+//        tabHome.setOnClickListener(v -> {
+//            // Already on dashboard
+//        });
+//
+//        tabJobs.setOnClickListener(v -> {
+//            Toast.makeText(this, "🛠️ My Jobs - Coming Soon!", Toast.LENGTH_SHORT).show();
+//        });
+//
+//        tabEarnings.setOnClickListener(v -> {
+//            Toast.makeText(this, "💰 Earnings - Coming Soon!", Toast.LENGTH_SHORT).show();
+//        });
+//
+//        tabProfile.setOnClickListener(v -> {
+//            Toast.makeText(this, "👤 Profile - Coming Soon!", Toast.LENGTH_SHORT).show();
+//        });
+//    }
 
+    // ProviderDashboardActivity.java තුළ
     private void setupBottomNav() {
-        LinearLayout tabHome = findViewById(R.id.tabHome);
-        LinearLayout tabJobs = findViewById(R.id.tabJobs);
-        LinearLayout tabEarnings = findViewById(R.id.tabEarnings);
-        LinearLayout tabProfile = findViewById(R.id.tabProfile);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+            int id = item.getItemId();
 
-        tabHome.setOnClickListener(v -> {
-            // Already on dashboard
+            if (id == R.id.nav_home) {
+                selectedFragment = new HomeFragment(); // පවතින Home UI එක මෙයට මාරු කරන්න
+            } else if (id == R.id.nav_jobs) {
+                selectedFragment = new JobsFragment();
+            } else if (id == R.id.nav_earnings) {
+                selectedFragment = new EarningsFragment();
+            } else if (id == R.id.nav_profile) {
+                selectedFragment = new ProfileFragment();
+            }
+
+            if (selectedFragment != null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, selectedFragment)
+                        .commit();
+            }
+            return true;
         });
 
-        tabJobs.setOnClickListener(v -> {
-            Toast.makeText(this, "🛠️ My Jobs - Coming Soon!", Toast.LENGTH_SHORT).show();
-        });
-
-        tabEarnings.setOnClickListener(v -> {
-            Toast.makeText(this, "💰 Earnings - Coming Soon!", Toast.LENGTH_SHORT).show();
-        });
-
-        tabProfile.setOnClickListener(v -> {
-            Toast.makeText(this, "👤 Profile - Coming Soon!", Toast.LENGTH_SHORT).show();
-        });
+        // Default fragment එක ලෙස Home fragment එක load කරන්න
+        bottomNav.setSelectedItemId(R.id.nav_home);
     }
-
-    // =========================================================================
-    // LOGOUT
-    // =========================================================================
 
     private void setupLogout() {
         btnLogoutProvider.setOnClickListener(v -> {
@@ -429,7 +421,13 @@ public class ProviderDashboardActivity extends AppCompatActivity
                     .setPositiveButton("Sign Out", (dialog, which) -> {
                         stopLocationUpdates();
                         SharedPreferences prefs = getSharedPreferences("LocalProPrefs", MODE_PRIVATE);
-                        prefs.edit().clear().apply();
+                        prefs.edit()
+                             .remove("auth_token")
+                             .remove("user_role")
+                             .remove("user_id")
+                             .remove("provider_email")
+                             .remove("provider_name")
+                             .apply();
                         Toast.makeText(this, "Signed out successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ProviderDashboardActivity.this, MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -440,10 +438,6 @@ public class ProviderDashboardActivity extends AppCompatActivity
                     .show();
         });
     }
-
-    // =========================================================================
-    // LOCATION UPDATES
-    // =========================================================================
 
     private void startLocationUpdate() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -499,10 +493,6 @@ public class ProviderDashboardActivity extends AppCompatActivity
                     }
                 });
     }
-
-    // =========================================================================
-    // PERMISSION RESULT
-    // =========================================================================
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
