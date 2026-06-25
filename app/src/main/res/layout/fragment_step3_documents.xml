@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Step 3: Verification Documents 📸"
+            android:text="Step 3: Verification Documents &#128248;"
             android:textColor="#00D2FF"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -38,7 +38,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="24dp"
             android:backgroundTint="#1E293B"
-            android:text="📸 Upload NIC / Passport Photo"
+            android:text="&#128248; Upload NIC / Passport Photo"
             android:textColor="#00D2FF"
             app:layout_constraintTop_toBottomOf="@id/tvStepSubtitle" />
 
@@ -57,7 +57,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:backgroundTint="#1E293B"
-            android:text="📜 Upload Certifications (Optional)"
+            android:text="&#128220; Upload Certifications (Optional)"
             android:textColor="#00D2FF"
             app:layout_constraintTop_toBottomOf="@id/ivIdPreview" />
 

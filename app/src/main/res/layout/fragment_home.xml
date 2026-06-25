@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 <androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lp_bg_deep"
@@ -72,7 +71,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Good morning, Pro! ☀️"
+                        android:text="Good morning, Pro! &#9728;&#65039;"
                         android:textColor="@color/lp_text_secondary"
                         android:textSize="12sp"
                         android:letterSpacing="0.05" />
@@ -149,7 +148,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="💰"
+                        android:text="&#128176;"
                         android:textSize="18sp" />
 
                     <TextView
@@ -184,7 +183,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="⚡"
+                        android:text="&#9889;"
                         android:textSize="18sp" />
 
                     <TextView
@@ -219,7 +218,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="⭐"
+                        android:text="&#11088;"
                         android:textSize="18sp" />
 
                     <TextView
@@ -253,7 +252,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🏆"
+                        android:text="&#127942;"
                         android:textSize="18sp" />
 
                     <TextView
@@ -329,7 +328,7 @@
                         android:layout_height="36dp"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="📡"
+                        android:text="&#128225;"
                         android:textSize="16sp" />
                 </FrameLayout>
 
@@ -403,7 +402,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="👤"
+                        android:text="&#128100;"
                         android:textSize="24sp" />
 
                     <TextView
@@ -433,7 +432,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="💳"
+                        android:text="&#128179;"
                         android:textSize="24sp" />
 
                     <TextView
@@ -463,7 +462,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="⭐"
+                        android:text="&#11088;"
                         android:textSize="24sp" />
 
                     <TextView
@@ -492,7 +491,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="📅"
+                        android:text="&#128197;"
                         android:textSize="24sp" />
 
                     <TextView
@@ -552,7 +551,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🔕"
+                    android:text="&#128277;"
                     android:textSize="40sp" />
 
                 <TextView
@@ -581,7 +580,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:nestedScrollingEnabled="false" />
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <!-- ===== LOGOUT BUTTON ===== -->
             <com.google.android.material.button.MaterialButton

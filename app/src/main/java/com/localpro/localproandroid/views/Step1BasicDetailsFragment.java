@@ -58,7 +58,7 @@ public class Step1BasicDetailsFragment extends Fragment {
             "gardening",
             "masonry",
             "painting",
-            "plumber"
+            "plumbing"
     );
 
     @Nullable

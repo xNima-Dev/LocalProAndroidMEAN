@@ -1,17 +1,24 @@
 package com.localpro.localproandroid.repositories;
 
-import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+
+
+import com.localpro.localproandroid.api.ApiService;
+import com.localpro.localproandroid.models.BookingResponse;
 
 import javax.inject.Inject;
 
+import retrofit2.Call;
+
 public class UserRepository {
-    private static final  String PREF_NAME = "LocalProPrefs";
-    private SharedPreferences prefs;
+    private final ApiService apiService;
+    private final SharedPreferences prefs;
 
     @Inject
-    public UserRepository(Context context) {
-        prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+    public UserRepository(ApiService apiService, SharedPreferences prefs) {
+        this.apiService = apiService;
+        this.prefs = prefs;
     }
 
     public String getProviderName() {
@@ -20,5 +27,33 @@ public class UserRepository {
 
     public String getProviderEmail() {
         return prefs.getString("provider_email", "N/A");
+    }
+
+    //    Api Call
+    public Call<BookingResponse> getBooking() {
+        String token = "Bearer " + prefs.getString("auth_token", "");
+        Log.d("Api check", "sending token: " + token);
+        return apiService.getBookings(token);
+    }
+
+    //    Log Out = clear prefs
+    public void clearUserSession() {
+        prefs.edit()
+                .remove("auth_token")
+                .remove("user_role")
+                .remove("user_id")
+                .remove("provider_email")
+                .remove("provider_name")
+                .apply();
+    }
+
+    public Call<Void> acceptBooking(String bookingId) {
+        String token = "Bearer " + prefs.getString("auth_token", "");
+        return apiService.acceptBooking(token, bookingId);
+    }
+
+    public Call<Void> declineBooking(String bookingId) {
+        String token = "Bearer " + prefs.getString("auth_token", "");
+        return apiService.declineBooking(token, bookingId);
     }
 }

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Professional Verification 🚀"
+        android:text="Professional Verification &#128640;"
         android:textColor="#00D2FF"
         android:textSize="24sp"
         android:textStyle="bold"

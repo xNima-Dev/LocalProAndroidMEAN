@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Verified ✓"
+            android:text="Verified &#10003;"
             android:textColor="#00D2FF"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

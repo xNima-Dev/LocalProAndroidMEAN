@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Step 1: Basic Details 📝"
+        android:text="Step 1: Basic Details &#128221;"
         android:textColor="#00D2FF"
         android:textSize="20sp"
         android:textStyle="bold"

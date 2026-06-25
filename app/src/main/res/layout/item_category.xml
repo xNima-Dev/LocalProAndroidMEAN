@@ -21,7 +21,7 @@
             android:id="@+id/tvCategoryEmoji"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🛠️"
+            android:text="&#128736;&#65039;"
             android:textSize="32sp" />
 
         <TextView
@@ -39,7 +39,7 @@
             android:id="@+id/tvCategorySinhala"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="(සිංහල තේරුම)"
+            android:text="(&#3523;&#3538;&#3458;&#3524;&#3517; &#3501;&#3546;&#3515;&#3540;&#3512;)"
             android:textColor="#94A3B8"
             android:textSize="12sp"
             android:gravity="center"/>

@@ -61,6 +61,6 @@ public class CategorySelectionActivity extends AppCompatActivity {
         categoryList.add(new CategoryModel("gardening", "Gardening", "ගෙවතු අලංකරණය", "🏡"));
         categoryList.add(new CategoryModel("masonry", "Masonry", "මේසන්වැඩ", "🧱"));
         categoryList.add(new CategoryModel("painting", "Painting", "තීන්ත ආලේපනය", "🎨"));
-        categoryList.add(new CategoryModel("plumber", "Plumbing", "නලපද්ධති", "🚰"));
+        categoryList.add(new CategoryModel("plumbing", "Plumbing", "නලපද්ධති", "🚰"));
     }
 }

@@ -1,11 +1,15 @@
 package com.localpro.localproandroid.models;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Model class representing a customer booking request for a provider.
  * This is a local UI model used to populate the booking requests list
  * in the Provider Dashboard.
  */
 public class BookingRequest {
+    @SerializedName("_id")
+    private String id;
     private String customerId;
     private String customerName;
     private String serviceCategory;
@@ -16,10 +20,11 @@ public class BookingRequest {
     private double customerLat;
     private double customerLon;
 
-    public BookingRequest(String customerId, String customerName, String serviceCategory,
+    public BookingRequest(String id, String customerId, String customerName, String serviceCategory,
                           String jobDescription, String distanceText,
                           String estimatedEarning, String requestTime,
                           double customerLat, double customerLon) {
+        this.id = id;
         this.customerId = customerId;
         this.customerName = customerName;
         this.serviceCategory = serviceCategory;
@@ -31,6 +36,7 @@ public class BookingRequest {
         this.customerLon = customerLon;
     }
 
+    public String getId() { return id; }
     public String getCustomerId() { return customerId; }
     public String getCustomerName() { return customerName; }
     public String getServiceCategory() { return serviceCategory; }

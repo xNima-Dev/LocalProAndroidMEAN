@@ -21,6 +21,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -59,4 +60,18 @@ public interface ApiService {
 
     @GET("api/auth/bookings")
     Call<BookingResponse> getBookings(@Header("Authorization") String token);
+
+    // Accept Booking
+    @POST("api/auth/bookings/{bookingId}/accept")
+    Call<Void> acceptBooking(
+            @Header("Authorization") String token,
+            @Path("bookingId") String bookingId
+    );
+
+    // Decline Booking
+    @POST("api/auth/bookings/{bookingId}/decline")
+    Call<Void> declineBooking(
+            @Header("Authorization") String token,
+            @Path("bookingId") String bookingId
+    );
 }
