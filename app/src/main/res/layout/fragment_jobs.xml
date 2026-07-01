@@ -73,7 +73,7 @@
                             android:id="@+id/tvTotalActiveJobs"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3"
+                            android:text="2"
                             android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -159,198 +159,764 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- ===== IN PROGRESS JOB CARD ===== -->
+                <!-- ======================= -->
+                <!-- ===== ACTIVE SECTION == -->
+                <!-- ======================= -->
                 <LinearLayout
+                    android:id="@+id/sectionActive"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_online_card"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:visibility="visible">
 
-                    <!-- Status Row -->
+                    <!-- ===== IN PROGRESS JOB CARD ===== -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/bg_online_card"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Status Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#128736;&#65039;"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="IN PROGRESS"
+                                android:textColor="@color/lp_cyan"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.1"
+                                android:paddingStart="8dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_status_online"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:text="LIVE"
+                                android:textColor="@color/white"
+                                android:textSize="10sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.1" />
+
+                        </LinearLayout>
+
+                        <!-- Divider -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@color/lp_border" />
+
+                        <!-- Job Title -->
+                        <TextView
+                            android:id="@+id/tvActiveJobTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Electrical Wiring Fix"
+                            android:textColor="@color/lp_text_primary"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <!-- Customer -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#128100;"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tvActiveJobCustomer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" Amara Perera"
+                                android:textColor="@color/lp_text_secondary"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="  &#8226;  "
+                                android:textColor="@color/lp_text_muted"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#128205;"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:id="@+id/tvActiveJobLocation"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" Colombo 5"
+                                android:textColor="@color/lp_text_secondary"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+                        <!-- Time and Earning Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="12dp">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Started"
+                                    android:textColor="@color/lp_text_muted"
+                                    android:textSize="11sp" />
+
+                                <TextView
+                                    android:id="@+id/tvActiveJobStartTime"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="10:30 AM"
+                                    android:textColor="@color/lp_text_primary"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Estimated"
+                                    android:textColor="@color/lp_text_muted"
+                                    android:textSize="11sp" />
+
+                                <TextView
+                                    android:id="@+id/tvActiveJobEarning"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="LKR 3,500"
+                                    android:textColor="@color/lp_green"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <!-- Complete Button -->
+                            <LinearLayout
+                                android:id="@+id/btnMarkComplete"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_btn_accept"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:clickable="true"
+                                android:focusable="true">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="&#10003;  "
+                                    android:textColor="@color/lp_green"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Complete"
+                                    android:textColor="@color/lp_green"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- ===== CONFIRMED JOB CARD (Active - Tomorrow) ===== -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/bg_card_dark"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Status Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#9203;"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="CONFIRMED"
+                                android:textColor="@color/lp_amber"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.1"
+                                android:paddingStart="8dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/gradient_card_amber"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:text="Tomorrow"
+                                android:textColor="@color/white"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <!-- Divider -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@color/lp_border" />
+
+                        <TextView
+                            android:id="@+id/tvPendingJobTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Plumbing Repair - Kitchen Sink"
+                            android:textColor="@color/lp_text_primary"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#128100;"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:id="@+id/tvPendingJobCustomer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" Nimal Silva"
+                                android:textColor="@color/lp_text_secondary"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="  &#8226;  "
+                                android:textColor="@color/lp_text_muted"
+                                android:textSize="13sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#128197; "
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:id="@+id/tvPendingJobDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Jun 27 at 9:00 AM"
+                                android:textColor="@color/lp_text_secondary"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="12dp"
+                            android:gravity="center_vertical">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Quoted"
+                                    android:textColor="@color/lp_text_muted"
+                                    android:textSize="11sp" />
+
+                                <TextView
+                                    android:id="@+id/tvPendingJobEarning"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="LKR 2,800"
+                                    android:textColor="@color/lp_green"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/btnStartJob"
+                                android:layout_width="wrap_content"
+                                android:layout_height="40dp"
+                                android:background="@drawable/gradient_card_blue"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:clickable="true"
+                                android:focusable="true">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="&#9654;  "
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Start Job"
+                                    android:textColor="@color/white"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- Empty state for Active -->
+                    <LinearLayout
+                        android:id="@+id/emptyActive"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="40dp"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="&#128736;&#65039;"
-                            android:textSize="18sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:text="IN PROGRESS"
-                            android:textColor="@color/lp_cyan"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.1"
-                            android:paddingStart="8dp" />
+                            android:textSize="48sp"
+                            android:gravity="center" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/bg_status_online"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
-                            android:paddingTop="4dp"
-                            android:paddingBottom="4dp"
-                            android:text="LIVE"
-                            android:textColor="@color/white"
-                            android:textSize="10sp"
+                            android:text="No Active Jobs"
+                            android:textColor="@color/lp_text_primary"
+                            android:textSize="18sp"
                             android:textStyle="bold"
-                            android:letterSpacing="0.1" />
+                            android:gravity="center"
+                            android:layout_marginTop="12dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="You have no active or confirmed bookings right now."
+                            android:textColor="@color/lp_text_muted"
+                            android:textSize="13sp"
+                            android:gravity="center"
+                            android:layout_marginTop="6dp" />
 
                     </LinearLayout>
 
-                    <!-- Divider -->
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="12dp"
-                        android:background="@color/lp_border" />
+                </LinearLayout>
 
-                    <!-- Job Title -->
-                    <TextView
-                        android:id="@+id/tvActiveJobTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Electrical Wiring Fix"
-                        android:textColor="@color/lp_text_primary"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
+                <!-- ========================= -->
+                <!-- ===== COMPLETED SECTION = -->
+                <!-- ========================= -->
+                <LinearLayout
+                    android:id="@+id/sectionCompleted"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                    <!-- Customer -->
+                    <!-- Section Title -->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginTop="6dp">
+                        android:layout_marginBottom="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Completed Jobs"
+                            android:textColor="@color/lp_text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="&#128100;"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:id="@+id/tvActiveJobCustomer"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" Amara Perera"
-                            android:textColor="@color/lp_text_secondary"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="  &#8226;  "
-                            android:textColor="@color/lp_text_muted"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="&#128205;"
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:id="@+id/tvActiveJobLocation"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" Colombo 5"
-                            android:textColor="@color/lp_text_secondary"
-                            android:textSize="13sp" />
+                            android:background="@drawable/gradient_card_green"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:text="2 Jobs"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
-                    <!-- Time and Earning Row -->
+                    <!-- ===== COMPLETED JOB CARD 1 ===== -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="12dp">
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/bg_card_dark"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
                         <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Started"
-                                android:textColor="@color/lp_text_muted"
-                                android:textSize="11sp" />
-
-                            <TextView
-                                android:id="@+id/tvActiveJobStartTime"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="10:30 AM"
-                                android:textColor="@color/lp_text_primary"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Estimated"
-                                android:textColor="@color/lp_text_muted"
-                                android:textSize="11sp" />
-
-                            <TextView
-                                android:id="@+id/tvActiveJobEarning"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="LKR 3,500"
-                                android:textColor="@color/lp_green"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <!-- Complete Button -->
-                        <LinearLayout
-                            android:id="@+id/btnMarkComplete"
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:background="@drawable/bg_btn_accept"
-                            android:paddingStart="16dp"
-                            android:paddingEnd="16dp"
-                            android:gravity="center"
                             android:orientation="horizontal"
-                            android:clickable="true"
-                            android:focusable="true">
+                            android:gravity="center_vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="&#10003;  "
+                                android:text="&#9989;"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="COMPLETED"
                                 android:textColor="@color/lp_green"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.1"
+                                android:paddingStart="8dp" />
+
+                            <TextView
+                                android:id="@+id/tvCompletedJob1Earning"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="LKR 4,200"
+                                android:textColor="@color/lp_green"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@color/lp_border" />
+
+                        <TextView
+                            android:id="@+id/tvCompletedJob1Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="AC Installation &amp; Servicing"
+                            android:textColor="@color/lp_text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#128100; Kasun Jayawardena  &#8226;  &#128197; Jun 25, 2026"
+                                android:textColor="@color/lp_text_secondary"
                                 android:textSize="12sp" />
 
+                        </LinearLayout>
+
+                        <!-- Rating row -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="8dp">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Complete"
+                                android:text="&#11088;&#11088;&#11088;&#11088;&#11088;"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="  5.0"
+                                android:textColor="@color/lp_amber"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- ===== COMPLETED JOB CARD 2 ===== -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/bg_card_dark"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#9989;"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="COMPLETED"
                                 android:textColor="@color/lp_green"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.1"
+                                android:paddingStart="8dp" />
+
+                            <TextView
+                                android:id="@+id/tvCompletedJob2Earning"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="LKR 1,800"
+                                android:textColor="@color/lp_green"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@color/lp_border" />
+
+                        <TextView
+                            android:id="@+id/tvCompletedJob2Title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bathroom Tile Repair"
+                            android:textColor="@color/lp_text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#128100; Dilupa Fernando  &#8226;  &#128197; Jun 24, 2026"
+                                android:textColor="@color/lp_text_secondary"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#11088;&#11088;&#11088;&#11088;"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="  4.0"
+                                android:textColor="@color/lp_amber"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- ===== COMPLETED JOB CARD 3 ===== -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/bg_card_dark"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#9989;"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="COMPLETED"
+                                android:textColor="@color/lp_green"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.1"
+                                android:paddingStart="8dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="LKR 3,000"
+                                android:textColor="@color/lp_green"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@color/lp_border" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Home Cleaning Service"
+                            android:textColor="@color/lp_text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#128100; Sumudu Rathnayake  &#8226;  &#128197; Jun 20, 2026"
+                                android:textColor="@color/lp_text_secondary"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#11088;&#11088;&#11088;&#11088;&#11088;"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="  4.8"
+                                android:textColor="@color/lp_amber"
                                 android:textSize="13sp"
                                 android:textStyle="bold" />
 
@@ -360,402 +926,254 @@
 
                 </LinearLayout>
 
-                <!-- ===== PENDING JOB CARD ===== -->
+                <!-- ========================= -->
+                <!-- ===== CANCELLED SECTION = -->
+                <!-- ========================= -->
                 <LinearLayout
+                    android:id="@+id/sectionCancelled"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_dark"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:visibility="gone">
 
-                    <!-- Status Row -->
+                    <!-- Section Title -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="&#9203;"
-                            android:textSize="16sp" />
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="CONFIRMED"
-                            android:textColor="@color/lp_amber"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.1"
-                            android:paddingStart="8dp" />
+                            android:text="Cancelled Jobs"
+                            android:textColor="@color/lp_text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/gradient_card_amber"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="10dp"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
                             android:paddingTop="4dp"
                             android:paddingBottom="4dp"
-                            android:text="Tomorrow"
+                            android:text="1 Job"
                             android:textColor="@color/white"
-                            android:textSize="10sp"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
 
-                    <!-- Divider -->
-                    <View
+                    <!-- Cancelled Job Card 1 -->
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
-                        android:background="@color/lp_border" />
-
-                    <TextView
-                        android:id="@+id/tvPendingJobTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Plumbing Repair - Kitchen Sink"
-                        android:textColor="@color/lp_text_primary"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="6dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="&#128100;"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:id="@+id/tvPendingJobCustomer"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" Nimal Silva"
-                            android:textColor="@color/lp_text_secondary"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="  &#8226;  "
-                            android:textColor="@color/lp_text_muted"
-                            android:textSize="13sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="&#128197; "
-                            android:textSize="11sp" />
-
-                        <TextView
-                            android:id="@+id/tvPendingJobDate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Jun 27 at 9:00 AM"
-                            android:textColor="@color/lp_text_secondary"
-                            android:textSize="13sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="12dp"
-                        android:gravity="center_vertical">
+                        android:background="@drawable/bg_card_dark"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
                         <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Quoted"
-                                android:textColor="@color/lp_text_muted"
-                                android:textSize="11sp" />
+                                android:text="&#10060;"
+                                android:textSize="16sp" />
 
                             <TextView
-                                android:id="@+id/tvPendingJobEarning"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="CANCELLED"
+                                android:textColor="@color/lp_red"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.1"
+                                android:paddingStart="8dp" />
+
+                            <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="LKR 2,800"
-                                android:textColor="@color/lp_green"
-                                android:textSize="14sp"
+                                android:background="@drawable/gradient_card_amber"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:text="Refunded"
+                                android:textColor="@color/white"
+                                android:textSize="10sp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:id="@+id/btnStartJob"
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@color/lp_border" />
+
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:background="@drawable/gradient_card_blue"
-                            android:paddingStart="16dp"
-                            android:paddingEnd="16dp"
-                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:text="Roof Leak Inspection"
+                            android:textColor="@color/lp_text_primary"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:clickable="true"
-                            android:focusable="true">
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="6dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="&#9654;  "
-                                android:textColor="@color/white"
+                                android:text="&#128100; Roshan Gunawardena  &#8226;  &#128197; Jun 18, 2026"
+                                android:textColor="@color/lp_text_secondary"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                        <!-- Reason -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_online_card"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#128221;  "
                                 android:textSize="12sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Start Job"
-                                android:textColor="@color/white"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
+                                android:text="Reason: Customer cancelled due to budget constraints."
+                                android:textColor="@color/lp_text_secondary"
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
                     </LinearLayout>
 
-                </LinearLayout>
-
-                <!-- ===== SECTION TITLE: COMPLETED ===== -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:text="Recently Completed"
-                        android:textColor="@color/lp_text_primary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="See all"
-                        android:textColor="@color/lp_cyan"
-                        android:textSize="13sp" />
-
-                </LinearLayout>
-
-                <!-- ===== COMPLETED JOB CARD 1 ===== -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_dark"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
+                    <!-- Cancelled Job Card 2 -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="&#9989;"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:text="COMPLETED"
-                            android:textColor="@color/lp_green"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.1"
-                            android:paddingStart="8dp" />
-
-                        <TextView
-                            android:id="@+id/tvCompletedJob1Earning"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="LKR 4,200"
-                            android:textColor="@color/lp_green"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="12dp"
-                        android:background="@color/lp_border" />
+                        android:background="@drawable/bg_card_dark"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                    <TextView
-                        android:id="@+id/tvCompletedJob1Title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="AC Installation &amp; Servicing"
-                        android:textColor="@color/lp_text_primary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="6dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#10060;"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="CANCELLED"
+                                android:textColor="@color/lp_red"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.1"
+                                android:paddingStart="8dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/gradient_card_amber"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="10dp"
+                                android:paddingTop="4dp"
+                                android:paddingBottom="4dp"
+                                android:text="No Show"
+                                android:textColor="@color/white"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="12dp"
+                            android:background="@color/lp_border" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="&#128100; Kasun Jayawardena  &#8226;  &#128197; Jun 25, 2026"
-                            android:textColor="@color/lp_text_secondary"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <!-- Rating row -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="&#11088;&#11088;&#11088;&#11088;&#11088;"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="  5.0"
-                            android:textColor="@color/lp_amber"
-                            android:textSize="13sp"
+                            android:text="Garden Landscaping"
+                            android:textColor="@color/lp_text_primary"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!-- ===== COMPLETED JOB CARD 2 ===== -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_dark"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="&#9989;"
-                            android:textSize="16sp" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="6dp">
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#128100; Isuru Bandara  &#8226;  &#128197; Jun 15, 2026"
+                                android:textColor="@color/lp_text_secondary"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="COMPLETED"
-                            android:textColor="@color/lp_green"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:letterSpacing="0.1"
-                            android:paddingStart="8dp" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_online_card"
+                            android:padding="10dp">
 
-                        <TextView
-                            android:id="@+id/tvCompletedJob2Earning"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="LKR 1,800"
-                            android:textColor="@color/lp_green"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="&#128221;  "
+                                android:textSize="12sp" />
 
-                    </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Reason: Customer did not show up at scheduled time."
+                                android:textColor="@color/lp_text_secondary"
+                                android:textSize="12sp" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="12dp"
-                        android:background="@color/lp_border" />
-
-                    <TextView
-                        android:id="@+id/tvCompletedJob2Title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Bathroom Tile Repair"
-                        android:textColor="@color/lp_text_primary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="6dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="&#128100; Dilupa Fernando  &#8226;  &#128197; Jun 24, 2026"
-                            android:textColor="@color/lp_text_secondary"
-                            android:textSize="12sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginTop="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="&#11088;&#11088;&#11088;&#11088;"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="  4.0"
-                            android:textColor="@color/lp_amber"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
+                        </LinearLayout>
 
                     </LinearLayout>
 
