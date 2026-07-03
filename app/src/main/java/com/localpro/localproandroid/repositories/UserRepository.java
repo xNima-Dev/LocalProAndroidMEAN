@@ -56,4 +56,9 @@ public class UserRepository {
         String token = "Bearer " + prefs.getString("auth_token", "");
         return apiService.declineBooking(token, bookingId);
     }
+
+    public Call<BookingResponse> getActiveBookings() {
+        String token = "Bearer " + prefs.getString("auth_token", "");
+        return apiService.getActiveBookings(token);
+    }
 }

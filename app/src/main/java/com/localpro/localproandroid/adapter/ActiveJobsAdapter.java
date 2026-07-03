@@ -13,88 +13,78 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.localpro.localproandroid.R;
 import com.localpro.localproandroid.models.BookingRequest;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
+public class ActiveJobsAdapter extends RecyclerView.Adapter<ActiveJobsAdapter.ViewHolder> {
 
-public class BookingRequestAdapter extends RecyclerView.Adapter<BookingRequestAdapter.ViewHolder> {
-
-    public interface OnBookingActionListener {
-        void onAccept(BookingRequest request, int position);
-        void onDecline(BookingRequest request, int position);
+    public interface OnActiveJobActionListener {
+        void onCancelJob(BookingRequest request, int position);
     }
 
-    private final List<BookingRequest> requests;
-    private final OnBookingActionListener listener;
+    private final List<BookingRequest> activeJobs;
+    private final OnActiveJobActionListener listener;
     private int lastAnimatedPosition = -1;
 
-    public BookingRequestAdapter(OnBookingActionListener listener) {
-        this.requests = new ArrayList<>();
+    public ActiveJobsAdapter(OnActiveJobActionListener listener) {
+        this.activeJobs = new ArrayList<>();
         this.listener = listener;
     }
 
-    public void setRequests(List<BookingRequest> newRequests) {
-        requests.clear();
-        if (newRequests != null) {
-            requests.addAll(newRequests);
+    public void setJobs(List<BookingRequest> jobs) {
+        activeJobs.clear();
+        if (jobs != null) {
+            activeJobs.addAll(jobs);
         }
         notifyDataSetChanged();
     }
 
     public void removeItem(int position) {
-        if (position >= 0 && position < requests.size()) {
-            requests.remove(position);
+        if (position >= 0 && position < activeJobs.size()) {
+            activeJobs.remove(position);
             notifyItemRemoved(position);
-            notifyItemRangeChanged(position, requests.size());
+            notifyItemRangeChanged(position, activeJobs.size());
         }
-    }
-
-    public int getRequestCount() {
-        return requests.size();
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_booking_request, parent, false);
+                .inflate(R.layout.item_active_job, parent, false);
         return new ViewHolder(view);
     }
 
     @android.annotation.SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        BookingRequest request = requests.get(position);
+        BookingRequest request = activeJobs.get(position);
 
-        // Set data
         holder.tvCustomerInitial.setText(request.getInitial());
         holder.tvCustomerName.setText(request.getCustomerName());
         holder.tvCustomerDistance.setText(request.getDistanceText());
-        holder.tvRequestTime.setText(request.getRequestTime());
         holder.tvServiceCategory.setText(request.getServiceCategory());
-        holder.tvEstimatedEarning.setText(request.getEstimatedEarning());
+        holder.tvEstimatedEarning.setText(String.valueOf(request.getEstimatedEarning()));
         holder.tvJobDescription.setText(request.getJobDescription());
+        
+        // Format the request time
+        holder.tvRequestTime.setText(formatDateString(request.getRequestTime()));
 
-        // Accept action
-        holder.btnAccept.setOnClickListener(v -> {
+        // Cancel action
+        holder.btnCancel.setOnClickListener(v -> {
             int pos = holder.getAdapterPosition();
             if (pos != RecyclerView.NO_ID && listener != null) {
-                listener.onAccept(requests.get(pos), pos);
+                listener.onCancelJob(activeJobs.get(pos), pos);
             }
         });
 
-        // Decline action
-        holder.btnDecline.setOnClickListener(v -> {
-            int pos = holder.getAdapterPosition();
-            if (pos != RecyclerView.NO_ID && listener != null) {
-                listener.onDecline(requests.get(pos), pos);
-            }
-        });
-
-        // Staggered slide-in animation
         if (position > lastAnimatedPosition) {
             Animation anim = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.slide_in_right);
-            anim.setStartOffset(position * 60L); // stagger delay
+            anim.setStartOffset(position * 60L);
             holder.itemView.startAnimation(anim);
             lastAnimatedPosition = position;
         }
@@ -102,7 +92,24 @@ public class BookingRequestAdapter extends RecyclerView.Adapter<BookingRequestAd
 
     @Override
     public int getItemCount() {
-        return requests.size();
+        return activeJobs.size();
+    }
+
+    private String formatDateString(String dateString) {
+        if (dateString == null || dateString.isEmpty()) return "N/A";
+        
+        try {
+            // Backend returns ISO format: "2026-07-03T10:00:00.000Z"
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+            Date date = inputFormat.parse(dateString);
+            
+            // Format to: "03 Jul 2026, 10:00 AM"
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault());
+            return outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return dateString; // fallback to original string
+        }
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -113,8 +120,7 @@ public class BookingRequestAdapter extends RecyclerView.Adapter<BookingRequestAd
         TextView tvServiceCategory;
         TextView tvEstimatedEarning;
         TextView tvJobDescription;
-        View btnAccept;
-        View btnDecline;
+        View btnCancel;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -125,8 +131,7 @@ public class BookingRequestAdapter extends RecyclerView.Adapter<BookingRequestAd
             tvServiceCategory = itemView.findViewById(R.id.tvServiceCategory);
             tvEstimatedEarning = itemView.findViewById(R.id.tvEstimatedEarning);
             tvJobDescription = itemView.findViewById(R.id.tvJobDescription);
-            btnAccept = itemView.findViewById(R.id.btnAccept);
-            btnDecline = itemView.findViewById(R.id.btnDecline);
+            btnCancel = itemView.findViewById(R.id.btnCancel);
         }
     }
 }

@@ -159,429 +159,455 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- ======================= -->
-                <!-- ===== ACTIVE SECTION == -->
-                <!-- ======================= -->
                 <LinearLayout
                     android:id="@+id/sectionActive"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:visibility="visible">
 
-                    <!-- ===== IN PROGRESS JOB CARD ===== -->
-                    <LinearLayout
+                    <!-- දත්ත පෙන්වන RecyclerView එක -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvActiveJobs"
                         android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingTop="8dp"
+                        android:clipToPadding="false"/>
+
+                    <!-- Data නැති විට පෙන්වන Text එක -->
+                    <TextView
+                        android:id="@+id/tvEmptyActiveJobs"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/bg_online_card"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <!-- Status Row -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="&#128736;&#65039;"
-                                android:textSize="18sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:text="IN PROGRESS"
-                                android:textColor="@color/lp_cyan"
-                                android:textSize="11sp"
-                                android:textStyle="bold"
-                                android:letterSpacing="0.1"
-                                android:paddingStart="8dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/bg_status_online"
-                                android:paddingStart="10dp"
-                                android:paddingEnd="10dp"
-                                android:paddingTop="4dp"
-                                android:paddingBottom="4dp"
-                                android:text="LIVE"
-                                android:textColor="@color/white"
-                                android:textSize="10sp"
-                                android:textStyle="bold"
-                                android:letterSpacing="0.1" />
-
-                        </LinearLayout>
-
-                        <!-- Divider -->
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="12dp"
-                            android:background="@color/lp_border" />
-
-                        <!-- Job Title -->
-                        <TextView
-                            android:id="@+id/tvActiveJobTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Electrical Wiring Fix"
-                            android:textColor="@color/lp_text_primary"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
-
-                        <!-- Customer -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:layout_marginTop="6dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="&#128100;"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/tvActiveJobCustomer"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=" Amara Perera"
-                                android:textColor="@color/lp_text_secondary"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="  &#8226;  "
-                                android:textColor="@color/lp_text_muted"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="&#128205;"
-                                android:textSize="11sp" />
-
-                            <TextView
-                                android:id="@+id/tvActiveJobLocation"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=" Colombo 5"
-                                android:textColor="@color/lp_text_secondary"
-                                android:textSize="13sp" />
-
-                        </LinearLayout>
-
-                        <!-- Time and Earning Row -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="12dp">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Started"
-                                    android:textColor="@color/lp_text_muted"
-                                    android:textSize="11sp" />
-
-                                <TextView
-                                    android:id="@+id/tvActiveJobStartTime"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="10:30 AM"
-                                    android:textColor="@color/lp_text_primary"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Estimated"
-                                    android:textColor="@color/lp_text_muted"
-                                    android:textSize="11sp" />
-
-                                <TextView
-                                    android:id="@+id/tvActiveJobEarning"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="LKR 3,500"
-                                    android:textColor="@color/lp_green"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
-                            </LinearLayout>
-
-                            <!-- Complete Button -->
-                            <LinearLayout
-                                android:id="@+id/btnMarkComplete"
-                                android:layout_width="wrap_content"
-                                android:layout_height="40dp"
-                                android:background="@drawable/bg_btn_accept"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
-                                android:gravity="center"
-                                android:orientation="horizontal"
-                                android:clickable="true"
-                                android:focusable="true">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="&#10003;  "
-                                    android:textColor="@color/lp_green"
-                                    android:textSize="12sp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Complete"
-                                    android:textColor="@color/lp_green"
-                                    android:textSize="13sp"
-                                    android:textStyle="bold" />
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <!-- ===== CONFIRMED JOB CARD (Active - Tomorrow) ===== -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
-                        android:background="@drawable/bg_card_dark"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <!-- Status Row -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="&#9203;"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:text="CONFIRMED"
-                                android:textColor="@color/lp_amber"
-                                android:textSize="11sp"
-                                android:textStyle="bold"
-                                android:letterSpacing="0.1"
-                                android:paddingStart="8dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/gradient_card_amber"
-                                android:paddingStart="10dp"
-                                android:paddingEnd="10dp"
-                                android:paddingTop="4dp"
-                                android:paddingBottom="4dp"
-                                android:text="Tomorrow"
-                                android:textColor="@color/white"
-                                android:textSize="10sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <!-- Divider -->
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="12dp"
-                            android:background="@color/lp_border" />
-
-                        <TextView
-                            android:id="@+id/tvPendingJobTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Plumbing Repair - Kitchen Sink"
-                            android:textColor="@color/lp_text_primary"
-                            android:textSize="17sp"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:layout_marginTop="6dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="&#128100;"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:id="@+id/tvPendingJobCustomer"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=" Nimal Silva"
-                                android:textColor="@color/lp_text_secondary"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="  &#8226;  "
-                                android:textColor="@color/lp_text_muted"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="&#128197; "
-                                android:textSize="11sp" />
-
-                            <TextView
-                                android:id="@+id/tvPendingJobDate"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Jun 27 at 9:00 AM"
-                                android:textColor="@color/lp_text_secondary"
-                                android:textSize="13sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="12dp"
-                            android:gravity="center_vertical">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_weight="1"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Quoted"
-                                    android:textColor="@color/lp_text_muted"
-                                    android:textSize="11sp" />
-
-                                <TextView
-                                    android:id="@+id/tvPendingJobEarning"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="LKR 2,800"
-                                    android:textColor="@color/lp_green"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/btnStartJob"
-                                android:layout_width="wrap_content"
-                                android:layout_height="40dp"
-                                android:background="@drawable/gradient_card_blue"
-                                android:paddingStart="16dp"
-                                android:paddingEnd="16dp"
-                                android:gravity="center"
-                                android:orientation="horizontal"
-                                android:clickable="true"
-                                android:focusable="true">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="&#9654;  "
-                                    android:textColor="@color/white"
-                                    android:textSize="12sp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Start Job"
-                                    android:textColor="@color/white"
-                                    android:textSize="13sp"
-                                    android:textStyle="bold" />
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <!-- Empty state for Active -->
-                    <LinearLayout
-                        android:id="@+id/emptyActive"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="40dp"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="&#128736;&#65039;"
-                            android:textSize="48sp"
-                            android:gravity="center" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="No Active Jobs"
-                            android:textColor="@color/lp_text_primary"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_marginTop="12dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="You have no active or confirmed bookings right now."
-                            android:textColor="@color/lp_text_muted"
-                            android:textSize="13sp"
-                            android:gravity="center"
-                            android:layout_marginTop="6dp" />
-
-                    </LinearLayout>
-
+                        android:layout_gravity="center"
+                        android:layout_marginTop="50dp"
+                        android:text="No active jobs yet!"
+                        android:visibility="gone"/>
                 </LinearLayout>
+
+                <!-- ======================= -->
+                <!-- ===== ACTIVE SECTION == -->
+                <!-- ======================= -->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/sectionActive"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:visibility="visible">-->
+
+<!--                    &lt;!&ndash; ===== IN PROGRESS JOB CARD ===== &ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="12dp"-->
+<!--                        android:background="@drawable/bg_online_card"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:padding="16dp">-->
+
+<!--                        &lt;!&ndash; Status Row &ndash;&gt;-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:gravity="center_vertical">-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="&#128736;&#65039;"-->
+<!--                                android:textSize="18sp" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="IN PROGRESS"-->
+<!--                                android:textColor="@color/lp_cyan"-->
+<!--                                android:textSize="11sp"-->
+<!--                                android:textStyle="bold"-->
+<!--                                android:letterSpacing="0.1"-->
+<!--                                android:paddingStart="8dp" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:background="@drawable/bg_status_online"-->
+<!--                                android:paddingStart="10dp"-->
+<!--                                android:paddingEnd="10dp"-->
+<!--                                android:paddingTop="4dp"-->
+<!--                                android:paddingBottom="4dp"-->
+<!--                                android:text="LIVE"-->
+<!--                                android:textColor="@color/white"-->
+<!--                                android:textSize="10sp"-->
+<!--                                android:textStyle="bold"-->
+<!--                                android:letterSpacing="0.1" />-->
+
+<!--                        </LinearLayout>-->
+
+<!--                        &lt;!&ndash; Divider &ndash;&gt;-->
+<!--                        <View-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="1dp"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:layout_marginBottom="12dp"-->
+<!--                            android:background="@color/lp_border" />-->
+
+<!--                        &lt;!&ndash; Job Title &ndash;&gt;-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvActiveJobTitle"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Electrical Wiring Fix"-->
+<!--                            android:textColor="@color/lp_text_primary"-->
+<!--                            android:textSize="17sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        &lt;!&ndash; Customer &ndash;&gt;-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:layout_marginTop="6dp">-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="&#128100;"-->
+<!--                                android:textSize="13sp" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/tvActiveJobCustomer"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text=" Amara Perera"-->
+<!--                                android:textColor="@color/lp_text_secondary"-->
+<!--                                android:textSize="13sp" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="  &#8226;  "-->
+<!--                                android:textColor="@color/lp_text_muted"-->
+<!--                                android:textSize="13sp" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="&#128205;"-->
+<!--                                android:textSize="11sp" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/tvActiveJobLocation"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text=" Colombo 5"-->
+<!--                                android:textColor="@color/lp_text_secondary"-->
+<!--                                android:textSize="13sp" />-->
+
+<!--                        </LinearLayout>-->
+
+<!--                        &lt;!&ndash; Time and Earning Row &ndash;&gt;-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:layout_marginTop="12dp">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="Started"-->
+<!--                                    android:textColor="@color/lp_text_muted"-->
+<!--                                    android:textSize="11sp" />-->
+
+<!--                                <TextView-->
+<!--                                    android:id="@+id/tvActiveJobStartTime"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="10:30 AM"-->
+<!--                                    android:textColor="@color/lp_text_primary"-->
+<!--                                    android:textSize="14sp"-->
+<!--                                    android:textStyle="bold" />-->
+
+<!--                            </LinearLayout>-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="Estimated"-->
+<!--                                    android:textColor="@color/lp_text_muted"-->
+<!--                                    android:textSize="11sp" />-->
+
+<!--                                <TextView-->
+<!--                                    android:id="@+id/tvActiveJobEarning"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="LKR 3,500"-->
+<!--                                    android:textColor="@color/lp_green"-->
+<!--                                    android:textSize="14sp"-->
+<!--                                    android:textStyle="bold" />-->
+
+<!--                            </LinearLayout>-->
+
+<!--                            &lt;!&ndash; Complete Button &ndash;&gt;-->
+<!--                            <LinearLayout-->
+<!--                                android:id="@+id/btnMarkComplete"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="40dp"-->
+<!--                                android:background="@drawable/bg_btn_accept"-->
+<!--                                android:paddingStart="16dp"-->
+<!--                                android:paddingEnd="16dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:orientation="horizontal"-->
+<!--                                android:clickable="true"-->
+<!--                                android:focusable="true">-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="&#10003;  "-->
+<!--                                    android:textColor="@color/lp_green"-->
+<!--                                    android:textSize="12sp" />-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="Complete"-->
+<!--                                    android:textColor="@color/lp_green"-->
+<!--                                    android:textSize="13sp"-->
+<!--                                    android:textStyle="bold" />-->
+
+<!--                            </LinearLayout>-->
+
+<!--                        </LinearLayout>-->
+
+<!--                    </LinearLayout>-->
+
+<!--                    &lt;!&ndash; ===== CONFIRMED JOB CARD (Active - Tomorrow) ===== &ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="12dp"-->
+<!--                        android:background="@drawable/bg_card_dark"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:padding="16dp">-->
+
+<!--                        &lt;!&ndash; Status Row &ndash;&gt;-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:gravity="center_vertical">-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="&#9203;"-->
+<!--                                android:textSize="16sp" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="CONFIRMED"-->
+<!--                                android:textColor="@color/lp_amber"-->
+<!--                                android:textSize="11sp"-->
+<!--                                android:textStyle="bold"-->
+<!--                                android:letterSpacing="0.1"-->
+<!--                                android:paddingStart="8dp" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:background="@drawable/gradient_card_amber"-->
+<!--                                android:paddingStart="10dp"-->
+<!--                                android:paddingEnd="10dp"-->
+<!--                                android:paddingTop="4dp"-->
+<!--                                android:paddingBottom="4dp"-->
+<!--                                android:text="Tomorrow"-->
+<!--                                android:textColor="@color/white"-->
+<!--                                android:textSize="10sp"-->
+<!--                                android:textStyle="bold" />-->
+
+<!--                        </LinearLayout>-->
+
+<!--                        &lt;!&ndash; Divider &ndash;&gt;-->
+<!--                        <View-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="1dp"-->
+<!--                            android:layout_marginTop="10dp"-->
+<!--                            android:layout_marginBottom="12dp"-->
+<!--                            android:background="@color/lp_border" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvPendingJobTitle"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="Plumbing Repair - Kitchen Sink"-->
+<!--                            android:textColor="@color/lp_text_primary"-->
+<!--                            android:textSize="17sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:layout_marginTop="6dp">-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="&#128100;"-->
+<!--                                android:textSize="13sp" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/tvPendingJobCustomer"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text=" Nimal Silva"-->
+<!--                                android:textColor="@color/lp_text_secondary"-->
+<!--                                android:textSize="13sp" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="  &#8226;  "-->
+<!--                                android:textColor="@color/lp_text_muted"-->
+<!--                                android:textSize="13sp" />-->
+
+<!--                            <TextView-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="&#128197; "-->
+<!--                                android:textSize="11sp" />-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/tvPendingJobDate"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="Jun 27 at 9:00 AM"-->
+<!--                                android:textColor="@color/lp_text_secondary"-->
+<!--                                android:textSize="13sp" />-->
+
+<!--                        </LinearLayout>-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:layout_marginTop="12dp"-->
+<!--                            android:gravity="center_vertical">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="0dp"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="Quoted"-->
+<!--                                    android:textColor="@color/lp_text_muted"-->
+<!--                                    android:textSize="11sp" />-->
+
+<!--                                <TextView-->
+<!--                                    android:id="@+id/tvPendingJobEarning"-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="LKR 2,800"-->
+<!--                                    android:textColor="@color/lp_green"-->
+<!--                                    android:textSize="14sp"-->
+<!--                                    android:textStyle="bold" />-->
+
+<!--                            </LinearLayout>-->
+
+<!--                            <LinearLayout-->
+<!--                                android:id="@+id/btnStartJob"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="40dp"-->
+<!--                                android:background="@drawable/gradient_card_blue"-->
+<!--                                android:paddingStart="16dp"-->
+<!--                                android:paddingEnd="16dp"-->
+<!--                                android:gravity="center"-->
+<!--                                android:orientation="horizontal"-->
+<!--                                android:clickable="true"-->
+<!--                                android:focusable="true">-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="&#9654;  "-->
+<!--                                    android:textColor="@color/white"-->
+<!--                                    android:textSize="12sp" />-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="Start Job"-->
+<!--                                    android:textColor="@color/white"-->
+<!--                                    android:textSize="13sp"-->
+<!--                                    android:textStyle="bold" />-->
+
+<!--                            </LinearLayout>-->
+
+<!--                        </LinearLayout>-->
+
+<!--                    </LinearLayout>-->
+
+<!--                    &lt;!&ndash; Empty state for Active &ndash;&gt;-->
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/emptyActive"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:gravity="center"-->
+<!--                        android:padding="40dp"-->
+<!--                        android:visibility="gone">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="&#128736;&#65039;"-->
+<!--                            android:textSize="48sp"-->
+<!--                            android:gravity="center" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="No Active Jobs"-->
+<!--                            android:textColor="@color/lp_text_primary"-->
+<!--                            android:textSize="18sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:gravity="center"-->
+<!--                            android:layout_marginTop="12dp" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="You have no active or confirmed bookings right now."-->
+<!--                            android:textColor="@color/lp_text_muted"-->
+<!--                            android:textSize="13sp"-->
+<!--                            android:gravity="center"-->
+<!--                            android:layout_marginTop="6dp" />-->
+
+<!--                    </LinearLayout>-->
+
+<!--                </LinearLayout>-->
 
                 <!-- ========================= -->
                 <!-- ===== COMPLETED SECTION = -->
