@@ -202,7 +202,7 @@
 
         <LinearLayout
             android:id="@+id/btnCancel"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="42dp"
             android:background="@drawable/bg_btn_decline"
             android:gravity="center"
@@ -213,15 +213,26 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="&#10005;  "
+                android:text=" Cancel Booking "
                 android:textColor="@color/lp_red"
-                android:textSize="12sp" />
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/btnStart"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="@drawable/bg_status_offline"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cancel Booking"
-                android:textColor="@color/lp_red"
+                android:text="Start Job"
+                android:textColor="@color/lp_cyan"
                 android:textSize="13sp"
                 android:textStyle="bold" />
         </LinearLayout>

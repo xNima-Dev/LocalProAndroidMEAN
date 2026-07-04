@@ -2,11 +2,6 @@ package com.localpro.localproandroid.models;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Model class representing a customer booking request for a provider.
- * This is a local UI model used to populate the booking requests list
- * in the Provider Dashboard.
- */
 public class BookingRequest {
     @SerializedName("_id")
     private String id;
@@ -47,9 +42,6 @@ public class BookingRequest {
     public double getCustomerLat() { return customerLat; }
     public double getCustomerLon() { return customerLon; }
 
-    /**
-     * Returns the first letter of the customer's name for avatar display.
-     */
     public String getInitial() {
         if (customerName != null && !customerName.isEmpty()) {
             return String.valueOf(customerName.charAt(0)).toUpperCase();
