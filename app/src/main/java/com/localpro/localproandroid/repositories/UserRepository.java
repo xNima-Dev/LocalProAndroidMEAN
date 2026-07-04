@@ -61,4 +61,29 @@ public class UserRepository {
         String token = "Bearer " + prefs.getString("auth_token", "");
         return apiService.getActiveBookings(token);
     }
+
+    public Call<Void> updateStatusRide(String bookingId) {
+        String token = "Bearer " + prefs.getString("auth_token", "");
+        return apiService.updateStatusRide(token, bookingId);
+    }
+
+    public Call<Void> updateStatusArrived(String bookingId) {
+        String token = "Bearer " + prefs.getString("auth_token", "");
+        return apiService.updateStatusArrived(token, bookingId);
+    }
+
+    public Call<Void> updateStatusCompleted(String bookingId) {
+        String token = "Bearer " + prefs.getString("auth_token", "");
+        return apiService.updateStatusCompleted(token, bookingId);
+    }
+
+    public Call<Void> updateStatusPaid(String bookingId) {
+        String token = "Bearer " + prefs.getString("auth_token", "");
+        return apiService.updateStatusPaid(token, bookingId);
+    }
+
+    public Call<Void> updateStatusUnpaid(String bookingId) {
+        String token = "Bearer " + prefs.getString("auth_token", "");
+        return apiService.updateStatusUnpaid(token, bookingId);
+    }
 }

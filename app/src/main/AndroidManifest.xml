@@ -19,6 +19,9 @@
         android:theme="@style/Theme.LocalProAndroid"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".views.JobTrackingActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.ProviderOnboardingActivity"
             android:exported="false" />
         <activity

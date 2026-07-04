@@ -77,4 +77,39 @@ public interface ApiService {
 
     @GET("api/auth/bookings/active")
     Call<BookingResponse> getActiveBookings(@Header("Authorization") String token);
+
+    // Update booking status to 'ride' (provider is on the way)
+    @POST("api/auth/bookings/{bookingId}/ride")
+    Call<Void> updateStatusRide(
+            @Header("Authorization") String token,
+            @Path("bookingId") String bookingId
+    );
+
+    // Update booking status to 'arrived' (provider reached customer location)
+    @POST("api/auth/bookings/{bookingId}/arrived")
+    Call<Void> updateStatusArrived(
+            @Header("Authorization") String token,
+            @Path("bookingId") String bookingId
+    );
+
+    // Update booking status to 'completed' (job done)
+    @POST("api/auth/bookings/{bookingId}/complete")
+    Call<Void> updateStatusCompleted(
+            @Header("Authorization") String token,
+            @Path("bookingId") String bookingId
+    );
+
+    // Update payment status to 'paid'
+    @POST("api/auth/bookings/{bookingId}/paid")
+    Call<Void> updateStatusPaid(
+            @Header("Authorization") String token,
+            @Path("bookingId") String bookingId
+    );
+
+    // Update payment status to 'unpaid'
+    @POST("api/auth/bookings/{bookingId}/unpaid")
+    Call<Void> updateStatusUnpaid(
+            @Header("Authorization") String token,
+            @Path("bookingId") String bookingId
+    );
 }
