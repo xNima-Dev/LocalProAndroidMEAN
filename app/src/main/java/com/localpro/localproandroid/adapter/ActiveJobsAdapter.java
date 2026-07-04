@@ -1,5 +1,6 @@
 package com.localpro.localproandroid.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class ActiveJobsAdapter extends RecyclerView.Adapter<ActiveJobsAdapter.Vi
 
     public interface OnActiveJobActionListener {
         void onCancelJob(BookingRequest request, int position);
+        void onStartJob(BookingRequest request);
     }
 
     private final List<BookingRequest> activeJobs;
@@ -43,14 +45,6 @@ public class ActiveJobsAdapter extends RecyclerView.Adapter<ActiveJobsAdapter.Vi
         notifyDataSetChanged();
     }
 
-    public void removeItem(int position) {
-        if (position >= 0 && position < activeJobs.size()) {
-            activeJobs.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, activeJobs.size());
-        }
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -59,9 +53,8 @@ public class ActiveJobsAdapter extends RecyclerView.Adapter<ActiveJobsAdapter.Vi
         return new ViewHolder(view);
     }
 
-    @android.annotation.SuppressLint("RecyclerView")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         BookingRequest request = activeJobs.get(position);
 
         holder.tvCustomerInitial.setText(request.getInitial());
@@ -70,15 +63,20 @@ public class ActiveJobsAdapter extends RecyclerView.Adapter<ActiveJobsAdapter.Vi
         holder.tvServiceCategory.setText(request.getServiceCategory());
         holder.tvEstimatedEarning.setText(String.valueOf(request.getEstimatedEarning()));
         holder.tvJobDescription.setText(request.getJobDescription());
-        
-        // Format the request time
+
         holder.tvRequestTime.setText(formatDateString(request.getRequestTime()));
 
-        // Cancel action
         holder.btnCancel.setOnClickListener(v -> {
             int pos = holder.getAdapterPosition();
-            if (pos != RecyclerView.NO_ID && listener != null) {
+            if (pos != RecyclerView.NO_POSITION && listener != null) {
                 listener.onCancelJob(activeJobs.get(pos), pos);
+            }
+        });
+
+        holder.btnStart.setOnClickListener(v -> {
+            int pos = holder.getAdapterPosition();
+            if (pos != RecyclerView.NO_POSITION && listener != null) {
+                listener.onStartJob(activeJobs.get(pos));
             }
         });
 
@@ -97,30 +95,20 @@ public class ActiveJobsAdapter extends RecyclerView.Adapter<ActiveJobsAdapter.Vi
 
     private String formatDateString(String dateString) {
         if (dateString == null || dateString.isEmpty()) return "N/A";
-        
         try {
-            // Backend returns ISO format: "2026-07-03T10:00:00.000Z"
             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
             Date date = inputFormat.parse(dateString);
-            
-            // Format to: "03 Jul 2026, 10:00 AM"
             SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault());
             return outputFormat.format(date);
         } catch (ParseException e) {
-            e.printStackTrace();
-            return dateString; // fallback to original string
+            return dateString;
         }
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvCustomerInitial;
-        TextView tvCustomerName;
-        TextView tvCustomerDistance;
-        TextView tvRequestTime;
-        TextView tvServiceCategory;
-        TextView tvEstimatedEarning;
-        TextView tvJobDescription;
-        View btnCancel;
+        TextView tvCustomerInitial, tvCustomerName, tvCustomerDistance, tvRequestTime,
+                tvServiceCategory, tvEstimatedEarning, tvJobDescription;
+        View btnCancel, btnStart;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -132,6 +120,7 @@ public class ActiveJobsAdapter extends RecyclerView.Adapter<ActiveJobsAdapter.Vi
             tvEstimatedEarning = itemView.findViewById(R.id.tvEstimatedEarning);
             tvJobDescription = itemView.findViewById(R.id.tvJobDescription);
             btnCancel = itemView.findViewById(R.id.btnCancel);
+            btnStart = itemView.findViewById(R.id.btnStart);
         }
     }
 }

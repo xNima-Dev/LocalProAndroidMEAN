@@ -1,11 +1,14 @@
 package com.localpro.localproandroid.views.providerDashboard;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.localpro.localproandroid.R;
 import com.localpro.localproandroid.adapter.ActiveJobsAdapter;
+import com.localpro.localproandroid.models.BookingRequest;
 import com.localpro.localproandroid.viewmodels.JobsViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -77,13 +81,14 @@ public class JobsFragment extends Fragment implements ActiveJobsAdapter.OnActive
                 tvEmptyActiveJobs.setVisibility(View.VISIBLE);
             }
         });
-
         // Observe Errors
         jobsViewModel.getErrorMsg().observe(getViewLifecycleOwner(), error -> {
             if (error != null) {
                 Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
         // Tab Click Listeners
         tabActive.setOnClickListener(v -> selectTab(0));
@@ -105,6 +110,13 @@ public class JobsFragment extends Fragment implements ActiveJobsAdapter.OnActive
                 })
                 .setNegativeButton("No", null)
                 .show();
+    }
+
+    @Override
+    public void onStartJob(BookingRequest request) {
+        Intent intent = new Intent(requireContext(), com.localpro.localproandroid.views.JobTrackingActivity.class);
+        intent.putExtra("booking_id", request.getId());
+        startActivity(intent);
     }
 
     private void selectTab(int index) {
