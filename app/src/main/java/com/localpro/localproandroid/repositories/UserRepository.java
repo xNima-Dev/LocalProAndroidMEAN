@@ -29,14 +29,6 @@ public class UserRepository {
         return prefs.getString("provider_email", "N/A");
     }
 
-    //    Api Call
-    public Call<BookingResponse> getBooking() {
-        String token = "Bearer " + prefs.getString("auth_token", "");
-        Log.d("Api check", "sending token: " + token);
-        return apiService.getBookings(token);
-    }
-
-    //    Log Out = clear prefs
     public void clearUserSession() {
         prefs.edit()
                 .remove("auth_token")
@@ -62,6 +54,15 @@ public class UserRepository {
         return apiService.getActiveBookings(token);
     }
 
+    public Call<BookingResponse> getCompletedBookings() {
+        String token = "Bearer " + prefs.getString("auth_token","");
+        return apiService.getCompletedBookings(token);
+    }
+
+    public Call<BookingResponse> getCancelledBookings() {
+        String token = "Bearer " + prefs.getString("auth_token","");
+        return apiService.getCancelledBookings(token);
+    }
     public Call<Void> updateStatusRide(String bookingId) {
         String token = "Bearer " + prefs.getString("auth_token", "");
         return apiService.updateStatusRide(token, bookingId);
