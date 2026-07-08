@@ -3,6 +3,7 @@ package com.localpro.localproandroid.views.providerDashboard;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public class HomeFragment extends Fragment implements BookingRequestAdapter.OnBo
     private Animation pulseAnimation;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -61,14 +62,24 @@ public class HomeFragment extends Fragment implements BookingRequestAdapter.OnBo
         });
         viewModel.loadProviderInfo();
 
+        // RecyclerView Setup
         bookingAdapter = new BookingRequestAdapter(this);
         binding.rvBookingRequests.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvBookingRequests.setAdapter(bookingAdapter);
 
+        viewModel.getErrorMsg().observe(getViewLifecycleOwner(), error -> {
+            if (error != null && !error.isEmpty()) {
+                Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // Bookings LiveData Observe
         viewModel.getBookings().observe(getViewLifecycleOwner(), list -> {
+            Log.d("LocalPro_Debug", "Bookings Observer triggered!");
+            Log.d("LocalPro_Debug", "List size: " + (list != null ? list.size() : "null"));
             bookingAdapter.setRequests(list);
             binding.tvRequestCount.setText(list != null ? list.size() + " New" : "0 New");
-            
+
             if (list == null || list.isEmpty()) {
                 binding.layoutEmptyState.setVisibility(View.VISIBLE);
                 binding.rvBookingRequests.setVisibility(View.GONE);
@@ -77,7 +88,8 @@ public class HomeFragment extends Fragment implements BookingRequestAdapter.OnBo
                 binding.rvBookingRequests.setVisibility(View.VISIBLE);
             }
         });
-        viewModel.loadBookingRequests();
+
+        viewModel.loadBookingRequests("pending");
 
         pulseAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.pulse_animation);
         setupOnlineToggle();

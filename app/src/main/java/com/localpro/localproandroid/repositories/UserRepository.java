@@ -39,6 +39,11 @@ public class UserRepository {
                 .apply();
     }
 
+    public Call<BookingResponse> getPendingBookings() {
+        String token = "Bearer " + prefs.getString("auth_token", "");
+        return apiService.getPendingBookings(token);
+    }
+
     public Call<Void> acceptBooking(String bookingId) {
         String token = "Bearer " + prefs.getString("auth_token", "");
         return apiService.acceptBooking(token, bookingId);

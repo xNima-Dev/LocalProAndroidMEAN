@@ -36,7 +36,7 @@ public class JobsViewModel extends ViewModel {
         return activeJobs;
     }
     public LiveData<List<BookingRequest>> getCompletedJobs() { return completedJobs; }
-    public LiveData<List<BookingRequest>> getCancelledJobs() { return completedJobs; }
+    public LiveData<List<BookingRequest>> getCancelledJobs() { return cancelledJobs; }
     public LiveData<Boolean> getIsLoading() { return isLoading; }
     public LiveData<String> getErrorMsg() {
         return errorMsg;

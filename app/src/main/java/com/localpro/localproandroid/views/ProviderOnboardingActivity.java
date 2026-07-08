@@ -80,6 +80,16 @@ public class ProviderOnboardingActivity extends AppCompatActivity {
                 String userId = sharedPrefs.getString("user_id", "");
                 SharedPreferences.Editor editor = sharedPrefs.edit();
                 editor.putBoolean("is_onboarded_" + userId, true);
+
+                // Cache category and bio so Profile screen can display them
+                String cat = viewModel.getCategory().getValue();
+                String bio = viewModel.getBio().getValue();
+                if (cat != null && !cat.trim().isEmpty()) {
+                    editor.putString("provider_category", cat.trim());
+                }
+                if (bio != null && !bio.trim().isEmpty()) {
+                    editor.putString("provider_bio", bio.trim());
+                }
                 editor.apply();
 
                 // Navigate to dashboard

@@ -7,7 +7,7 @@ public class BookingResponse {
     public String status;
     public int results;
 
-    @SerializedName("data")
+    @SerializedName(value = "data", alternate = {"bookings"})
     public List<BookingRequest> data;
 
     public List<BookingRequest> getBookings() {

@@ -75,6 +75,8 @@ public interface ApiService {
             @Path("bookingId") String bookingId
     );
 
+    @GET("api/auth/bookings/pending")
+    Call<BookingResponse> getPendingBookings(@Header("Authorization") String token);
     @GET("api/auth/bookings/active")
     Call<BookingResponse> getActiveBookings(@Header("Authorization") String token);
 

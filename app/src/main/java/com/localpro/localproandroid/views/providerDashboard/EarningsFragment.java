@@ -7,23 +7,30 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.localpro.localproandroid.R;
+import com.localpro.localproandroid.viewmodels.EarningsViewModel;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class EarningsFragment extends Fragment {
 
     private TextView tabWeek, tabMonth, tabYear;
     private LinearLayout sectionWeek, sectionMonth, sectionYear;
+    private EarningsViewModel earningsViewModel;
 
-    public EarningsFragment() {
-        // Required empty public constructor
-    }
+    private TextView tvTotalBalance, tvMonthEarning, tvMonthJobs, tvAvgPerJob;
+
+    public EarningsFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,6 +42,8 @@ public class EarningsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        earningsViewModel = new ViewModelProvider(this).get(EarningsViewModel.class);
+
         // Tabs
         tabWeek = view.findViewById(R.id.tabWeek);
         tabMonth = view.findViewById(R.id.tabMonth);
@@ -45,12 +54,46 @@ public class EarningsFragment extends Fragment {
         sectionMonth = view.findViewById(R.id.sectionMonth);
         sectionYear = view.findViewById(R.id.sectionYear);
 
+        // Balance headline
+        tvTotalBalance = view.findViewById(R.id.tvTotalBalance);
+
+        // Month section views
+        tvMonthEarning = view.findViewById(R.id.tvMonthEarning);
+        tvMonthJobs = view.findViewById(R.id.tvMonthJobs);
+        tvAvgPerJob = view.findViewById(R.id.tvAvgPerJob);
+
         // Click Listeners
         tabWeek.setOnClickListener(v -> selectTab(0));
         tabMonth.setOnClickListener(v -> selectTab(1));
         tabYear.setOnClickListener(v -> selectTab(2));
-        
-        // Default selection (Month is the default in the layout, so let's select it)
+
+        // Observe
+        earningsViewModel.getTotalBalance().observe(getViewLifecycleOwner(), bal -> {
+            tvTotalBalance.setText(String.format("LKR %.2f", bal));
+        });
+
+        earningsViewModel.getMonthEarnings().observe(getViewLifecycleOwner(), earn -> {
+            tvMonthEarning.setText(String.format("LKR %.0f", earn));
+        });
+
+        earningsViewModel.getMonthJobs().observe(getViewLifecycleOwner(), count -> {
+            tvMonthJobs.setText(count + " Jobs");
+        });
+
+        earningsViewModel.getAvgPerJob().observe(getViewLifecycleOwner(), avg -> {
+            tvAvgPerJob.setText(String.format("LKR %.0f", avg));
+        });
+
+        earningsViewModel.getErrorMsg().observe(getViewLifecycleOwner(), err -> {
+            if (err != null && !err.isEmpty()) {
+                Toast.makeText(requireContext(), err, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Load real data
+        earningsViewModel.loadEarnings();
+
+        // Default selection
         selectTab(1);
     }
 
@@ -83,7 +126,7 @@ public class EarningsFragment extends Fragment {
     }
 
     private void resetTab(TextView tab) {
-        tab.setBackgroundResource(0); // clear background
+        tab.setBackgroundResource(0);
         if (getContext() != null) {
             tab.setTextColor(ContextCompat.getColor(getContext(), R.color.lp_text_muted));
         }

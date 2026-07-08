@@ -1,17 +1,10 @@
 package com.localpro.localproandroid.views.providerDashboard;
 
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.localpro.localproandroid.R;
 import com.localpro.localproandroid.adapter.ActiveJobsAdapter;
+import com.localpro.localproandroid.adapter.CompletedJobsAdapter;
+import com.localpro.localproandroid.adapter.CancelledJobsAdapter;
 import com.localpro.localproandroid.models.BookingRequest;
 import com.localpro.localproandroid.viewmodels.JobsViewModel;
 
@@ -31,14 +26,16 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class JobsFragment extends Fragment implements ActiveJobsAdapter.OnActiveJobActionListener {
 
+    // Views
+    private RecyclerView rvActiveJobs, rvCompletedJobs, rvCancelledJobs;
+    private TextView tvEmptyJobs;
     private TextView tabActive, tabCompleted, tabCancelled;
-    private LinearLayout sectionActive, sectionCompleted, sectionCancelled;
-
-    private RecyclerView rvActiveJobs;
-    private TextView tvEmptyActiveJobs;
 
     private JobsViewModel jobsViewModel;
     private ActiveJobsAdapter activeJobsAdapter;
+    private CompletedJobsAdapter completedJobsAdapter;
+    private CancelledJobsAdapter cancelledJobsAdapter;
+    private int currentTab = 0;
 
     public JobsFragment() { }
 
@@ -52,108 +49,112 @@ public class JobsFragment extends Fragment implements ActiveJobsAdapter.OnActive
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // ViewModel Initialize
         jobsViewModel = new ViewModelProvider(this).get(JobsViewModel.class);
 
-        // UI Components
+        // 1. View Initialization
+        rvActiveJobs = view.findViewById(R.id.rvActiveJobs);
+        rvCompletedJobs = view.findViewById(R.id.rvCompletedJobs);
+        rvCancelledJobs = view.findViewById(R.id.rvCancelledJobs);
+        tvEmptyJobs = view.findViewById(R.id.tvEmptyJobs);
+
+        // Header Tabs (මේ IDs ඔයාගේ XML එකේ තියෙන්න ඕනේ)
         tabActive = view.findViewById(R.id.tabActive);
         tabCompleted = view.findViewById(R.id.tabCompleted);
         tabCancelled = view.findViewById(R.id.tabCancelled);
-        sectionActive = view.findViewById(R.id.sectionActive);
-        sectionCompleted = view.findViewById(R.id.sectionCompleted);
-        sectionCancelled = view.findViewById(R.id.sectionCancelled);
-        rvActiveJobs = view.findViewById(R.id.rvActiveJobs);
-        tvEmptyActiveJobs = view.findViewById(R.id.tvEmptyActiveJobs);
 
-        // RecyclerView Setup
-        rvActiveJobs.setLayoutManager(new LinearLayoutManager(requireContext()));
+        // 2. Adapters Setup
         activeJobsAdapter = new ActiveJobsAdapter(this);
+        completedJobsAdapter = new CompletedJobsAdapter();
+        cancelledJobsAdapter = new CancelledJobsAdapter();
+
+        rvActiveJobs.setLayoutManager(new LinearLayoutManager(requireContext()));
+        rvCompletedJobs.setLayoutManager(new LinearLayoutManager(requireContext()));
+        rvCancelledJobs.setLayoutManager(new LinearLayoutManager(requireContext()));
+
         rvActiveJobs.setAdapter(activeJobsAdapter);
+        rvCompletedJobs.setAdapter(completedJobsAdapter);
+        rvCancelledJobs.setAdapter(cancelledJobsAdapter);
 
-        // Observe Active Jobs from ViewModel
-        jobsViewModel.getActiveJobs().observe(getViewLifecycleOwner(), jobsList -> {
-            if (jobsList != null && !jobsList.isEmpty()) {
-                activeJobsAdapter.setJobs(jobsList);
-                rvActiveJobs.setVisibility(View.VISIBLE);
-                tvEmptyActiveJobs.setVisibility(View.GONE);
-            } else {
-                rvActiveJobs.setVisibility(View.GONE);
-                tvEmptyActiveJobs.setVisibility(View.VISIBLE);
-            }
-        });
-        // Observe Errors
-        jobsViewModel.getErrorMsg().observe(getViewLifecycleOwner(), error -> {
-            if (error != null) {
-                Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-
-        // Tab Click Listeners
+        // 3. Tab Click Listeners
         tabActive.setOnClickListener(v -> selectTab(0));
         tabCompleted.setOnClickListener(v -> selectTab(1));
         tabCancelled.setOnClickListener(v -> selectTab(2));
 
-        // Default: Active tab
+        // 4. Data Observation (ViewModel)
+        jobsViewModel.getActiveJobs().observe(getViewLifecycleOwner(), list -> {
+            activeJobsAdapter.setJobs(list);
+            if (currentTab == 0) {
+                updateEmptyState(list == null || list.isEmpty());
+            }
+        });
+
+        jobsViewModel.getCompletedJobs().observe(getViewLifecycleOwner(), list -> {
+            completedJobsAdapter.setJobsList(list);
+            if (currentTab == 1) {
+                updateEmptyState(list == null || list.isEmpty());
+            }
+        });
+
+        jobsViewModel.getCancelledJobs().observe(getViewLifecycleOwner(), list -> {
+            cancelledJobsAdapter.setJobsList(list);
+            if (currentTab == 2) {
+                updateEmptyState(list == null || list.isEmpty());
+            }
+        });
+
+        // Default: Active tab එක පෙන්වන්න
         selectTab(0);
     }
 
-    // Called when "Cancel Booking" is pressed in the adapter
+    private void selectTab(int index) {
+        currentTab = index;
+        // Tab UI එක වෙනස් කරන්න
+        resetTabStyles();
+        if (index == 0) {
+            tabActive.setTextColor(getResources().getColor(R.color.lp_green));
+            jobsViewModel.loadActiveJobs();
+        } else if (index == 1) {
+            tabCompleted.setTextColor(getResources().getColor(R.color.lp_green));
+            jobsViewModel.loadCompletedJobs();
+        } else if (index == 2) {
+            tabCancelled.setTextColor(getResources().getColor(R.color.lp_green));
+            jobsViewModel.loadCancelledJobs();
+        }
+
+        // RecyclerViews පෙන්වන්න/සඟවන්න
+        rvActiveJobs.setVisibility(index == 0 ? View.VISIBLE : View.GONE);
+        rvCompletedJobs.setVisibility(index == 1 ? View.VISIBLE : View.GONE);
+        rvCancelledJobs.setVisibility(index == 2 ? View.VISIBLE : View.GONE);
+    }
+
+    private void resetTabStyles() {
+        tabActive.setTextColor(getResources().getColor(R.color.lp_text_muted));
+        tabCompleted.setTextColor(getResources().getColor(R.color.lp_text_muted));
+        tabCancelled.setTextColor(getResources().getColor(R.color.lp_text_muted));
+    }
+
+    private void updateEmptyState(boolean isEmpty) {
+        tvEmptyJobs.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
+    }
+
     @Override
-    public void onCancelJob(com.localpro.localproandroid.models.BookingRequest request, int position) {
-        new AlertDialog.Builder(requireContext())
-                .setTitle("Cancel Booking")
-                .setMessage("Are you sure you want to cancel this job?")
-                .setPositiveButton("Yes, Cancel", (dialog, which) -> {
-                    jobsViewModel.cancelActiveJob(request);
-                })
-                .setNegativeButton("No", null)
-                .show();
+    public void onCancelJob(BookingRequest request, int position) {
+        jobsViewModel.cancelActiveJob(request);
     }
 
     @Override
     public void onStartJob(BookingRequest request) {
-        Intent intent = new Intent(requireContext(), com.localpro.localproandroid.views.JobTrackingActivity.class);
+        android.content.Intent intent = new android.content.Intent(requireContext(), com.localpro.localproandroid.views.JobTrackingActivity.class);
         intent.putExtra("booking_id", request.getId());
+        intent.putExtra("booking_status", request.getStatus());
+        intent.putExtra("customer_name", request.getCustomerName());
+        intent.putExtra("customer_phone", request.getCustomerPhone());
+        intent.putExtra("customer_initial", request.getInitial());
+        intent.putExtra("service_category", request.getServiceCategory());
+        intent.putExtra("distance_text", request.getDistanceText());
+        intent.putExtra("estimated_earning", request.getEstimatedEarning());
+        intent.putExtra("customer_lat", request.getCustomerLat());
+        intent.putExtra("customer_lon", request.getCustomerLon());
         startActivity(intent);
-    }
-
-    private void selectTab(int index) {
-        resetTab(tabActive);
-        resetTab(tabCompleted);
-        resetTab(tabCancelled);
-
-        sectionActive.setVisibility(View.GONE);
-        sectionCompleted.setVisibility(View.GONE);
-        sectionCancelled.setVisibility(View.GONE);
-
-        switch (index) {
-            case 0:
-                activeTab(tabActive, R.drawable.gradient_card_blue);
-                sectionActive.setVisibility(View.VISIBLE);
-                jobsViewModel.loadActiveJobs(); // Refresh data on tab open
-                break;
-            case 1:
-                activeTab(tabCompleted, R.drawable.gradient_card_blue);
-                sectionCompleted.setVisibility(View.VISIBLE);
-                break;
-            case 2:
-                activeTab(tabCancelled, R.drawable.gradient_card_blue);
-                sectionCancelled.setVisibility(View.VISIBLE);
-                break;
-        }
-    }
-
-    private void resetTab(TextView tab) {
-        tab.setBackgroundResource(0);
-        if (getContext() != null) {
-            tab.setTextColor(ContextCompat.getColor(getContext(), R.color.lp_text_muted));
-        }
-    }
-
-    private void activeTab(TextView tab, int backgroundRes) {
-        tab.setBackgroundResource(backgroundRes);
-        tab.setTextColor(Color.WHITE);
     }
 }

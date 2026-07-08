@@ -14,7 +14,10 @@ import com.localpro.localproandroid.R;
 import com.localpro.localproandroid.models.BookingRequest;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 
 public class BookingRequestAdapter extends RecyclerView.Adapter<BookingRequestAdapter.ViewHolder> {
@@ -66,11 +69,32 @@ public class BookingRequestAdapter extends RecyclerView.Adapter<BookingRequestAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         BookingRequest request = requests.get(position);
 
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy, hh:mm a", Locale.getDefault());
         // Set data
         holder.tvCustomerInitial.setText(request.getInitial());
         holder.tvCustomerName.setText(request.getCustomerName());
         holder.tvCustomerDistance.setText(request.getDistanceText());
-        holder.tvRequestTime.setText(request.getRequestTime());
+        String dateString = request.getRequestTime();
+        if (dateString != null && !dateString.trim().isEmpty()) {
+            try {
+                java.text.DateFormat inputFormat;
+                if (dateString.contains(".")) {
+                    inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+                } else {
+                    inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+                }
+                Date date = inputFormat.parse(dateString);
+                if (date != null) {
+                    holder.tvRequestTime.setText(sdf.format(date));
+                } else {
+                    holder.tvRequestTime.setText(dateString);
+                }
+            } catch (Exception e) {
+                holder.tvRequestTime.setText(dateString);
+            }
+        } else {
+            holder.tvRequestTime.setText("N/A");
+        }
         holder.tvServiceCategory.setText(request.getServiceCategory());
         holder.tvEstimatedEarning.setText(request.getEstimatedEarning());
         holder.tvJobDescription.setText(request.getJobDescription());

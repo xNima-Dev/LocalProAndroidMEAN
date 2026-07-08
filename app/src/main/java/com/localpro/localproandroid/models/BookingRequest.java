@@ -14,7 +14,7 @@ public class BookingRequest {
     private String estimatedEarning;
     private String requestTime;
 
-    @SerializedName("jobStatus")
+    @SerializedName(value = "status", alternate = {"jobStatus"})
     private String jobStatus;       // "pending" | "accepted" | "riding" | "arrived" | "completed"
 
     @SerializedName("paymentStatus")

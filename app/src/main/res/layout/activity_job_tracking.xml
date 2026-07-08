@@ -145,6 +145,20 @@
             android:textSize="11sp" />
     </LinearLayout>
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabNavigate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="300dp"
+        android:backgroundTint="@color/lp_cyan"
+        android:textColor="@color/white"
+        android:text="NAVIGATE"
+        app:icon="@android:drawable/ic_menu_directions"
+        app:iconTint="@color/white"
+        app:elevation="6dp" />
+
     <!-- ===== BOTTOM PANEL (sliding up from bottom) ===== -->
     <LinearLayout
         android:id="@+id/layoutBottomPanel"

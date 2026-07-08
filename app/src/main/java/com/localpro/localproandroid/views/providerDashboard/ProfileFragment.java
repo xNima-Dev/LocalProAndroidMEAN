@@ -1,66 +1,93 @@
 package com.localpro.localproandroid.views.providerDashboard;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.localpro.localproandroid.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import static android.content.Context.MODE_PRIVATE;
+
 public class ProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    public ProfileFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        SharedPreferences prefs = requireContext().getSharedPreferences("LocalProPrefs", MODE_PRIVATE);
+        String name = prefs.getString("provider_name", "Provider");
+        String email = prefs.getString("provider_email", "N/A");
+
+        // Initials
+        TextView tvProfileInitials = view.findViewById(R.id.tvProfileInitials);
+        if (name != null && !name.trim().isEmpty()) {
+            tvProfileInitials.setText(String.valueOf(name.trim().charAt(0)).toUpperCase());
+        } else {
+            tvProfileInitials.setText("P");
+        }
+
+        // Name
+        TextView tvProfileName = view.findViewById(R.id.tvProfileName);
+        tvProfileName.setText(name);
+
+        // Email
+        TextView tvProfileEmail = view.findViewById(R.id.tvProfileEmail);
+        tvProfileEmail.setText(email);
+
+        // Category from SharedPreferences (saved during onboarding)
+        String category = prefs.getString("provider_category", null);
+        TextView tvProfileCategory = view.findViewById(R.id.tvProfileCategory);
+        if (category != null && !category.trim().isEmpty()) {
+            tvProfileCategory.setText("🔧 " + category);
+        }
+
+        // Phone
+        String phone = prefs.getString("provider_phone", null);
+        TextView tvProfilePhone = view.findViewById(R.id.tvProfilePhone);
+        if (phone != null && !phone.trim().isEmpty()) {
+            tvProfilePhone.setText(phone);
+        } else {
+            tvProfilePhone.setText("Not set");
+        }
+
+        // Stats: member since (rough estimate from user_id saved time)
+        TextView tvStatMemberSince = view.findViewById(R.id.tvStatMemberSince);
+        tvStatMemberSince.setText("2026");
+
+        // Jobs done and rating from prefs if saved, otherwise show defaults
+        TextView tvStatJobsDone = view.findViewById(R.id.tvStatJobsDone);
+        int jobsDone = prefs.getInt("total_jobs_done", 0);
+        tvStatJobsDone.setText(String.valueOf(jobsDone));
+
+        TextView tvStatRating = view.findViewById(R.id.tvStatRating);
+        float rating = prefs.getFloat("provider_rating", 0f);
+        if (rating > 0) {
+            tvStatRating.setText(String.format("%.1f", rating));
+        } else {
+            tvStatRating.setText("--");
+        }
+
+        // Bio
+        TextView tvProfileBio = view.findViewById(R.id.tvProfileBio);
+        String bio = prefs.getString("provider_bio", null);
+        if (bio != null && !bio.trim().isEmpty()) {
+            tvProfileBio.setText(bio);
+        }
     }
 }

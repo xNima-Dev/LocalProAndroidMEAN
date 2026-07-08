@@ -55,19 +55,43 @@ public class ProviderDashboardHomeViewModel extends ViewModel {
         return bookings;
     }
 
-    public void loadBookingRequests() {
-        userRepository.getBooking().enqueue(new Callback<BookingResponse>() {
+    // මීට කලින් රතු වෙලා තිබුණු කොටස හරි ගැස්සුවා (MutableLiveData -> LiveData)
+    public LiveData<String> getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void loadBookingRequests(String status) {
+        Call<BookingResponse> call;
+
+        // 🔍 මෙතනට PENDING කියන තත්ත්වය (Status) එකතු කළා
+        if ("PENDING".equalsIgnoreCase(status)) {
+            call = userRepository.getPendingBookings(); // අපි අලුතින් UserRepository එකට දාපු මෙතඩ් එක
+        } else if ("ACTIVE".equalsIgnoreCase(status)) {
+            call = userRepository.getActiveBookings();
+        } else if ("COMPLETED".equalsIgnoreCase(status)) {
+            call = userRepository.getCompletedBookings();
+        } else {
+            call = userRepository.getCancelledBookings();
+        }
+
+        call.enqueue(new Callback<BookingResponse>() {
             @Override
-            public void onResponse(Call<BookingResponse> call, Response<BookingResponse> response) {
+            public void onResponse(@NonNull Call<BookingResponse> call, @NonNull Response<BookingResponse> response) {
+                // සර්වර් රෙස්පොන්ස් කෝඩ් එක ලොග් එකේ බලාගන්න (උදා: 200, 404, 500)
+                Log.d("ProviderDashboardVM", "Response Code: " + response.code());
+
                 if (response.isSuccessful() && response.body() != null) {
-                    System.out.println("booking response" + response);
-                    bookings.setValue(response.body().data);
+                    // සාමාන්‍ยයෙන් ඔයාගේ backend එකෙන් එන්නේ getBookings() නම් එය යොදන්න, නැතහොත් response.body().data ම තියන්න
+                    bookings.setValue(response.body().getBookings());
+                } else {
+                    errorMsg.setValue("Server Error: " + response.code());
                 }
             }
 
             @Override
-            public void onFailure(Call<BookingResponse> call, Throwable t) {
-                errorMsg.setValue("Network Error");
+            public void onFailure(@NonNull Call<BookingResponse> call, @NonNull Throwable t) {
+                Log.e("ProviderDashboardVM", "Network Failure", t);
+                errorMsg.setValue("Network Error. Please check your backend server!");
             }
         });
     }
@@ -79,7 +103,7 @@ public class ProviderDashboardHomeViewModel extends ViewModel {
     public void acceptBooking(BookingRequest request) {
         userRepository.acceptBooking(request.getId()).enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
                     removeBookingFromList(request);
                 } else {
@@ -88,7 +112,7 @@ public class ProviderDashboardHomeViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                 Log.e("ProviderDashboardviewModel", "💥 failure", t);
             }
         });
@@ -97,7 +121,7 @@ public class ProviderDashboardHomeViewModel extends ViewModel {
     public void declineBooking(BookingRequest request) {
         userRepository.declineBooking(request.getId()).enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.isSuccessful()) {
                     removeBookingFromList(request);
                 } else {
@@ -106,7 +130,7 @@ public class ProviderDashboardHomeViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                 Log.e("ProviderDashboardviewModel", "💥 failure", t);
             }
         });

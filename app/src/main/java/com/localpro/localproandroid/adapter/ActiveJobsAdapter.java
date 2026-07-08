@@ -66,6 +66,13 @@ public class ActiveJobsAdapter extends RecyclerView.Adapter<ActiveJobsAdapter.Vi
 
         holder.tvRequestTime.setText(formatDateString(request.getRequestTime()));
 
+        String status = request.getJobStatus();
+        if ("ride".equalsIgnoreCase(status) || "riding".equalsIgnoreCase(status) || "arrived".equalsIgnoreCase(status)) {
+            holder.tvStartLabel.setText("Track Job");
+        } else {
+            holder.tvStartLabel.setText("Start Job");
+        }
+
         holder.btnCancel.setOnClickListener(v -> {
             int pos = holder.getAdapterPosition();
             if (pos != RecyclerView.NO_POSITION && listener != null) {
@@ -107,7 +114,7 @@ public class ActiveJobsAdapter extends RecyclerView.Adapter<ActiveJobsAdapter.Vi
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvCustomerInitial, tvCustomerName, tvCustomerDistance, tvRequestTime,
-                tvServiceCategory, tvEstimatedEarning, tvJobDescription;
+                tvServiceCategory, tvEstimatedEarning, tvJobDescription, tvStartLabel;
         View btnCancel, btnStart;
 
         ViewHolder(@NonNull View itemView) {
@@ -119,6 +126,7 @@ public class ActiveJobsAdapter extends RecyclerView.Adapter<ActiveJobsAdapter.Vi
             tvServiceCategory = itemView.findViewById(R.id.tvServiceCategory);
             tvEstimatedEarning = itemView.findViewById(R.id.tvEstimatedEarning);
             tvJobDescription = itemView.findViewById(R.id.tvJobDescription);
+            tvStartLabel = itemView.findViewById(R.id.tvStartLabel);
             btnCancel = itemView.findViewById(R.id.btnCancel);
             btnStart = itemView.findViewById(R.id.btnStart);
         }
