@@ -26,8 +26,19 @@ public class BookingRequest {
     @SerializedName("earning")
     private double earning;
 
-    private double customerLat;
-    private double customerLon;
+    @SerializedName("customerLocation")
+    private CustomerLocation customerLocation;
+
+    public static class CustomerLocation {
+        @SerializedName("type")
+        private String type;
+        @SerializedName("coordinates")
+        private java.util.List<Double> coordinates; // [longitude, latitude]
+
+        public java.util.List<Double> getCoordinates() {
+            return coordinates;
+        }
+    }
 
     public BookingRequest() {
     }
@@ -50,8 +61,12 @@ public class BookingRequest {
         this.paymentStatus = paymentStatus;
         this.rating = rating;
         this.earning = earning;
-        this.customerLat = customerLat;
-        this.customerLon = customerLon;
+        
+        this.customerLocation = new CustomerLocation();
+        this.customerLocation.type = "Point";
+        this.customerLocation.coordinates = new java.util.ArrayList<>();
+        this.customerLocation.coordinates.add(customerLon); // Longitude is index 0
+        this.customerLocation.coordinates.add(customerLat); // Latitude is index 1
     }
 
     public String getId() { return id; }
@@ -95,11 +110,19 @@ public class BookingRequest {
     public double getEarning() { return earning; }
     public void setEarning(double earning) { this.earning = earning; }
 
-    public double getCustomerLat() { return customerLat; }
-    public void setCustomerLat(double customerLat) { this.customerLat = customerLat; }
+    public double getCustomerLat() {
+        if (customerLocation != null && customerLocation.getCoordinates() != null && customerLocation.getCoordinates().size() > 1) {
+            return customerLocation.getCoordinates().get(1); // Latitude is index 1
+        }
+        return 0.0;
+    }
 
-    public double getCustomerLon() { return customerLon; }
-    public void setCustomerLon(double customerLon) { this.customerLon = customerLon; }
+    public double getCustomerLon() {
+        if (customerLocation != null && customerLocation.getCoordinates() != null && customerLocation.getCoordinates().size() > 0) {
+            return customerLocation.getCoordinates().get(0); // Longitude is index 0
+        }
+        return 0.0;
+    }
 
     public String getInitial() {
         if (customerName != null && !customerName.isEmpty()) {
