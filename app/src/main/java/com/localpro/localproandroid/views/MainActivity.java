@@ -106,6 +106,12 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("provider_email", enteredEmail);
                 editor.putString("provider_name", savedName);
 
+                // Save phone number from server if available
+                String apiPhone = authResponse.getUser().getPhoneNumber();
+                if (apiPhone != null && !apiPhone.isEmpty()) {
+                    editor.putString("provider_phone", apiPhone);
+                }
+
                 boolean isOnboardedFromServer = false;
                 if (userId != null) {
                     editor.putString("user_id", userId);

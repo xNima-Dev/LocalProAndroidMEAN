@@ -22,6 +22,7 @@ public class AuthResponse {
         private String name;
         private String email;
         private String role;
+        private String phoneNumber;
         private Object providerProfile;
 
         public String getId() {
@@ -35,6 +36,9 @@ public class AuthResponse {
         }
         public String getRole() {
             return role;
+        }
+        public String getPhoneNumber() {
+            return phoneNumber;
         }
         public Object getProviderProfile() {
             return providerProfile;

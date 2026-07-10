@@ -8,6 +8,7 @@ import com.localpro.localproandroid.models.LoginRequest;
 import com.localpro.localproandroid.models.OnboardingResponse;
 import com.localpro.localproandroid.models.ProviderListResponse;
 import com.localpro.localproandroid.models.RegisterRequest;
+import com.localpro.localproandroid.models.ProfileRequest;
 
 import java.util.List;
 
@@ -119,5 +120,11 @@ public interface ApiService {
     Call<Void> updateStatusUnpaid(
             @Header("Authorization") String token,
             @Path("bookingId") String bookingId
+    );
+
+    @PUT("api/auth/profile")
+    Call<AuthResponse> updateProfile(
+            @Header("Authorization") String token,
+            @Body ProfileRequest profileRequest
     );
 }

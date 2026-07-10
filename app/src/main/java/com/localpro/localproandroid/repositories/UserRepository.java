@@ -92,4 +92,18 @@ public class UserRepository {
         String token = "Bearer " + prefs.getString("auth_token", "");
         return apiService.updateStatusUnpaid(token, bookingId);
     }
+
+    public Call<com.localpro.localproandroid.models.AuthResponse> updateProfile(String name, String phone, String bio, Double hourlyRate) {
+        String token = "Bearer " + prefs.getString("auth_token", "");
+        com.localpro.localproandroid.models.ProfileRequest request = new com.localpro.localproandroid.models.ProfileRequest(name, phone, bio, hourlyRate);
+        return apiService.updateProfile(token, request);
+    }
+
+    public void saveUserProfile(String name, String phone, String bio) {
+        prefs.edit()
+                .putString("provider_name", name)
+                .putString("provider_phone", phone)
+                .putString("provider_bio", bio)
+                .apply();
+    }
 }

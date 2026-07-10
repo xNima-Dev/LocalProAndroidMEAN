@@ -92,8 +92,17 @@ public class EarningsViewModel extends ViewModel {
             String requestTime = booking.getRequestTime();
             if (requestTime != null) {
                 try {
-                    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", java.util.Locale.getDefault());
-                    java.util.Date date = sdf.parse(requestTime);
+                    String cleanTime = requestTime;
+                    if (cleanTime.endsWith("+00:00")) {
+                        cleanTime = cleanTime.substring(0, cleanTime.length() - 6) + "Z";
+                    }
+                    java.text.DateFormat sdf;
+                    if (cleanTime.contains(".")) {
+                        sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", java.util.Locale.getDefault());
+                    } else {
+                        sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.getDefault());
+                    }
+                    java.util.Date date = sdf.parse(cleanTime);
                     if (date != null) {
                         Calendar cal = Calendar.getInstance();
                         cal.setTime(date);

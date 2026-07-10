@@ -252,6 +252,7 @@
                                 android:textSize="22sp" />
 
                             <TextView
+                                android:id="@+id/tvWeekEarning"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="LKR 3,600"
@@ -287,6 +288,7 @@
                                 android:textSize="22sp" />
 
                             <TextView
+                                android:id="@+id/tvWeekJobs"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="4 Jobs"

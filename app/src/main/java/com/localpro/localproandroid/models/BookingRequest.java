@@ -23,7 +23,7 @@ public class BookingRequest {
     @SerializedName("rating")
     private double rating;
 
-    @SerializedName("earning")
+    @SerializedName(value = "earning", alternate = {"estimatedEarning"})
     private double earning;
 
     @SerializedName("customerLocation")

@@ -29,6 +29,7 @@ public class EarningsFragment extends Fragment {
     private EarningsViewModel earningsViewModel;
 
     private TextView tvTotalBalance, tvMonthEarning, tvMonthJobs, tvAvgPerJob;
+    private TextView tvWeekEarning, tvWeekJobs;
 
     public EarningsFragment() {}
 
@@ -62,6 +63,10 @@ public class EarningsFragment extends Fragment {
         tvMonthJobs = view.findViewById(R.id.tvMonthJobs);
         tvAvgPerJob = view.findViewById(R.id.tvAvgPerJob);
 
+        // Week section views
+        tvWeekEarning = view.findViewById(R.id.tvWeekEarning);
+        tvWeekJobs = view.findViewById(R.id.tvWeekJobs);
+
         // Click Listeners
         tabWeek.setOnClickListener(v -> selectTab(0));
         tabMonth.setOnClickListener(v -> selectTab(1));
@@ -70,6 +75,14 @@ public class EarningsFragment extends Fragment {
         // Observe
         earningsViewModel.getTotalBalance().observe(getViewLifecycleOwner(), bal -> {
             tvTotalBalance.setText(String.format("LKR %.2f", bal));
+        });
+
+        earningsViewModel.getWeekEarnings().observe(getViewLifecycleOwner(), earn -> {
+            tvWeekEarning.setText(String.format("LKR %.0f", earn));
+        });
+
+        earningsViewModel.getWeekJobs().observe(getViewLifecycleOwner(), count -> {
+            tvWeekJobs.setText(count + " Jobs");
         });
 
         earningsViewModel.getMonthEarnings().observe(getViewLifecycleOwner(), earn -> {
