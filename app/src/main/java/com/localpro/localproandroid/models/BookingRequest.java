@@ -11,7 +11,6 @@ public class BookingRequest {
     private String serviceCategory;
     private String jobDescription;
     private String distanceText;
-    private String estimatedEarning;
     private String requestTime;
 
     @SerializedName(value = "status", alternate = {"jobStatus"})
@@ -23,7 +22,8 @@ public class BookingRequest {
     @SerializedName("rating")
     private double rating;
 
-    @SerializedName(value = "earning", alternate = {"estimatedEarning"})
+    // "estimatedEarning" is the backend field name; also accept "earning" as alternate
+    @SerializedName(value = "estimatedEarning", alternate = {"earning"})
     private double earning;
 
     @SerializedName("customerLocation")
@@ -45,8 +45,8 @@ public class BookingRequest {
 
     public BookingRequest(String id, String customerId, String customerName, String customerPhone,
                           String serviceCategory, String jobDescription, String distanceText,
-                          String estimatedEarning, String requestTime, String jobStatus,
-                          String paymentStatus, double rating, double earning,
+                          double earning, String requestTime, String jobStatus,
+                          String paymentStatus, double rating,
                           double customerLat, double customerLon) {
         this.id = id;
         this.customerId = customerId;
@@ -55,13 +55,12 @@ public class BookingRequest {
         this.serviceCategory = serviceCategory;
         this.jobDescription = jobDescription;
         this.distanceText = distanceText;
-        this.estimatedEarning = estimatedEarning;
+        this.earning = earning;
         this.requestTime = requestTime;
         this.jobStatus = jobStatus;
         this.paymentStatus = paymentStatus;
         this.rating = rating;
-        this.earning = earning;
-        
+
         this.customerLocation = new CustomerLocation();
         this.customerLocation.type = "Point";
         this.customerLocation.coordinates = new java.util.ArrayList<>();
@@ -90,8 +89,8 @@ public class BookingRequest {
     public String getDistanceText() { return distanceText; }
     public void setDistanceText(String distanceText) { this.distanceText = distanceText; }
 
-    public String getEstimatedEarning() { return estimatedEarning; }
-    public void setEstimatedEarning(String estimatedEarning) { this.estimatedEarning = estimatedEarning; }
+    // Returns earning as String for display (e.g. "1500.0")
+    public String getEstimatedEarning() { return String.valueOf(earning); }
 
     public String getRequestTime() { return requestTime; }
     public void setRequestTime(String requestTime) { this.requestTime = requestTime; }
