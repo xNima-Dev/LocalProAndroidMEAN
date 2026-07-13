@@ -22,28 +22,36 @@ public class ProviderListResponse {
         private ProviderProfile providerProfile;
 
         public String get_id() { return _id; }
+        // Alias for consistency
+        public String getId() { return _id; }
         public String getName() { return name; }
         public String getEmail() { return email; }
         public String getRole() { return role; }
         public String getPhoneNumber() { return phoneNumber; }
         public LocationModel getLocation() { return location; }
 
-        // Getter එක
+        // Getter
         public ProviderProfile getProviderProfile() { return providerProfile; }
     }
 
     public static class ProviderProfile {
         private String category;
+        private String serviceCategory;
         private boolean isVerified;
         private boolean isOnline;
         private String profileImage;
         private int experienceYears;
+        private double hourlyRate;
+        private String bio;
 
-        public String getCategory() { return category; }
+        public String getCategory() { return category != null ? category : serviceCategory; }
+        public String getServiceCategory() { return serviceCategory; }
         public boolean isVerified() { return isVerified; }
         public boolean isOnline() { return isOnline; }
         public String getProfileImage() { return profileImage; }
         public int getExperienceYears() { return experienceYears; }
+        public double getHourlyRate() { return hourlyRate; }
+        public String getBio() { return bio; }
     }
 
     public static class LocationModel {

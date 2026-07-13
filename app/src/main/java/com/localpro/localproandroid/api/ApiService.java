@@ -9,6 +9,8 @@ import com.localpro.localproandroid.models.OnboardingResponse;
 import com.localpro.localproandroid.models.ProviderListResponse;
 import com.localpro.localproandroid.models.RegisterRequest;
 import com.localpro.localproandroid.models.ProfileRequest;
+import com.localpro.localproandroid.models.CreateBookingRequest;
+import com.localpro.localproandroid.models.CreateBookingResponse;
 
 import java.util.List;
 
@@ -127,4 +129,13 @@ public interface ApiService {
             @Header("Authorization") String token,
             @Body ProfileRequest profileRequest
     );
+
+    @POST("api/auth/bookings")
+    Call<CreateBookingResponse> createBooking(
+            @Header("Authorization") String token,
+            @Body CreateBookingRequest request
+    );
+
+    @GET("api/auth/bookings/customer")
+    Call<BookingResponse> getCustomerBookings(@Header("Authorization") String token);
 }
