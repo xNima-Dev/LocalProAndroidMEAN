@@ -2,6 +2,7 @@ package com.localpro.localproandroid.views;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
@@ -35,6 +36,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.localpro.localproandroid.R;
+import com.localpro.localproandroid.api.RetrofitClient;
+import com.localpro.localproandroid.models.LocationRequest;
 import com.localpro.localproandroid.viewmodels.JobTrackingViewModel;
 
 import org.json.JSONArray;
@@ -258,7 +261,10 @@ public class JobTrackingActivity extends AppCompatActivity implements OnMapReady
                 if (location != null) {
                     LatLng providerLatLng = new LatLng(location.getLatitude(), location.getLongitude());
                     lastKnownProviderLatLng = providerLatLng;
-                    
+
+                    // Push live location to backend so customer can track
+                    pushLocationToBackend(location.getLatitude(), location.getLongitude());
+
                     if (mMap != null && customerLatLng != null) {
                         updateMapAndRoute(providerLatLng, customerLatLng);
                     }
@@ -271,6 +277,22 @@ public class JobTrackingActivity extends AppCompatActivity implements OnMapReady
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         }
+    }
+
+    private void pushLocationToBackend(double lat, double lon) {
+        SharedPreferences prefs = getSharedPreferences("LocalProPrefs", MODE_PRIVATE);
+        String token = "Bearer " + prefs.getString("auth_token", "");
+        LocationRequest locationRequest = new LocationRequest(lat, lon);
+        RetrofitClient.getApiService().updateLocation(token, locationRequest).enqueue(new retrofit2.Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull retrofit2.Call<Void> call, @NonNull retrofit2.Response<Void> response) {
+                Log.d(TAG, "Location pushed: " + lat + "," + lon + " code=" + response.code());
+            }
+            @Override
+            public void onFailure(@NonNull retrofit2.Call<Void> call, @NonNull Throwable t) {
+                Log.w(TAG, "Location push failed: " + t.getMessage());
+            }
+        });
     }
 
     private void updateMapAndRoute(LatLng providerLoc, LatLng customerLoc) {

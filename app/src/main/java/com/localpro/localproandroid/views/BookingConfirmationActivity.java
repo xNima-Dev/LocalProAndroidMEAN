@@ -102,15 +102,28 @@ public class BookingConfirmationActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<CreateBookingResponse> call, Response<CreateBookingResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(BookingConfirmationActivity.this, "Booking confirmed!", Toast.LENGTH_SHORT).show();
-                    // Navigate back to Dashboard or a Tracking Activity
-                    Intent intent = new Intent(BookingConfirmationActivity.this, CustomerDashboardActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    String newBookingId = response.body().getBooking() != null
+                            ? response.body().getBooking().getId() : null;
+
+                    Toast.makeText(BookingConfirmationActivity.this,
+                            "Booking confirmed! Tracking provider...", Toast.LENGTH_SHORT).show();
+
+                    // Navigate to live tracking screen
+                    Intent intent = new Intent(BookingConfirmationActivity.this,
+                            CustomerBookingTrackingActivity.class);
+                    intent.putExtra("BOOKING_ID", newBookingId);
+                    intent.putExtra("PROVIDER_NAME", providerName);
+                    intent.putExtra("PROVIDER_PHONE", providerPhone);
+                    intent.putExtra("PROVIDER_CATEGORY", providerCategory);
+                    intent.putExtra("CUSTOMER_LAT", customerLat);
+                    intent.putExtra("CUSTOMER_LON", customerLon);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
                 } else {
                     Log.e("BookingConfirm", "Server error: " + response.code());
-                    Toast.makeText(BookingConfirmationActivity.this, "Error creating booking", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BookingConfirmationActivity.this,
+                            "Error creating booking", Toast.LENGTH_SHORT).show();
                 }
             }
 

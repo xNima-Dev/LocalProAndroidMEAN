@@ -19,6 +19,9 @@
         android:theme="@style/Theme.LocalProAndroid"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".views.CustomerBookingTrackingActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.BookingConfirmationActivity"
             android:exported="false" />
         <activity
