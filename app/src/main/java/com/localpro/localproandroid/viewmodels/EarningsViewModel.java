@@ -45,6 +45,9 @@ public class EarningsViewModel extends ViewModel {
     public LiveData<Double> getAvgPerJob() { return avgPerJob; }
     public LiveData<String> getErrorMsg() { return errorMsg; }
     public LiveData<Boolean> getIsLoading() { return isLoading; }
+    
+    private final MutableLiveData<List<BookingRequest>> recentTransactions = new MutableLiveData<>();
+    public LiveData<List<BookingRequest>> getRecentTransactions() { return recentTransactions; }
 
     public void loadEarnings() {
         isLoading.setValue(true);
@@ -129,5 +132,15 @@ public class EarningsViewModel extends ViewModel {
         monthEarnings.setValue(monthTotal);
         monthJobs.setValue(monthCount);
         avgPerJob.setValue(bookings.isEmpty() ? 0.0 : total / bookings.size());
+
+        // Sort by most recent (assuming they might not be sorted)
+        // For simplicity, we just reverse the list assuming backend returns oldest first
+        List<BookingRequest> recentList = new java.util.ArrayList<>(bookings);
+        java.util.Collections.reverse(recentList);
+        // Keep top 10
+        if (recentList.size() > 10) {
+            recentList = recentList.subList(0, 10);
+        }
+        recentTransactions.setValue(recentList);
     }
 }

@@ -17,7 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.localpro.localproandroid.R;
+import com.localpro.localproandroid.adapter.RecentTransactionsAdapter;
 import com.localpro.localproandroid.viewmodels.EarningsViewModel;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -30,6 +34,8 @@ public class EarningsFragment extends Fragment {
 
     private TextView tvTotalBalance, tvMonthEarning, tvMonthJobs, tvAvgPerJob;
     private TextView tvWeekEarning, tvWeekJobs;
+    private RecyclerView rvTransactions;
+    private RecentTransactionsAdapter transactionsAdapter;
 
     public EarningsFragment() {}
 
@@ -72,6 +78,13 @@ public class EarningsFragment extends Fragment {
         tabMonth.setOnClickListener(v -> selectTab(1));
         tabYear.setOnClickListener(v -> selectTab(2));
 
+        // Setup Transactions Recycler
+        rvTransactions = view.findViewById(R.id.rvTransactions);
+        rvTransactions.setLayoutManager(new LinearLayoutManager(requireContext()));
+        transactionsAdapter = new RecentTransactionsAdapter();
+        rvTransactions.setAdapter(transactionsAdapter);
+        rvTransactions.setVisibility(View.VISIBLE);
+
         // Observe
         earningsViewModel.getTotalBalance().observe(getViewLifecycleOwner(), bal -> {
             tvTotalBalance.setText(String.format("LKR %.2f", bal));
@@ -100,6 +113,12 @@ public class EarningsFragment extends Fragment {
         earningsViewModel.getErrorMsg().observe(getViewLifecycleOwner(), err -> {
             if (err != null && !err.isEmpty()) {
                 Toast.makeText(requireContext(), err, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        earningsViewModel.getRecentTransactions().observe(getViewLifecycleOwner(), list -> {
+            if (list != null) {
+                transactionsAdapter.setTransactions(list);
             }
         });
 

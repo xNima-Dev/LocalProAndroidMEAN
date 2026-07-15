@@ -23,7 +23,7 @@ public class AuthResponse {
         private String email;
         private String role;
         private String phoneNumber;
-        private Object providerProfile;
+        private ProviderProfile providerProfile;
 
         public String getId() {
             return id;
@@ -40,7 +40,7 @@ public class AuthResponse {
         public String getPhoneNumber() {
             return phoneNumber;
         }
-        public Object getProviderProfile() {
+        public ProviderProfile getProviderProfile() {
             return providerProfile;
         }
     }

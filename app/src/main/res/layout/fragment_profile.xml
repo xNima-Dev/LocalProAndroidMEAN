@@ -148,6 +148,7 @@
                             android:layout_marginTop="4dp">
 
                             <TextView
+                                android:id="@+id/tvProfileRating"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="&#11088; 4.8"
@@ -156,9 +157,10 @@
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/tvProfileReviews"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="  (47 reviews)"
+                                android:text="  (0 reviews)"
                                 android:textColor="@color/lp_text_muted"
                                 android:textSize="12sp" />
 
@@ -168,6 +170,7 @@
 
                     <!-- Verified Badge -->
                     <LinearLayout
+                        android:id="@+id/llVerifiedBadge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/gradient_card_green"
@@ -179,6 +182,7 @@
                         android:gravity="center">
 
                         <TextView
+                            android:id="@+id/tvVerifiedIcon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="&#9989;"
@@ -186,6 +190,7 @@
                             android:gravity="center" />
 
                         <TextView
+                            android:id="@+id/tvVerifiedText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Verified"

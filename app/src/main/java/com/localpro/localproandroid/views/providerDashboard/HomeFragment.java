@@ -62,6 +62,44 @@ public class HomeFragment extends Fragment implements BookingRequestAdapter.OnBo
         });
         viewModel.loadProviderInfo();
 
+        // Bind Top Stats Cards
+        viewModel.getTotalEarnings().observe(getViewLifecycleOwner(), earnings -> {
+            binding.tvEarnings.setText(String.format("LKR %.0f", earnings));
+        });
+        
+        viewModel.getActiveJobs().observe(getViewLifecycleOwner(), active -> {
+            binding.tvActiveJobs.setText(String.valueOf(active));
+        });
+        
+        viewModel.getRating().observe(getViewLifecycleOwner(), rating -> {
+            binding.tvRating.setText(String.format("%.1f", rating));
+        });
+        
+        viewModel.getJobsDone().observe(getViewLifecycleOwner(), jobs -> {
+            binding.tvJobsDone.setText(String.valueOf(jobs));
+        });
+
+        // Quick Actions Listeners
+        binding.actionProfile.setOnClickListener(v -> {
+            if (getActivity() instanceof ProviderDashboardActivity) {
+                ((ProviderDashboardActivity) getActivity()).navigateToProfile();
+            }
+        });
+        
+        binding.actionEarnings.setOnClickListener(v -> {
+            if (getActivity() instanceof ProviderDashboardActivity) {
+                ((ProviderDashboardActivity) getActivity()).navigateToEarnings();
+            }
+        });
+        
+        binding.actionReviews.setOnClickListener(v -> {
+            Toast.makeText(requireContext(), "Reviews coming soon!", Toast.LENGTH_SHORT).show();
+        });
+        
+        binding.actionSchedule.setOnClickListener(v -> {
+            Toast.makeText(requireContext(), "Schedule coming soon!", Toast.LENGTH_SHORT).show();
+        });
+
         // RecyclerView Setup
         bookingAdapter = new BookingRequestAdapter(this);
         binding.rvBookingRequests.setLayoutManager(new LinearLayoutManager(requireContext()));

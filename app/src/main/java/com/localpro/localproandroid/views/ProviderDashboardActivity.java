@@ -190,4 +190,14 @@ public class ProviderDashboardActivity extends AppCompatActivity {
         super.onDestroy();
         stopLocationUpdates();
     }
+
+    public void navigateToProfile() {
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setSelectedItemId(R.id.nav_profile);
+    }
+
+    public void navigateToEarnings() {
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setSelectedItemId(R.id.nav_earnings);
+    }
 }

@@ -61,6 +61,9 @@ public interface ApiService {
             @Part("serviceCategory") RequestBody category
     );
 
+    @GET("api/auth/profile")
+    Call<AuthResponse> getProfile(@Header("Authorization") String token);
+
     @GET("api/auth/bookings")
     Call<BookingResponse> getBookings(@Header("Authorization") String token);
 

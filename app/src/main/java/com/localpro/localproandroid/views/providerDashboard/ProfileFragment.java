@@ -19,9 +19,16 @@ import androidx.fragment.app.Fragment;
 import com.localpro.localproandroid.R;
 import com.localpro.localproandroid.repositories.UserRepository;
 
+import com.localpro.localproandroid.models.AuthResponse;
+import com.localpro.localproandroid.models.ProviderProfile;
+import com.localpro.localproandroid.viewmodels.ProviderDashboardHomeViewModel;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -32,6 +39,10 @@ public class ProfileFragment extends Fragment {
     UserRepository userRepository;
 
     private TextView tvProfileInitials, tvProfileName, tvProfilePhone, tvProfileBio;
+    private TextView tvVerifiedIcon, tvVerifiedText, tvProfileRating, tvProfileReviews;
+    private LinearLayout llVerifiedBadge;
+    
+    private ProviderDashboardHomeViewModel viewModel;
 
     public ProfileFragment() {}
 
@@ -108,8 +119,94 @@ public class ProfileFragment extends Fragment {
             tvProfileBio.setText("Bio not set");
         }
 
+        // Verified Badge
+        llVerifiedBadge = view.findViewById(R.id.llVerifiedBadge);
+        tvVerifiedIcon = view.findViewById(R.id.tvVerifiedIcon);
+        tvVerifiedText = view.findViewById(R.id.tvVerifiedText);
+        
+        // Ratings
+        tvProfileRating = view.findViewById(R.id.tvProfileRating);
+        tvProfileReviews = view.findViewById(R.id.tvProfileReviews);
+
         // Edit Profile Button Setup
         view.findViewById(R.id.btnEditProfile).setOnClickListener(v -> showEditProfileDialog());
+        
+        // Bind Stats from shared ViewModel
+        viewModel = new androidx.lifecycle.ViewModelProvider(requireActivity()).get(ProviderDashboardHomeViewModel.class);
+        
+        viewModel.getJobsDone().observe(getViewLifecycleOwner(), jobs -> {
+            tvStatJobsDone.setText(String.valueOf(jobs));
+        });
+        
+        viewModel.getRating().observe(getViewLifecycleOwner(), rat -> {
+            if (rat > 0) {
+                tvStatRating.setText(String.format("%.1f", rat));
+                tvProfileRating.setText(String.format("⭐ %.1f", rat));
+            } else {
+                tvStatRating.setText("--");
+                tvProfileRating.setText("⭐ --");
+            }
+        });
+        
+        // Fetch Profile from backend
+        loadRealProfile();
+        
+        // Settings & Actions
+        View btnSecurity = view.findViewById(R.id.settingSecurity);
+        if (btnSecurity != null) {
+            btnSecurity.setOnClickListener(v -> Toast.makeText(requireContext(), "Security settings coming soon", Toast.LENGTH_SHORT).show());
+        }
+        
+        View btnSupport = view.findViewById(R.id.settingSupport);
+        if (btnSupport != null) {
+            btnSupport.setOnClickListener(v -> Toast.makeText(requireContext(), "Support & Help coming soon", Toast.LENGTH_SHORT).show());
+        }
+        
+        View btnLogout = view.findViewById(R.id.btnLogoutProvider);
+        if (btnLogout != null) {
+            btnLogout.setOnClickListener(v -> {
+                userRepository.clearUserSession();
+                requireActivity().finish();
+            });
+        }
+    }
+    
+    private void loadRealProfile() {
+        userRepository.getProfile().enqueue(new Callback<AuthResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<AuthResponse> call, @NonNull Response<AuthResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().getUser() != null) {
+                    ProviderProfile profile = response.body().getUser().getProviderProfile();
+                    if (profile != null) {
+                        // Update Verified Badge
+                        String status = profile.getVerificationStatus();
+                        if ("APPROVED".equalsIgnoreCase(status)) {
+                            tvVerifiedIcon.setText("✅");
+                            tvVerifiedText.setText("Verified");
+                            llVerifiedBadge.setBackgroundResource(R.drawable.gradient_card_green);
+                        } else if ("REJECTED".equalsIgnoreCase(status)) {
+                            tvVerifiedIcon.setText("❌");
+                            tvVerifiedText.setText("Rejected");
+                            llVerifiedBadge.setBackgroundResource(R.drawable.gradient_card_amber); // Or red
+                        } else {
+                            tvVerifiedIcon.setText("⏳");
+                            tvVerifiedText.setText("Pending");
+                            llVerifiedBadge.setBackgroundResource(R.drawable.gradient_card_amber);
+                        }
+                        
+                        // Update Bio / Experience
+                        String experienceStr = profile.getExperience();
+                        if (experienceStr != null && !experienceStr.trim().isEmpty()) {
+                            tvProfileBio.setText(experienceStr);
+                        } else if (profile.getBio() != null && !profile.getBio().isEmpty()) {
+                            tvProfileBio.setText(profile.getBio());
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<AuthResponse> call, @NonNull Throwable t) {}
+        });
     }
 
     private void showEditProfileDialog() {

@@ -33,6 +33,12 @@ public class ProviderDashboardHomeViewModel extends ViewModel {
     private final MutableLiveData<List<BookingRequest>> bookings = new MutableLiveData<>();
     private final MutableLiveData<String> errorMsg = new MutableLiveData<>();
 
+    // Real-time stats
+    private final MutableLiveData<Double> totalEarnings = new MutableLiveData<>(0.0);
+    private final MutableLiveData<Integer> activeJobs = new MutableLiveData<>(0);
+    private final MutableLiveData<Double> rating = new MutableLiveData<>(0.0);
+    private final MutableLiveData<Integer> jobsDone = new MutableLiveData<>(0);
+
     @Inject
     public ProviderDashboardHomeViewModel(@NonNull UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -46,9 +52,65 @@ public class ProviderDashboardHomeViewModel extends ViewModel {
         return providerEmail;
     }
 
+    public LiveData<Double> getTotalEarnings() { return totalEarnings; }
+    public LiveData<Integer> getActiveJobs() { return activeJobs; }
+    public LiveData<Double> getRating() { return rating; }
+    public LiveData<Integer> getJobsDone() { return jobsDone; }
+
     public void loadProviderInfo() {
         providerName.setValue(userRepository.getProviderName());
         providerEmail.setValue(userRepository.getProviderEmail());
+        fetchDashboardStats();
+    }
+
+    private void fetchDashboardStats() {
+        // Fetch Active Jobs Count
+        userRepository.getActiveBookings().enqueue(new Callback<BookingResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<BookingResponse> call, @NonNull Response<BookingResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().getBookings() != null) {
+                    activeJobs.setValue(response.body().getBookings().size());
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<BookingResponse> call, @NonNull Throwable t) {}
+        });
+
+        // Fetch Completed Jobs for Earnings, Jobs Done, and Rating
+        userRepository.getCompletedBookings().enqueue(new Callback<BookingResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<BookingResponse> call, @NonNull Response<BookingResponse> response) {
+                if (response.isSuccessful() && response.body() != null && response.body().getBookings() != null) {
+                    List<BookingRequest> completed = response.body().getBookings();
+                    jobsDone.setValue(completed.size());
+                    
+                    double totalEarn = 0;
+                    double totalRating = 0;
+                    int ratedJobs = 0;
+
+                    for (BookingRequest req : completed) {
+                        totalEarn += req.getEarning();
+                        if (req.getRating() > 0) {
+                            totalRating += req.getRating();
+                            ratedJobs++;
+                        }
+                    }
+                    
+                    totalEarnings.setValue(totalEarn);
+                    
+                    if (ratedJobs > 0) {
+                        rating.setValue(totalRating / ratedJobs);
+                    } else if (completed.size() > 0) {
+                        // Default good rating if no ratings given yet
+                        rating.setValue(5.0);
+                    } else {
+                        rating.setValue(0.0);
+                    }
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<BookingResponse> call, @NonNull Throwable t) {}
+        });
     }
 
     public LiveData<List<BookingRequest>> getBookings() {

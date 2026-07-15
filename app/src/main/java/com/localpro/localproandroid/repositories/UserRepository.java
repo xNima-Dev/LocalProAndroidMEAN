@@ -39,6 +39,11 @@ public class UserRepository {
                 .apply();
     }
 
+    public Call<com.localpro.localproandroid.models.AuthResponse> getProfile() {
+        String token = "Bearer " + prefs.getString("auth_token", "");
+        return apiService.getProfile(token);
+    }
+
     public Call<BookingResponse> getPendingBookings() {
         String token = "Bearer " + prefs.getString("auth_token", "");
         return apiService.getPendingBookings(token);
