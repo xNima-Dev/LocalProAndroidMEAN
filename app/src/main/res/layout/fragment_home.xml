@@ -476,7 +476,7 @@
                 </LinearLayout>
 
                 <!-- Schedule Action -->
-                <LinearLayout
+                <!--<LinearLayout
                     android:id="@+id/actionSchedule"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -502,7 +502,7 @@
                         android:textColor="@color/lp_text_primary"
                         android:textSize="12sp"
                         android:textStyle="bold" />
-                </LinearLayout>
+                </LinearLayout>-->
             </LinearLayout>
 
             <!-- ===== PENDING REQUESTS SECTION ===== -->
@@ -584,23 +584,23 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <!-- ===== LOGOUT BUTTON ===== -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLogoutProvider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:backgroundTint="@color/lp_bg_surface"
-                android:text="SIGN OUT"
-                android:textColor="@color/lp_red"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:letterSpacing="0.1"
-                app:cornerRadius="14dp"
-                app:strokeColor="@color/lp_red"
-                app:strokeWidth="1dp"
-                app:icon="@android:drawable/ic_menu_close_clear_cancel"
-                app:iconTint="@color/lp_red"
-                style="@style/Widget.Material3.Button.OutlinedButton" />
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/btnLogoutProvider"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="24dp"-->
+<!--                android:backgroundTint="@color/lp_bg_surface"-->
+<!--                android:text="SIGN OUT"-->
+<!--                android:textColor="@color/lp_red"-->
+<!--                android:textSize="14sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:letterSpacing="0.1"-->
+<!--                app:cornerRadius="14dp"-->
+<!--                app:strokeColor="@color/lp_red"-->
+<!--                app:strokeWidth="1dp"-->
+<!--                app:icon="@android:drawable/ic_menu_close_clear_cancel"-->
+<!--                app:iconTint="@color/lp_red"-->
+<!--                style="@style/Widget.Material3.Button.OutlinedButton" />-->
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

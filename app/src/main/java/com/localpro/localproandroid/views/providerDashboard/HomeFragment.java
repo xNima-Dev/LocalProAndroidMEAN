@@ -96,9 +96,9 @@ public class HomeFragment extends Fragment implements BookingRequestAdapter.OnBo
             Toast.makeText(requireContext(), "Reviews coming soon!", Toast.LENGTH_SHORT).show();
         });
         
-        binding.actionSchedule.setOnClickListener(v -> {
-            Toast.makeText(requireContext(), "Schedule coming soon!", Toast.LENGTH_SHORT).show();
-        });
+//        binding.actionSchedule.setOnClickListener(v -> {
+//            Toast.makeText(requireContext(), "Schedule coming soon!", Toast.LENGTH_SHORT).show();
+//        });
 
         // RecyclerView Setup
         bookingAdapter = new BookingRequestAdapter(this);
@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment implements BookingRequestAdapter.OnBo
 
         pulseAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.pulse_animation);
         setupOnlineToggle();
-        setupLogout();
+//        setupLogout();
     }
 
     @Override
@@ -151,28 +151,28 @@ public class HomeFragment extends Fragment implements BookingRequestAdapter.OnBo
                 .show();
     }
 
-    private void setupLogout() {
-        binding.btnLogoutProvider.setOnClickListener(v -> {
-            new AlertDialog.Builder(requireContext(), R.style.AlertDialogDark)
-                    .setTitle("Sign Out")
-                    .setMessage("Are you sure you want to sign out?")
-                    .setPositiveButton("Sign Out", (dialog, which) -> {
-                        viewModel.logout();
-                        if (getActivity() instanceof ProviderDashboardActivity) {
-                            ((ProviderDashboardActivity) getActivity()).stopLocationUpdates();
-                        }
-                        Toast.makeText(requireContext(), "Signed out successfully", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(requireContext(), MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        if (getActivity() != null) {
-                            getActivity().finish();
-                        }
-                    })
-                    .setNegativeButton("Cancel", null)
-                    .show();
-        });
-    }
+//    private void setupLogout() {
+//        binding.btnLogoutProvider.setOnClickListener(v -> {
+//            new AlertDialog.Builder(requireContext(), R.style.AlertDialogDark)
+//                    .setTitle("Sign Out")
+//                    .setMessage("Are you sure you want to sign out?")
+//                    .setPositiveButton("Sign Out", (dialog, which) -> {
+//                        viewModel.logout();
+//                        if (getActivity() instanceof ProviderDashboardActivity) {
+//                            ((ProviderDashboardActivity) getActivity()).stopLocationUpdates();
+//                        }
+//                        Toast.makeText(requireContext(), "Signed out successfully", Toast.LENGTH_SHORT).show();
+//                        Intent intent = new Intent(requireContext(), MainActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                        startActivity(intent);
+//                        if (getActivity() != null) {
+//                            getActivity().finish();
+//                        }
+//                    })
+//                    .setNegativeButton("Cancel", null)
+//                    .show();
+//        });
+//    }
 
     private void setupOnlineToggle() {
         binding.switchOnlineStatus.setOnCheckedChangeListener((buttonView, isChecked) -> {

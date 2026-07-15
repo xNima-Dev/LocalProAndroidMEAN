@@ -148,6 +148,10 @@ public class ProfileFragment extends Fragment {
             }
         });
         
+        viewModel.getRatedJobsCount().observe(getViewLifecycleOwner(), count -> {
+            tvProfileReviews.setText(String.format("  (%d reviews)", count));
+        });
+        
         // Fetch Profile from backend
         loadRealProfile();
         

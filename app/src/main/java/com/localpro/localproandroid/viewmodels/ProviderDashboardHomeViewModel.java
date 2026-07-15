@@ -1,9 +1,7 @@
 package com.localpro.localproandroid.viewmodels;
 
-import static androidx.fragment.app.FragmentManager.TAG;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -37,6 +35,7 @@ public class ProviderDashboardHomeViewModel extends ViewModel {
     private final MutableLiveData<Double> totalEarnings = new MutableLiveData<>(0.0);
     private final MutableLiveData<Integer> activeJobs = new MutableLiveData<>(0);
     private final MutableLiveData<Double> rating = new MutableLiveData<>(0.0);
+    private final MutableLiveData<Integer> ratedJobsCount = new MutableLiveData<>(0);
     private final MutableLiveData<Integer> jobsDone = new MutableLiveData<>(0);
 
     @Inject
@@ -55,6 +54,7 @@ public class ProviderDashboardHomeViewModel extends ViewModel {
     public LiveData<Double> getTotalEarnings() { return totalEarnings; }
     public LiveData<Integer> getActiveJobs() { return activeJobs; }
     public LiveData<Double> getRating() { return rating; }
+    public LiveData<Integer> getRatedJobsCount() { return ratedJobsCount; }
     public LiveData<Integer> getJobsDone() { return jobsDone; }
 
     public void loadProviderInfo() {
@@ -97,6 +97,7 @@ public class ProviderDashboardHomeViewModel extends ViewModel {
                     }
                     
                     totalEarnings.setValue(totalEarn);
+                    ratedJobsCount.setValue(ratedJobs);
                     
                     if (ratedJobs > 0) {
                         rating.setValue(totalRating / ratedJobs);
@@ -117,7 +118,6 @@ public class ProviderDashboardHomeViewModel extends ViewModel {
         return bookings;
     }
 
-    // මීට කලින් රතු වෙලා තිබුණු කොටස හරි ගැස්සුවා (MutableLiveData -> LiveData)
     public LiveData<String> getErrorMsg() {
         return errorMsg;
     }
@@ -125,9 +125,8 @@ public class ProviderDashboardHomeViewModel extends ViewModel {
     public void loadBookingRequests(String status) {
         Call<BookingResponse> call;
 
-        // 🔍 මෙතනට PENDING කියන තත්ත්වය (Status) එකතු කළා
         if ("PENDING".equalsIgnoreCase(status)) {
-            call = userRepository.getPendingBookings(); // අපි අලුතින් UserRepository එකට දාපු මෙතඩ් එක
+            call = userRepository.getPendingBookings();
         } else if ("ACTIVE".equalsIgnoreCase(status)) {
             call = userRepository.getActiveBookings();
         } else if ("COMPLETED".equalsIgnoreCase(status)) {
@@ -139,11 +138,9 @@ public class ProviderDashboardHomeViewModel extends ViewModel {
         call.enqueue(new Callback<BookingResponse>() {
             @Override
             public void onResponse(@NonNull Call<BookingResponse> call, @NonNull Response<BookingResponse> response) {
-                // සර්වර් රෙස්පොන්ස් කෝඩ් එක ලොග් එකේ බලාගන්න (උදා: 200, 404, 500)
                 Log.d("ProviderDashboardVM", "Response Code: " + response.code());
 
                 if (response.isSuccessful() && response.body() != null) {
-                    // සාමාන්‍ยයෙන් ඔයාගේ backend එකෙන් එන්නේ getBookings() නම් එය යොදන්න, නැතහොත් response.body().data ම තියන්න
                     bookings.setValue(response.body().getBookings());
                 } else {
                     errorMsg.setValue("Server Error: " + response.code());
