@@ -45,7 +45,9 @@ public class ProviderListActivity extends AppCompatActivity {
             selectedCategory = "All";
         }
 
-        tvTitle.setText(selectedCategory.toUpperCase().replace("-", " ") + "S NEAR YOU 🛠️");
+        tvTitle.setText(selectedCategory.toUpperCase().replace("-", " "));
+        
+        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
 
         loadProviders();
     }
