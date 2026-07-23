@@ -13,7 +13,7 @@
             android:id="@+id/profileAppBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/gradient_header_bg"
+            android:background="#0F172A"
             android:elevation="0dp"
             app:elevation="0dp">
 
@@ -81,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/bg_card_dark"
+                    android:background="#1E293B"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:padding="16dp">
@@ -173,7 +173,8 @@
                         android:id="@+id/llVerifiedBadge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/gradient_card_green"
+                        android:background="@drawable/bg_chip"
+                        android:backgroundTint="#00D2FF"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
                         android:paddingTop="6dp"
@@ -233,7 +234,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="6dp"
-                        android:background="@drawable/bg_card_dark"
+                        android:background="#1E293B"
                         android:orientation="vertical"
                         android:gravity="center"
                         android:padding="14dp">
@@ -269,7 +270,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
                         android:layout_marginEnd="6dp"
-                        android:background="@drawable/bg_card_dark"
+                        android:background="#1E293B"
                         android:orientation="vertical"
                         android:gravity="center"
                         android:padding="14dp">
@@ -304,7 +305,7 @@
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
-                        android:background="@drawable/bg_card_dark"
+                        android:background="#1E293B"
                         android:orientation="vertical"
                         android:gravity="center"
                         android:padding="14dp">
@@ -349,7 +350,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_card_dark"
+                    android:background="#1E293B"
                     android:orientation="vertical"
                     android:layout_marginBottom="20dp">
 
@@ -568,7 +569,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_card_dark"
+                    android:background="#1E293B"
                     android:orientation="vertical"
                     android:padding="16dp"
                     android:layout_marginBottom="20dp">
@@ -597,7 +598,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_card_dark"
+                    android:background="#1E293B"
                     android:orientation="vertical"
                     android:layout_marginBottom="20dp">
 

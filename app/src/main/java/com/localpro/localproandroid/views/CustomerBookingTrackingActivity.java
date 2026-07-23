@@ -195,31 +195,39 @@ public class CustomerBookingTrackingActivity extends AppCompatActivity implement
         switch (status) {
             case "pending":
                 tvStatusChip.setText("PENDING");
+                tvStatusChip.setTextColor(android.graphics.Color.parseColor("#FBBF24"));
                 tvTrackingStatusTitle.setText("Waiting for provider...");
                 tvTrackingStatusSub.setText("Provider hasn't started yet");
                 break;
             case "accepted":
                 tvStatusChip.setText("ACCEPTED");
+                tvStatusChip.setTextColor(android.graphics.Color.parseColor("#00D2FF"));
                 tvTrackingStatusTitle.setText("Provider accepted!");
                 tvTrackingStatusSub.setText("Provider will start soon");
                 break;
             case "riding":
                 tvStatusChip.setText("ON THE WAY");
+                tvStatusChip.setTextColor(android.graphics.Color.parseColor("#00D2FF"));
                 tvTrackingStatusTitle.setText("Provider is on the way 🛵");
                 tvTrackingStatusSub.setText("Live tracking active");
                 break;
             case "arrived":
                 tvStatusChip.setText("ARRIVED");
+                tvStatusChip.setTextColor(android.graphics.Color.parseColor("#10B981"));
                 tvTrackingStatusTitle.setText("Provider has arrived! 📍");
                 tvTrackingStatusSub.setText("They are at your location");
                 tvCustomerEta.setText("0");
                 tvCustomerDistance.setText("0.0");
                 break;
             case "completed":
-                tvStatusChip.setText("COMPLETED");
+            case "paid":
+                tvStatusChip.setText(status.toUpperCase());
+                tvStatusChip.setTextColor(android.graphics.Color.parseColor("#10B981"));
                 tvTrackingStatusTitle.setText("Job Completed ✅");
-                tvTrackingStatusSub.setText("Please confirm payment");
-                btnConfirmPayment.setVisibility(View.VISIBLE);
+                tvTrackingStatusSub.setText("Thank you for using LocalPro");
+                if (status.equals("completed")) {
+                    btnConfirmPayment.setVisibility(View.VISIBLE);
+                }
                 isCompleted = true;
                 break;
         }

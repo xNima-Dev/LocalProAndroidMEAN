@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,12 +41,12 @@ public class BookingConfirmationActivity extends AppCompatActivity {
         customerLon = getIntent().getDoubleExtra("CUSTOMER_LON", 0.0);
 
         // Bind views
-        ImageButton btnBack = findViewById(R.id.btnBack);
+        ImageView btnBack = findViewById(R.id.btnBack);
         TextView tvProviderName = findViewById(R.id.tvProviderName);
         TextView tvProviderInitial = findViewById(R.id.tvProviderInitial);
         TextView tvProviderCategory = findViewById(R.id.tvProviderCategory);
-        TextView tvProviderPhone = findViewById(R.id.tvProviderPhone);
         TextView tvProviderRate = findViewById(R.id.tvProviderRate);
+        TextView tvProviderRating = findViewById(R.id.tvProviderRating);
         etJobDescription = findViewById(R.id.etJobDescription);
         MaterialButton btnConfirmBooking = findViewById(R.id.btnConfirmBooking);
 
@@ -56,11 +56,12 @@ public class BookingConfirmationActivity extends AppCompatActivity {
             tvProviderInitial.setText(String.valueOf(providerName.charAt(0)).toUpperCase());
         }
         if (providerCategory != null) {
-            tvProviderCategory.setText(providerCategory);
+            tvProviderCategory.setText(providerCategory + " Specialist");
         }
-        if (providerPhone != null && !providerPhone.isEmpty()) {
-            tvProviderPhone.setText(providerPhone);
-        }
+        
+        // Setup mock data for rate and rating for now
+        tvProviderRate.setText("LKR 1,500/hr");
+        tvProviderRating.setText("⭐ 4.8");
 
         btnBack.setOnClickListener(v -> finish());
 

@@ -91,6 +91,9 @@ public interface ApiService {
 
     @GET("api/auth/bookings/cancelled")
     Call<BookingResponse> getCancelledBookings(@Header("Authorization") String token);
+    
+    @GET("api/auth/bookings/customer")
+    Call<BookingResponse> getCustomerBookings(@Header("Authorization") String token);
 
     // Update booking status to 'ride' (provider is on the way)
     @POST("api/auth/bookings/{bookingId}/ride")
@@ -139,6 +142,4 @@ public interface ApiService {
             @Body CreateBookingRequest request
     );
 
-    @GET("api/auth/bookings/customer")
-    Call<BookingResponse> getCustomerBookings(@Header("Authorization") String token);
 }

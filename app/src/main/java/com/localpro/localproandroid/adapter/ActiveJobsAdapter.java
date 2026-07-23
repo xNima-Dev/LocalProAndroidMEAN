@@ -68,9 +68,13 @@ public class ActiveJobsAdapter extends RecyclerView.Adapter<ActiveJobsAdapter.Vi
 
         String status = request.getJobStatus();
         if ("ride".equalsIgnoreCase(status) || "riding".equalsIgnoreCase(status) || "arrived".equalsIgnoreCase(status)) {
-            holder.tvStartLabel.setText("Track Job");
+            ((com.google.android.material.button.MaterialButton) holder.btnStart).setText("TRACK JOB");
+            holder.tvStatusBadge.setText("ON THE WAY");
+            holder.tvStatusBadge.setTextColor(android.graphics.Color.parseColor("#00D2FF"));
         } else {
-            holder.tvStartLabel.setText("Start Job");
+            ((com.google.android.material.button.MaterialButton) holder.btnStart).setText("START JOB");
+            holder.tvStatusBadge.setText("ACCEPTED");
+            holder.tvStatusBadge.setTextColor(android.graphics.Color.parseColor("#10B981"));
         }
 
         holder.btnCancel.setOnClickListener(v -> {
@@ -114,7 +118,7 @@ public class ActiveJobsAdapter extends RecyclerView.Adapter<ActiveJobsAdapter.Vi
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvCustomerInitial, tvCustomerName, tvCustomerDistance, tvRequestTime,
-                tvServiceCategory, tvEstimatedEarning, tvJobDescription, tvStartLabel;
+                tvServiceCategory, tvEstimatedEarning, tvJobDescription, tvStatusBadge;
         View btnCancel, btnStart;
 
         ViewHolder(@NonNull View itemView) {
@@ -126,9 +130,9 @@ public class ActiveJobsAdapter extends RecyclerView.Adapter<ActiveJobsAdapter.Vi
             tvServiceCategory = itemView.findViewById(R.id.tvServiceCategory);
             tvEstimatedEarning = itemView.findViewById(R.id.tvEstimatedEarning);
             tvJobDescription = itemView.findViewById(R.id.tvJobDescription);
-            tvStartLabel = itemView.findViewById(R.id.tvStartLabel);
+            tvStatusBadge = itemView.findViewById(R.id.tvStatusBadge);
             btnCancel = itemView.findViewById(R.id.btnCancel);
-            btnStart = itemView.findViewById(R.id.btnStart);
+            btnStart = itemView.findViewById(R.id.btnStartJob);
         }
     }
 }

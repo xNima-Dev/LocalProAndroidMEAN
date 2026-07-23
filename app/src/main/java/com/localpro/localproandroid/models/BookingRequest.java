@@ -40,6 +40,33 @@ public class BookingRequest {
         }
     }
 
+    public static class ProviderInfo {
+        @SerializedName("_id")
+        private String id;
+        @SerializedName("name")
+        private String name;
+        @SerializedName("phoneNumber")
+        private String phoneNumber;
+
+        public String getId() { return id; }
+        public String getName() { return name; }
+        public String getPhoneNumber() { return phoneNumber; }
+    }
+
+    @SerializedName("providerId")
+    private com.google.gson.JsonElement providerElement;
+
+    public ProviderInfo getProvider() {
+        if (providerElement == null || providerElement.isJsonNull()) {
+            return null;
+        }
+        if (providerElement.isJsonObject()) {
+            return new com.google.gson.Gson().fromJson(providerElement, ProviderInfo.class);
+        }
+        // If it's a primitive (string ID), return a dummy ProviderInfo or null
+        return null;
+    }
+
     public BookingRequest() {
     }
 

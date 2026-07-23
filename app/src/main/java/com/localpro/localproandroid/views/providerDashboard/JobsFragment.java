@@ -111,13 +111,19 @@ public class JobsFragment extends Fragment implements ActiveJobsAdapter.OnActive
         // Tab UI එක වෙනස් කරන්න
         resetTabStyles();
         if (index == 0) {
-            tabActive.setTextColor(getResources().getColor(R.color.lp_green));
+            tabActive.setTextColor(android.graphics.Color.WHITE);
+            tabActive.setBackgroundResource(R.drawable.bg_chip);
+            tabActive.setBackgroundTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#00D2FF")));
             jobsViewModel.loadActiveJobs();
         } else if (index == 1) {
-            tabCompleted.setTextColor(getResources().getColor(R.color.lp_green));
+            tabCompleted.setTextColor(android.graphics.Color.WHITE);
+            tabCompleted.setBackgroundResource(R.drawable.bg_chip);
+            tabCompleted.setBackgroundTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#00D2FF")));
             jobsViewModel.loadCompletedJobs();
         } else if (index == 2) {
-            tabCancelled.setTextColor(getResources().getColor(R.color.lp_green));
+            tabCancelled.setTextColor(android.graphics.Color.WHITE);
+            tabCancelled.setBackgroundResource(R.drawable.bg_chip);
+            tabCancelled.setBackgroundTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#00D2FF")));
             jobsViewModel.loadCancelledJobs();
         }
 
@@ -128,9 +134,17 @@ public class JobsFragment extends Fragment implements ActiveJobsAdapter.OnActive
     }
 
     private void resetTabStyles() {
-        tabActive.setTextColor(getResources().getColor(R.color.lp_text_muted));
-        tabCompleted.setTextColor(getResources().getColor(R.color.lp_text_muted));
-        tabCancelled.setTextColor(getResources().getColor(R.color.lp_text_muted));
+        tabActive.setTextColor(android.graphics.Color.parseColor("#94A3B8"));
+        tabActive.setBackgroundResource(android.R.color.transparent);
+        tabActive.setBackgroundTintList(null);
+        
+        tabCompleted.setTextColor(android.graphics.Color.parseColor("#94A3B8"));
+        tabCompleted.setBackgroundResource(android.R.color.transparent);
+        tabCompleted.setBackgroundTintList(null);
+        
+        tabCancelled.setTextColor(android.graphics.Color.parseColor("#94A3B8"));
+        tabCancelled.setBackgroundResource(android.R.color.transparent);
+        tabCancelled.setBackgroundTintList(null);
     }
 
     private void updateEmptyState(boolean isEmpty) {

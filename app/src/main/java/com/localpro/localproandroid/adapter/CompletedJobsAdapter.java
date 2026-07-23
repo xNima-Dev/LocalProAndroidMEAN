@@ -65,7 +65,7 @@ public class CompletedJobsAdapter extends RecyclerView.Adapter<CompletedJobsAdap
             tvCustomerInitial = itemView.findViewById(R.id.tvCustomerInitial);
             tvCustomerName = itemView.findViewById(R.id.tvCustomerName);
             tvServiceCategory = itemView.findViewById(R.id.tvServiceCategory);
-            tvDate = itemView.findViewById(R.id.tvDate);
+            tvDate = itemView.findViewById(R.id.tvJobDate);
             tvEarning = itemView.findViewById(R.id.tvEarning);
             tvRating = itemView.findViewById(R.id.tvRating);
             tvPaymentStatus = itemView.findViewById(R.id.tvPaymentStatus);

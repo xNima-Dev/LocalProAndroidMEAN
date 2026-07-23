@@ -13,7 +13,7 @@
             android:id="@+id/earningsAppBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/gradient_header_bg"
+            android:background="#0F172A"
             android:elevation="0dp"
             app:elevation="0dp">
 
@@ -95,7 +95,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/bg_online_card"
+                    android:background="#1E293B"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -128,7 +128,8 @@
                             android:id="@+id/tvBalanceChange"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/gradient_card_green"
+                            android:background="@drawable/bg_chip"
+                            android:backgroundTint="#00D2FF"
                             android:paddingStart="10dp"
                             android:paddingEnd="10dp"
                             android:paddingTop="4dp"
@@ -241,7 +242,8 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
-                            android:background="@drawable/gradient_card_green"
+                            android:background="@drawable/bg_chip"
+                            android:backgroundTint="#00D2FF"
                             android:orientation="vertical"
                             android:padding="16dp">
 
@@ -321,7 +323,8 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
-                            android:background="@drawable/gradient_card_purple"
+                            android:background="@drawable/bg_chip"
+                            android:backgroundTint="#334155"
                             android:orientation="vertical"
                             android:padding="16dp">
 
@@ -427,7 +430,8 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="6dp"
-                            android:background="@drawable/gradient_card_green"
+                            android:background="@drawable/bg_chip"
+                            android:backgroundTint="#00D2FF"
                             android:layout_marginEnd="12dp">
                         </LinearLayout>
 
@@ -462,7 +466,8 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="6dp"
-                            android:background="@drawable/gradient_card_green"
+                            android:background="@drawable/bg_chip"
+                            android:backgroundTint="#00D2FF"
                             android:layout_marginEnd="12dp"
                             android:scaleX="0.5">
                         </LinearLayout>
@@ -506,7 +511,8 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="6dp"
-                            android:background="@drawable/gradient_card_green"
+                            android:background="@drawable/bg_chip"
+                            android:backgroundTint="#00D2FF"
                             android:layout_marginEnd="12dp">
                         </LinearLayout>
 
@@ -575,7 +581,8 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="6dp"
-                            android:background="@drawable/gradient_card_green"
+                            android:background="@drawable/bg_chip"
+                            android:backgroundTint="#00D2FF"
                             android:layout_marginEnd="12dp"
                             android:scaleX="0.7">
                         </LinearLayout>
@@ -622,7 +629,8 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
-                            android:background="@drawable/gradient_card_green"
+                            android:background="@drawable/bg_chip"
+                            android:backgroundTint="#00D2FF"
                             android:orientation="vertical"
                             android:padding="16dp">
 
@@ -702,7 +710,8 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
-                            android:background="@drawable/gradient_card_purple"
+                            android:background="@drawable/bg_chip"
+                            android:backgroundTint="#334155"
                             android:orientation="vertical"
                             android:padding="16dp">
 
@@ -793,7 +802,8 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
-                            android:background="@drawable/gradient_card_green"
+                            android:background="@drawable/bg_chip"
+                            android:backgroundTint="#00D2FF"
                             android:orientation="vertical"
                             android:padding="16dp">
 
@@ -871,7 +881,8 @@
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="8dp"
-                            android:background="@drawable/gradient_card_purple"
+                            android:background="@drawable/bg_chip"
+                            android:backgroundTint="#334155"
                             android:orientation="vertical"
                             android:padding="16dp">
 
@@ -968,7 +979,8 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="6dp"
-                            android:background="@drawable/gradient_card_green"
+                            android:background="@drawable/bg_chip"
+                            android:backgroundTint="#00D2FF"
                             android:layout_marginEnd="12dp"
                             android:scaleX="0.6">
                         </LinearLayout>
@@ -1011,7 +1023,8 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="6dp"
-                            android:background="@drawable/gradient_card_green"
+                            android:background="@drawable/bg_chip"
+                            android:backgroundTint="#00D2FF"
                             android:layout_marginEnd="12dp"
                             android:scaleX="0.75">
                         </LinearLayout>
@@ -1055,7 +1068,8 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="6dp"
-                            android:background="@drawable/gradient_card_green"
+                            android:background="@drawable/bg_chip"
+                            android:backgroundTint="#00D2FF"
                             android:layout_marginEnd="12dp">
                         </LinearLayout>
 
