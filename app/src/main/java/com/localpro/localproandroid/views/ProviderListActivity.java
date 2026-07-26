@@ -20,6 +20,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class ProviderListActivity extends AppCompatActivity {
 
     private RecyclerView rvProviders;
@@ -27,6 +30,7 @@ public class ProviderListActivity extends AppCompatActivity {
     private TextView tvTitle;
     private String selectedCategory;
     private double customerLat, customerLon;
+    private com.localpro.localproandroid.viewmodels.ProviderListViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,38 @@ public class ProviderListActivity extends AppCompatActivity {
         
         findViewById(R.id.btnBack).setOnClickListener(v -> finish());
 
+        viewModel = new androidx.lifecycle.ViewModelProvider(this).get(com.localpro.localproandroid.viewmodels.ProviderListViewModel.class);
+
+        // Observe ViewModel data
+        viewModel.getProviders().observe(this, providers -> {
+            if (providers != null && !providers.isEmpty()) {
+                adapter = new ProviderAdapter(providers, provider -> {
+                    // Navigate to booking confirmation
+                    Intent intent = new Intent(ProviderListActivity.this, BookingConfirmationActivity.class);
+                    intent.putExtra("PROVIDER_ID", provider.getId());
+                    intent.putExtra("PROVIDER_NAME", provider.getName());
+                    intent.putExtra("PROVIDER_PHONE", provider.getPhoneNumber());
+                    intent.putExtra("PROVIDER_CATEGORY", selectedCategory);
+                    intent.putExtra("CUSTOMER_LAT", customerLat);
+                    intent.putExtra("CUSTOMER_LON", customerLon);
+                    startActivity(intent);
+                });
+                rvProviders.setAdapter(adapter);
+                rvProviders.setVisibility(android.view.View.VISIBLE);
+                findViewById(R.id.layoutEmptyState).setVisibility(android.view.View.GONE);
+            }
+        });
+
+        viewModel.getErrorMessage().observe(this, msg -> {
+            if (msg != null && !msg.isEmpty()) {
+                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+                if (msg.contains("No providers found")) {
+                    rvProviders.setVisibility(android.view.View.GONE);
+                    findViewById(R.id.layoutEmptyState).setVisibility(android.view.View.VISIBLE);
+                }
+            }
+        });
+
         loadProviders();
     }
 
@@ -61,39 +97,6 @@ public class ProviderListActivity extends AppCompatActivity {
             return;
         }
 
-        String bearerToken = "Bearer " + token;
-
-        RetrofitClient.getApiService().getNearProviders(bearerToken, customerLat, customerLon, selectedCategory).enqueue(new Callback<ProviderListResponse>() {
-            @Override
-            public void onResponse(Call<ProviderListResponse> call, Response<ProviderListResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    if (response.body().getProviders() != null && !response.body().getProviders().isEmpty()) {
-                        adapter = new ProviderAdapter(response.body().getProviders(), provider -> {
-                            // Navigate to booking confirmation
-                            Intent intent = new Intent(ProviderListActivity.this, BookingConfirmationActivity.class);
-                            intent.putExtra("PROVIDER_ID", provider.getId());
-                            intent.putExtra("PROVIDER_NAME", provider.getName());
-                            intent.putExtra("PROVIDER_PHONE", provider.getPhoneNumber());
-                            intent.putExtra("PROVIDER_CATEGORY", selectedCategory);
-                            intent.putExtra("CUSTOMER_LAT", customerLat);
-                            intent.putExtra("CUSTOMER_LON", customerLon);
-                            startActivity(intent);
-                        });
-                        rvProviders.setAdapter(adapter);
-                    } else {
-                        Toast.makeText(ProviderListActivity.this, "No providers found for this category.", Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Log.e("ProviderList", "Server error: " + response.code());
-                    Toast.makeText(ProviderListActivity.this, "Error fetching providers. Code: " + response.code(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ProviderListResponse> call, Throwable t) {
-                Log.e("ProviderList", "Network failure", t);
-                Toast.makeText(ProviderListActivity.this, "Network error. Check your connection.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        viewModel.loadProviders(customerLat, customerLon, selectedCategory);
     }
 }

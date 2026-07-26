@@ -17,32 +17,22 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.localpro.localproandroid.R;
-import com.localpro.localproandroid.repositories.UserRepository;
-
-import com.localpro.localproandroid.models.AuthResponse;
-import com.localpro.localproandroid.models.ProviderProfile;
+import com.localpro.localproandroid.viewmodels.ProfileViewModel;
 import com.localpro.localproandroid.viewmodels.ProviderDashboardHomeViewModel;
 
-import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
 @AndroidEntryPoint
 public class ProfileFragment extends Fragment {
 
-    @Inject
-    UserRepository userRepository;
-
     private TextView tvProfileInitials, tvProfileName, tvProfilePhone, tvProfileBio;
     private TextView tvVerifiedIcon, tvVerifiedText, tvProfileRating, tvProfileReviews;
     private LinearLayout llVerifiedBadge;
     
-    private ProviderDashboardHomeViewModel viewModel;
+    private ProviderDashboardHomeViewModel homeViewModel;
+    private ProfileViewModel profileViewModel;
 
     public ProfileFragment() {}
 
@@ -131,14 +121,14 @@ public class ProfileFragment extends Fragment {
         // Edit Profile Button Setup
         view.findViewById(R.id.btnEditProfile).setOnClickListener(v -> showEditProfileDialog());
         
-        // Bind Stats from shared ViewModel
-        viewModel = new androidx.lifecycle.ViewModelProvider(requireActivity()).get(ProviderDashboardHomeViewModel.class);
+        // Bind Stats from shared HomeViewModel
+        homeViewModel = new androidx.lifecycle.ViewModelProvider(requireActivity()).get(ProviderDashboardHomeViewModel.class);
         
-        viewModel.getJobsDone().observe(getViewLifecycleOwner(), jobs -> {
+        homeViewModel.getJobsDone().observe(getViewLifecycleOwner(), jobs -> {
             tvStatJobsDone.setText(String.valueOf(jobs));
         });
         
-        viewModel.getRating().observe(getViewLifecycleOwner(), rat -> {
+        homeViewModel.getRating().observe(getViewLifecycleOwner(), rat -> {
             if (rat > 0) {
                 tvStatRating.setText(String.format("%.1f", rat));
                 tvProfileRating.setText(String.format("⭐ %.1f", rat));
@@ -148,12 +138,56 @@ public class ProfileFragment extends Fragment {
             }
         });
         
-        viewModel.getRatedJobsCount().observe(getViewLifecycleOwner(), count -> {
+        homeViewModel.getRatedJobsCount().observe(getViewLifecycleOwner(), count -> {
             tvProfileReviews.setText(String.format("  (%d reviews)", count));
         });
         
+        // Initialize ProfileViewModel
+        profileViewModel = new androidx.lifecycle.ViewModelProvider(this).get(ProfileViewModel.class);
+        
+        // Observers for ProfileViewModel
+        profileViewModel.getProviderProfile().observe(getViewLifecycleOwner(), profile -> {
+            if (profile != null) {
+                // Update Verified Badge
+                String status = profile.getVerificationStatus();
+                if ("APPROVED".equalsIgnoreCase(status)) {
+                    tvVerifiedIcon.setText("✅");
+                    tvVerifiedText.setText("Verified");
+                    llVerifiedBadge.setBackgroundResource(R.drawable.gradient_card_green);
+                } else if ("REJECTED".equalsIgnoreCase(status)) {
+                    tvVerifiedIcon.setText("❌");
+                    tvVerifiedText.setText("Rejected");
+                    llVerifiedBadge.setBackgroundResource(R.drawable.gradient_card_amber);
+                } else {
+                    tvVerifiedIcon.setText("⏳");
+                    tvVerifiedText.setText("Pending");
+                    llVerifiedBadge.setBackgroundResource(R.drawable.gradient_card_amber);
+                }
+                
+                // Update Bio / Experience
+                String experienceStr = profile.getExperience();
+                if (experienceStr != null && !experienceStr.trim().isEmpty()) {
+                    tvProfileBio.setText(experienceStr);
+                } else if (profile.getBio() != null && !profile.getBio().isEmpty()) {
+                    tvProfileBio.setText(profile.getBio());
+                }
+            }
+        });
+
+        profileViewModel.getErrorMessage().observe(getViewLifecycleOwner(), msg -> {
+            if (msg != null && !msg.isEmpty()) {
+                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        profileViewModel.getUpdateSuccess().observe(getViewLifecycleOwner(), success -> {
+            if (success != null && success) {
+                Toast.makeText(requireContext(), "Profile updated successfully!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         // Fetch Profile from backend
-        loadRealProfile();
+        profileViewModel.loadProfile();
         
         // Settings & Actions
         View btnSecurity = view.findViewById(R.id.settingSecurity);
@@ -169,49 +203,13 @@ public class ProfileFragment extends Fragment {
         View btnLogout = view.findViewById(R.id.btnLogoutProvider);
         if (btnLogout != null) {
             btnLogout.setOnClickListener(v -> {
-                userRepository.clearUserSession();
+                profileViewModel.logout();
                 requireActivity().finish();
             });
         }
     }
     
-    private void loadRealProfile() {
-        userRepository.getProfile().enqueue(new Callback<AuthResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<AuthResponse> call, @NonNull Response<AuthResponse> response) {
-                if (response.isSuccessful() && response.body() != null && response.body().getUser() != null) {
-                    ProviderProfile profile = response.body().getUser().getProviderProfile();
-                    if (profile != null) {
-                        // Update Verified Badge
-                        String status = profile.getVerificationStatus();
-                        if ("APPROVED".equalsIgnoreCase(status)) {
-                            tvVerifiedIcon.setText("✅");
-                            tvVerifiedText.setText("Verified");
-                            llVerifiedBadge.setBackgroundResource(R.drawable.gradient_card_green);
-                        } else if ("REJECTED".equalsIgnoreCase(status)) {
-                            tvVerifiedIcon.setText("❌");
-                            tvVerifiedText.setText("Rejected");
-                            llVerifiedBadge.setBackgroundResource(R.drawable.gradient_card_amber); // Or red
-                        } else {
-                            tvVerifiedIcon.setText("⏳");
-                            tvVerifiedText.setText("Pending");
-                            llVerifiedBadge.setBackgroundResource(R.drawable.gradient_card_amber);
-                        }
-                        
-                        // Update Bio / Experience
-                        String experienceStr = profile.getExperience();
-                        if (experienceStr != null && !experienceStr.trim().isEmpty()) {
-                            tvProfileBio.setText(experienceStr);
-                        } else if (profile.getBio() != null && !profile.getBio().isEmpty()) {
-                            tvProfileBio.setText(profile.getBio());
-                        }
-                    }
-                }
-            }
-            @Override
-            public void onFailure(@NonNull Call<AuthResponse> call, @NonNull Throwable t) {}
-        });
-    }
+
 
     private void showEditProfileDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.AlertDialogDark);
@@ -256,29 +254,14 @@ public class ProfileFragment extends Fragment {
                 return;
             }
 
-            userRepository.updateProfile(nameStr, phoneStr, bioStr, null).enqueue(new retrofit2.Callback<com.localpro.localproandroid.models.AuthResponse>() {
-                @Override
-                public void onResponse(@NonNull retrofit2.Call<com.localpro.localproandroid.models.AuthResponse> call, @NonNull retrofit2.Response<com.localpro.localproandroid.models.AuthResponse> response) {
-                    if (response.isSuccessful()) {
-                        userRepository.saveUserProfile(nameStr, phoneStr, bioStr);
-                        
-                        // Update UI views directly
-                        tvProfileName.setText(nameStr);
-                        tvProfilePhone.setText(phoneStr.isEmpty() ? "Not set" : phoneStr);
-                        tvProfileBio.setText(bioStr.isEmpty() ? "Bio not set" : bioStr);
-                        tvProfileInitials.setText(String.valueOf(nameStr.charAt(0)).toUpperCase());
+            // Update via ViewModel
+            profileViewModel.updateProfile(nameStr, phoneStr, bioStr);
 
-                        Toast.makeText(requireContext(), "Profile updated successfully!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(requireContext(), "Error updating profile. Code: " + response.code(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(@NonNull retrofit2.Call<com.localpro.localproandroid.models.AuthResponse> call, @NonNull Throwable t) {
-                    Toast.makeText(requireContext(), "Network error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+            // Update UI views directly for immediate feedback
+            tvProfileName.setText(nameStr);
+            tvProfilePhone.setText(phoneStr.isEmpty() ? "Not set" : phoneStr);
+            tvProfileBio.setText(bioStr.isEmpty() ? "Bio not set" : bioStr);
+            tvProfileInitials.setText(String.valueOf(nameStr.charAt(0)).toUpperCase());
         });
 
         builder.setNegativeButton("Cancel", null);

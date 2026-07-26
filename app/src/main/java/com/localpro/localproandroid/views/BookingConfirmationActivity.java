@@ -21,11 +21,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class BookingConfirmationActivity extends AppCompatActivity {
 
     private String providerId, providerName, providerPhone, providerCategory;
     private double customerLat, customerLon;
     private EditText etJobDescription;
+    private com.localpro.localproandroid.viewmodels.BookingConfirmationViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,34 @@ public class BookingConfirmationActivity extends AppCompatActivity {
 
         btnBack.setOnClickListener(v -> finish());
 
+        viewModel = new androidx.lifecycle.ViewModelProvider(this).get(com.localpro.localproandroid.viewmodels.BookingConfirmationViewModel.class);
+
+        viewModel.getBookingSuccessId().observe(this, newBookingId -> {
+            if (newBookingId != null) {
+                Toast.makeText(BookingConfirmationActivity.this,
+                        "Booking confirmed! Tracking provider...", Toast.LENGTH_SHORT).show();
+
+                // Navigate to live tracking screen
+                Intent intent = new Intent(BookingConfirmationActivity.this,
+                        CustomerBookingTrackingActivity.class);
+                intent.putExtra("BOOKING_ID", newBookingId);
+                intent.putExtra("PROVIDER_NAME", providerName);
+                intent.putExtra("PROVIDER_PHONE", providerPhone);
+                intent.putExtra("PROVIDER_CATEGORY", providerCategory);
+                intent.putExtra("CUSTOMER_LAT", customerLat);
+                intent.putExtra("CUSTOMER_LON", customerLon);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        viewModel.getErrorMessage().observe(this, msg -> {
+            if (msg != null && !msg.isEmpty()) {
+                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         btnConfirmBooking.setOnClickListener(v -> confirmBooking());
     }
 
@@ -89,50 +121,6 @@ public class BookingConfirmationActivity extends AppCompatActivity {
         String distanceText = "5.0 km";
         double estimatedEarning = 1500.0;
 
-        CreateBookingRequest request = new CreateBookingRequest(
-                providerId,
-                providerCategory,
-                jobDescription,
-                distanceText,
-                estimatedEarning,
-                customerLat,
-                customerLon
-        );
-
-        RetrofitClient.getApiService().createBooking(bearerToken, request).enqueue(new Callback<CreateBookingResponse>() {
-            @Override
-            public void onResponse(Call<CreateBookingResponse> call, Response<CreateBookingResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    String newBookingId = response.body().getBooking() != null
-                            ? response.body().getBooking().getId() : null;
-
-                    Toast.makeText(BookingConfirmationActivity.this,
-                            "Booking confirmed! Tracking provider...", Toast.LENGTH_SHORT).show();
-
-                    // Navigate to live tracking screen
-                    Intent intent = new Intent(BookingConfirmationActivity.this,
-                            CustomerBookingTrackingActivity.class);
-                    intent.putExtra("BOOKING_ID", newBookingId);
-                    intent.putExtra("PROVIDER_NAME", providerName);
-                    intent.putExtra("PROVIDER_PHONE", providerPhone);
-                    intent.putExtra("PROVIDER_CATEGORY", providerCategory);
-                    intent.putExtra("CUSTOMER_LAT", customerLat);
-                    intent.putExtra("CUSTOMER_LON", customerLon);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Log.e("BookingConfirm", "Server error: " + response.code());
-                    Toast.makeText(BookingConfirmationActivity.this,
-                            "Error creating booking", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CreateBookingResponse> call, Throwable t) {
-                Log.e("BookingConfirm", "Network failure", t);
-                Toast.makeText(BookingConfirmationActivity.this, "Network error", Toast.LENGTH_SHORT).show();
-            }
-        });
+        viewModel.createBooking(providerId, providerCategory, jobDescription, distanceText, estimatedEarning, customerLat, customerLon);
     }
 }

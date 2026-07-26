@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -48,7 +49,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class CustomerBookingTrackingActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = "CustomerTracking";
@@ -73,8 +76,7 @@ public class CustomerBookingTrackingActivity extends AppCompatActivity implement
     private TextView tvCustomerEta, tvCustomerDistance;
     private MaterialButton btnConfirmPayment;
 
-    private Handler pollingHandler;
-    private Runnable pollingRunnable;
+    private com.localpro.localproandroid.viewmodels.CustomerBookingTrackingViewModel viewModel;
     private boolean isFirstZoom = true;
     private boolean isCompleted = false;
 
@@ -84,7 +86,7 @@ public class CustomerBookingTrackingActivity extends AppCompatActivity implement
         setContentView(R.layout.activity_customer_booking_tracking);
 
         okHttpClient = new OkHttpClient();
-        pollingHandler = new Handler(Looper.getMainLooper());
+        viewModel = new ViewModelProvider(this).get(com.localpro.localproandroid.viewmodels.CustomerBookingTrackingViewModel.class);
 
         // Get extras
         bookingId = getIntent().getStringExtra("BOOKING_ID");
@@ -102,7 +104,8 @@ public class CustomerBookingTrackingActivity extends AppCompatActivity implement
                 .findFragmentById(R.id.customerTrackingMap);
         if (mapFragment != null) mapFragment.getMapAsync(this);
 
-        startPolling();
+        viewModel.getCurrentBooking().observe(this, this::handleBookingUpdate);
+        viewModel.startTracking(bookingId);
     }
 
     private void bindViews() {
@@ -146,46 +149,6 @@ public class CustomerBookingTrackingActivity extends AppCompatActivity implement
         if (providerCategory != null) {
             tvProviderCategoryTracking.setText("🔧 " + providerCategory);
         }
-    }
-
-    private void startPolling() {
-        pollingRunnable = new Runnable() {
-            @Override
-            public void run() {
-                if (!isCompleted) {
-                    fetchBookingStatus();
-                    pollingHandler.postDelayed(this, POLL_INTERVAL_MS);
-                }
-            }
-        };
-        pollingHandler.post(pollingRunnable);
-    }
-
-    private void fetchBookingStatus() {
-        SharedPreferences prefs = getSharedPreferences("LocalProPrefs", MODE_PRIVATE);
-        String token = "Bearer " + prefs.getString("auth_token", "");
-
-        RetrofitClient.getApiService().getCustomerBookings(token).enqueue(new retrofit2.Callback<BookingResponse>() {
-            @Override
-            public void onResponse(@NonNull retrofit2.Call<BookingResponse> call, @NonNull retrofit2.Response<BookingResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<BookingRequest> bookings = response.body().getBookings();
-                    if (bookings != null) {
-                        for (BookingRequest booking : bookings) {
-                            if (booking.getId() != null && booking.getId().equals(bookingId)) {
-                                handleBookingUpdate(booking);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull retrofit2.Call<BookingResponse> call, @NonNull Throwable t) {
-                Log.w(TAG, "Polling failed: " + t.getMessage());
-            }
-        });
     }
 
     private void handleBookingUpdate(BookingRequest booking) {
@@ -357,8 +320,8 @@ public class CustomerBookingTrackingActivity extends AppCompatActivity implement
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (pollingHandler != null && pollingRunnable != null) {
-            pollingHandler.removeCallbacks(pollingRunnable);
+        if (viewModel != null) {
+            viewModel.stopTracking();
         }
     }
 }

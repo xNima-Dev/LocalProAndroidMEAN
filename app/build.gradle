@@ -1,6 +1,7 @@
 plugins {
     id 'com.google.dagger.hilt.android'
     alias(libs.plugins.android.application)
+    id 'com.google.gms.google-services'
 }
 
 def localProperties = new Properties()
@@ -51,6 +52,11 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.56.1"
     implementation libs.coordinatorlayout
     annotationProcessor "com.google.dagger:hilt-compiler:2.56.1"
+    
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
+    implementation 'com.google.firebase:firebase-messaging'
+
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity
