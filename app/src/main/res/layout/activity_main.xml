@@ -17,6 +17,7 @@
             android:id="@+id/imgLogo"
             android:layout_width="120dp"  android:layout_height="120dp"
             android:layout_marginTop="60dp"
+            android:src="@drawable/localpro_logo"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"

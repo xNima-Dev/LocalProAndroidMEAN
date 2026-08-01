@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 
                 editor.putString("provider_email", enteredEmail);
                 editor.putString("provider_name", savedName);
+                editor.putString("customer_name", savedName);
 
                 // Save phone number from server if available
                 String apiPhone = authResponse.getUser().getPhoneNumber();

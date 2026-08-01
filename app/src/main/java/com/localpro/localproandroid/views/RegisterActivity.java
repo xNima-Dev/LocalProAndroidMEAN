@@ -91,6 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
                 editor.putString("user_role", role);
                 editor.putString("provider_email", enteredEmail);
                 editor.putString("provider_name", savedName);
+                editor.putString("customer_name", savedName);
 
                 // Save phone from server
                 String apiPhone = authResponse.getUser().getPhoneNumber();

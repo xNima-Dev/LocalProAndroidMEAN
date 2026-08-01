@@ -75,6 +75,10 @@ public class CustomerHomeFragment extends Fragment implements OnMapReadyCallback
         // Greet user
         SharedPreferences prefs = requireActivity().getSharedPreferences("LocalProPrefs", Context.MODE_PRIVATE);
         String name = prefs.getString("customer_name", "Customer");
+        if (name.equals("Customer")) {
+            name = prefs.getString("provider_name", "Customer");
+        }
+        
         TextView tvName = view.findViewById(R.id.tvCustomerName);
         TextView tvInitials = view.findViewById(R.id.tvCustomerInitials);
         

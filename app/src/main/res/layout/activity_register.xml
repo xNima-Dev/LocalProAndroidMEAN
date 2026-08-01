@@ -14,11 +14,22 @@
         android:orientation="vertical"
         android:padding="24dp">
 
+        <ImageView
+            android:id="@+id/imgLogoRegister"
+            android:layout_width="100dp"  
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/localpro_logo"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter" />
+
         <TextView
             android:id="@+id/tvRegisterTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center_horizontal"
             android:text="Create Account"
             android:textColor="#FFFFFF"
             android:textSize="30sp"
@@ -29,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_gravity="center_horizontal"
             android:text="Sign up to start with LocalPro services"
             android:textColor="#94A3B8"
             android:textSize="16sp" />
