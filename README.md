@@ -118,6 +118,8 @@ The next major phase of LocalPro focuses on implementing intelligent features to
 ---
 
 ### 👨‍💻 Developer
-**Nimsara Kavidu**  
-*Enterprise Fullstack & Mobile Engineer*  
-GitHub: [@xNima-Dev](https://github.com/xNima-Dev)
+**Nimsara Kavidu**
+*Enterprise Fullstack & Mobile Engineer*
+- GitHub: [@xNima-Dev](https://github.com/xNima-Dev)
+- LinkedIn: [Nimsara Kavidu](https://www.linkedin.com/in/nimsara-kavindhu-014ba7301)
+- 📧 nimsarakavindhu@gmail.com
