@@ -15,6 +15,10 @@
 
 **LocalPro** is a scalable, location-based mobile marketplace engineered to connect local service providers (handymen, technicians, freelancers) with nearby clients. Built with a robust **Android Frontend (Java/MVVM)** and a modern **MEAN/Node.js + MongoDB Backend**, it seamlessly integrates Relational & NoSQL database architecture for high-speed data processing and real-time syncing.
 
+Customer Side
+<img width="340" height="720" alt="LocalProCustomer" src="https://github.com/user-attachments/assets/5a74e02e-3a8a-41c7-b174-1ebb3a303552" /> Provider Side
+<img width="338" height="720" alt="LocalProProvider" src="https://github.com/user-attachments/assets/4c7fde6c-8ef9-43e1-8d56-f1b570a5bcb2" />
+
 ---
 
 ## ✨ Key Features
