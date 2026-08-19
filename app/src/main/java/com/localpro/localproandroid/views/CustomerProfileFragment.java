@@ -27,8 +27,22 @@ public class CustomerProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         
+        SharedPreferences prefs = requireActivity().getSharedPreferences("LocalProPrefs", Context.MODE_PRIVATE);
+        String name = prefs.getString("customer_name", "Customer");
+        String email = prefs.getString("provider_email", "customer@localpro.com"); // Reusing email field
+
+        android.widget.TextView tvName = view.findViewById(R.id.tvProfileName);
+        android.widget.TextView tvEmail = view.findViewById(R.id.tvProfileEmail);
+        android.widget.TextView tvInitials = view.findViewById(R.id.tvProfileInitials);
+
+        tvName.setText(name);
+        tvEmail.setText(email);
+        
+        if (name != null && !name.isEmpty()) {
+            tvInitials.setText(String.valueOf(name.charAt(0)).toUpperCase());
+        }
+        
         view.findViewById(R.id.btnLogout).setOnClickListener(v -> {
-            SharedPreferences prefs = requireActivity().getSharedPreferences("LocalProPrefs", Context.MODE_PRIVATE);
             prefs.edit().remove("auth_token").apply();
             
             Intent intent = new Intent(requireActivity(), MainActivity.class);
